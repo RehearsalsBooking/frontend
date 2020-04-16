@@ -1,0 +1,35 @@
+version: '3.5'
+
+services:
+  backend:
+    hostname: rehearsals-backend
+    container_name: rehearsal-backend
+    network_mode: host
+    image: docker.pkg.github.com/rehearsalsbooking/backend/php:latest
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=localhost
+
+  db:
+    image: postgres:latest
+    hostname: db
+    network_mode: host
+    environment:
+      - POSTGRES_DB=rehearsals
+      - POSTGRES_USER=rehearsals
+      - POSTGRES_PASSWORD=rehearsals
+    ports:
+      - 5432:5432
+
+  frontend:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+    ports:
+      - 8080:8080
+    network_mode: host
+    volumes:
+      - ../:/app
+    depends_on:
+      - backend
