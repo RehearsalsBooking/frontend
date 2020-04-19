@@ -7,7 +7,12 @@
   >
     <v-app-bar-nav-icon @click.stop="$emit('input', !value)" />
     <v-toolbar-title style="width: 300px" class="ml-0 pl-4">
-      <span class="hidden-sm-and-down">Rehearsals booking</span>
+      <router-link
+        class="hidden-sm-and-down white--text"
+        style="text-decoration:none;"
+        :to="'/'"
+        >Rehearsals booking</router-link
+      >
     </v-toolbar-title>
     <v-spacer />
     <v-btn icon>

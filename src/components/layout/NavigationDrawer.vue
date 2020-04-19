@@ -20,7 +20,11 @@
               </v-list-item-title>
             </v-list-item-content>
           </template>
-          <v-list-item v-for="(child, i) in item.children" :key="i" link>
+          <v-list-item
+            v-for="(child, i) in item.children"
+            :key="i"
+            :to="item.route"
+          >
             <v-list-item-action v-if="child.icon">
               <v-icon>{{ child.icon }}</v-icon>
             </v-list-item-action>
@@ -31,7 +35,7 @@
             </v-list-item-content>
           </v-list-item>
         </v-list-group>
-        <v-list-item v-else :key="item.text" link>
+        <v-list-item v-else :key="item.text" :to="item.route">
           <v-list-item-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-action>
@@ -51,7 +55,7 @@ export default {
   props: { drawer: Boolean },
   data: () => ({
     items: [
-      { icon: "mdi-magnify", text: "Организации" },
+      { icon: "mdi-magnify", text: "Организации", route: "organizations" },
       { icon: "mdi-calendar", text: "Мои репетиции" },
       { icon: "mdi-account-group", text: "Мои группы" }
       // {

@@ -4,9 +4,7 @@
 
     <AppBar v-model="drawer" />
     <v-content>
-      <v-container class="fill-height" fluid>
-        todo
-      </v-container>
+      <router-view></router-view>
     </v-content>
   </v-app>
 </template>
