@@ -48,7 +48,7 @@ export default [
     component: () =>
       import(
         /* webpackChunkName: "routes" */
-        `../pages/Organizations.vue`
+        `../pages/OrganizationsPage.vue`
       )
   }
 ];
