@@ -1,5 +1,5 @@
 <template>
-  <v-card max-width="344" class="mx-auto" :ripple="false">
+  <v-card max-width="344" :ripple="false">
     <v-img
       src="https://cdn.vuetifyjs.com/images/cards/mountain.jpg"
       height="194"
