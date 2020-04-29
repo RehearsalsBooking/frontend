@@ -1,7 +1,8 @@
 <template>
   <v-card max-width="344" :ripple="false">
+    <!--            TODO: remove random once real avatars are added-->
     <v-img
-      src="https://cdn.vuetifyjs.com/images/cards/mountain.jpg"
+      :src="`${organization.avatar}?random=${organization.id}`"
       height="194"
     ></v-img>
 
