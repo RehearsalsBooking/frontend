@@ -11,44 +11,59 @@
         @click:clear="emptyNameQuery"
         @keypress.enter="sendFilters"
       />
+      <v-card-title class="text-center">
+        <div class="text-center mx-auto">Со свободным временем</div>
+      </v-card-title>
+      <TimeStampPeriod v-model="from" :max="to" label="Начало" />
+      <TimeStampPeriod v-model="to" :min="from" label="Конец" />
     </v-card-text>
-    <v-card-actions>
-      <v-btn
-        width="100%"
-        color="primary"
-        rounded
-        @click="sendFilters"
-        :loading="isFetching"
-        >Применить
-      </v-btn>
-    </v-card-actions>
   </v-card>
 </template>
 <script>
+import TimeStampPeriod from "./TimeStampPeriod";
+
 export default {
   name: "OrganizationsFilter",
+  components: { TimeStampPeriod },
   props: {
-    isFetching: {}
+    isFetching: Boolean
   },
   data() {
     return {
-      name: this.name || ""
+      name: this.name || "",
+      from: this.from || "",
+      to: this.to || ""
     };
   },
   url: {
-    name: "name"
+    name: "name",
+    from: "from",
+    to: "to"
   },
   mounted() {
     this.sendFilters();
   },
   methods: {
     sendFilters() {
-      let filters = Object.assign({}, this.name && { name: this.name });
+      let filters = Object.assign(
+        {},
+        this.name && { name: this.name },
+        this.from && { from: this.from },
+        this.to && { to: this.to }
+      );
       this.$emit("filtersChanged", filters);
     },
 
     emptyNameQuery() {
       this.name = null;
+      this.sendFilters();
+    }
+  },
+  watch: {
+    from() {
+      this.sendFilters();
+    },
+    to() {
       this.sendFilters();
     }
   }
