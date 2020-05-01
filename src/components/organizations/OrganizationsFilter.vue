@@ -15,7 +15,12 @@
         <div class="text-center mx-auto">Со свободным временем</div>
       </v-card-title>
       <TimeStampPeriod v-model="from" :max="to" label="Начало" />
-      <TimeStampPeriod v-model="to" :min="from" label="Конец" />
+      <TimeStampPeriod
+        v-model="to"
+        :min="from"
+        :errorMessage="errorMessage"
+        label="Конец"
+      />
     </v-card-text>
   </v-card>
 </template>
@@ -32,7 +37,8 @@ export default {
     return {
       name: this.name || "",
       from: this.from || "",
-      to: this.to || ""
+      to: this.to || "",
+      errorMessage: null
     };
   },
   url: {
@@ -45,6 +51,7 @@ export default {
   },
   methods: {
     sendFilters() {
+      this.errorMessage = null;
       let filters = Object.assign(
         {},
         this.name && { name: this.name },
@@ -61,9 +68,17 @@ export default {
   },
   watch: {
     from() {
+      if (this.from === this.to) {
+        this.errorMessage = "Выберите другое время";
+        return;
+      }
       this.sendFilters();
     },
     to() {
+      if (this.from === this.to) {
+        this.errorMessage = "Выберите другое время";
+        return;
+      }
       this.sendFilters();
     }
   }

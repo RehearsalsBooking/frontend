@@ -15,6 +15,7 @@
         :label="label"
         prepend-icon="mdi-clock-outline"
         readonly
+        :error-messages="errorMessage"
         v-on="on"
       ></v-text-field>
     </template>
@@ -37,7 +38,8 @@ export default {
     value: String,
     min: String,
     max: String,
-    label: String
+    label: String,
+    errorMessage: String
   },
   data() {
     return {

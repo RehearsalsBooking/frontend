@@ -17,6 +17,7 @@
         :min="min ? parseTime(min) : null"
         :max="max ? parseTime(max) : null"
         v-model="time"
+        :error-message="errorMessage"
       />
     </v-col>
     <v-col cols="12" md="1" v-if="date || time">
@@ -35,7 +36,8 @@ export default {
     label: String,
     min: String,
     max: String,
-    value: String
+    value: String,
+    errorMessage: String
   },
   data() {
     return {
@@ -47,15 +49,13 @@ export default {
   methods: {
     computeResultTimestamp(date, time) {
       const ts = `${date} ${time}`;
-      console.log(ts);
       this.$emit("input", ts);
     },
     parseDate(timestamp) {
-      console.log(timestamp);
-      return timestamp.split(" ")[0];
+      return timestamp ? timestamp.split(" ")[0] : null;
     },
     parseTime(timestamp) {
-      return timestamp.split(" ")[1];
+      return timestamp ? timestamp.split(" ")[1] : null;
     },
     reset() {
       this.date = "";
