@@ -35,7 +35,11 @@
             </v-list-item-content>
           </v-list-item>
         </v-list-group>
-        <v-list-item v-else :key="item.text" :to="item.route">
+        <v-list-item
+          v-else-if="(item.auth && $auth.check()) || !item.auth"
+          :key="item.text"
+          :to="item.route"
+        >
           <v-list-item-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-action>
@@ -55,9 +59,15 @@ export default {
   props: { drawer: Boolean },
   data: () => ({
     items: [
-      { icon: "mdi-magnify", text: "Организации", route: "organizations" },
-      { icon: "mdi-calendar", text: "Мои репетиции" },
-      { icon: "mdi-account-group", text: "Мои группы" }
+      {
+        icon: "mdi-magnify",
+        text: "Организации",
+        route: "organizations",
+        auth: false
+      },
+      { icon: "mdi-calendar", text: "Мои репетиции", auth: true },
+      { icon: "mdi-account-group", text: "Мои группы", auth: true },
+      { icon: "mdi-logout", text: "Выход", auth: true }
       // {
       //     icon: 'mdi-chevron-up',
       //     'icon-alt': 'mdi-chevron-down',

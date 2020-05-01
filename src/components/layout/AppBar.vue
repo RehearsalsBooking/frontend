@@ -15,15 +15,15 @@
       >
     </v-toolbar-title>
     <v-spacer />
-    <v-btn icon large v-if="$auth.check()">
-      <v-avatar size="32px" item>
+    <template v-if="$auth.check()">
+      {{ $auth.user().name }}
+      <v-avatar size="32px" item class="ml-3 mr-3">
         <v-img
           src="https://cdn.vuetifyjs.com/images/logos/logo.svg"
           alt="Vuetify"
         />
       </v-avatar>
-      {{ $auth.user() }}
-    </v-btn>
+    </template>
     <v-btn v-else text @click="loginDialog = true">Войти</v-btn>
     <Login v-model="loginDialog" />
   </v-app-bar>
