@@ -64,18 +64,22 @@ export default {
     emptyNameQuery() {
       this.name = null;
       this.sendFilters();
+    },
+
+    isFromAndToEqual() {
+      return this.from && this.to && this.from === this.to;
     }
   },
   watch: {
     from() {
-      if (this.from === this.to) {
+      if (this.isFromAndToEqual()) {
         this.errorMessage = "Выберите другое время";
         return;
       }
       this.sendFilters();
     },
     to() {
-      if (this.from === this.to) {
+      if (this.isFromAndToEqual()) {
         this.errorMessage = "Выберите другое время";
         return;
       }
