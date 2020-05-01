@@ -15,24 +15,32 @@
       >
     </v-toolbar-title>
     <v-spacer />
-    <v-btn icon>
-      <v-icon>mdi-bell</v-icon>
-    </v-btn>
-    <v-btn icon large>
+    <v-btn icon large v-if="$auth.check()">
       <v-avatar size="32px" item>
         <v-img
           src="https://cdn.vuetifyjs.com/images/logos/logo.svg"
           alt="Vuetify"
         />
       </v-avatar>
+      {{ $auth.user() }}
     </v-btn>
+    <v-btn v-else text @click="loginDialog = true">Войти</v-btn>
+    <Login v-model="loginDialog" />
   </v-app-bar>
 </template>
 <script>
+import Login from "../auth/Login";
+
 export default {
   name: "AppBar",
+  components: { Login },
   props: {
     value: Boolean
+  },
+  data() {
+    return {
+      loginDialog: false
+    };
   }
 };
 </script>

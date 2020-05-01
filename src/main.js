@@ -5,16 +5,20 @@ import axios from "axios";
 import VueAxios from "vue-axios";
 import router from "./router/";
 import VueSync from "vue-sync";
+import auth from "@websanova/vue-auth";
+import AuthOptions from "./auth/options";
 
 Vue.config.productionTip = false;
 
 Vue.router = router;
 
-axios.defaults.baseURL = "http://localhost:8000/";
+axios.defaults.baseURL = "http://api.rehearsals.local:8000/";
+axios.defaults.withCredentials = true;
 Vue.use(VueAxios, axios);
 
 Vue.use(VueSync);
 
+Vue.use(auth, AuthOptions);
 new Vue({
   router,
   vuetify,

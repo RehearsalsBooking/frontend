@@ -24,6 +24,9 @@ help:  ## Display this help
 seed:
 	$(docker_compose_bin) --file "$(docker_compose_yml)" exec "$(php_container_name)" /bin/bash -c "php artisan migrate:fresh --force --seed"
 
+routes:
+	$(docker_compose_bin) --file "$(docker_compose_yml)" exec "$(php_container_name)" /bin/bash -c "php artisan route:list"
+
 init:
 	$(docker_compose_bin) --file "$(docker_compose_yml)" exec "$(php_container_name)" /bin/bash -c "php artisan key:generate"
 	$(docker_compose_bin) --file "$(docker_compose_yml)" exec "$(php_container_name)" /bin/bash -c "php artisan config:cache"

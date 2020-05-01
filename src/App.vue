@@ -1,5 +1,5 @@
 <template>
-  <v-app id="inspire">
+  <v-app id="inspire" v-if="$auth.ready()">
     <NavigationDrawer :drawer="drawer" />
 
     <AppBar v-model="drawer" />
