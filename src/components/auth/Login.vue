@@ -2,7 +2,7 @@
   <v-dialog :value="value" @input="$emit('input')" max-width="500px">
     <v-card>
       <v-toolbar color="primary" dark flat class="mb-5">
-        <v-toolbar-title class="mx-auto">Вход в приложение</v-toolbar-title>
+        <v-toolbar-title class="mx-auto">{{ title }}</v-toolbar-title>
       </v-toolbar>
       <v-card-text>
         <v-form ref="form" v-model="valid" lazy-validation>
@@ -46,7 +46,11 @@
 export default {
   name: "Login",
   props: {
-    value: Boolean
+    value: Boolean,
+    title: {
+      type: String,
+      default: "Вход в приложение"
+    }
   },
   data() {
     return {
