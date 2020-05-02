@@ -79,16 +79,18 @@ export default {
             })
             .then(res => {
               this.$auth.user(res.data.user);
-              window.getApp.$emit(
-                "success",
-                `Добро пожаловать, ${res.data.user.name}`
+
+              this.$snackbar(
+                `Добро пожаловать, ${res.data.user.name}`,
+                "success"
               );
+
               this.$emit("input", false);
               window.getApp.$emit("successfulLogin");
             })
             .catch(res => {
               if (res.response.status === 401) {
-                window.getApp.$emit("error", res.response.data);
+                this.$snackbar(res.response.data, "error");
               }
             });
         });

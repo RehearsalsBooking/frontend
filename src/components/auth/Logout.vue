@@ -10,7 +10,7 @@ export default {
         redirect: "/organizations"
       })
       .then(() => {
-        window.getApp.$emit("success", "Вы успешно вышли из системы");
+        this.$snackbar("Вы успешно вышли из системы", "success");
       });
   }
 };
