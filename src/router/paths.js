@@ -24,6 +24,20 @@ export default [
   },
 
   {
+    path: "/logout",
+    meta: {
+      auth: true,
+      title: "Выход из системы"
+    },
+    name: "Logout",
+    component: () =>
+      import(
+        /* webpackChunkName: "routes" */
+        `../components/auth/Logout`
+      )
+  },
+
+  {
     path: "/",
     exact: true,
     meta: {

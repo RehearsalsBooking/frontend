@@ -67,7 +67,7 @@ export default {
       },
       { icon: "mdi-calendar", text: "Мои репетиции", auth: true },
       { icon: "mdi-account-group", text: "Мои группы", auth: true },
-      { icon: "mdi-logout", text: "Выход", auth: true }
+      { icon: "mdi-logout", text: "Выход", route: "logout", auth: true }
       // {
       //     icon: 'mdi-chevron-up',
       //     'icon-alt': 'mdi-chevron-down',
