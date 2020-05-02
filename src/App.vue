@@ -12,7 +12,7 @@
         v-model="snackbar.show"
       >
         {{ snackbar.text }}
-        <v-btn dark flat @click.native="snackbar.show = false" icon>
+        <v-btn dark text @click.native="snackbar.show = false" icon>
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </v-snackbar>

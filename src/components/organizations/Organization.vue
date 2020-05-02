@@ -1,6 +1,6 @@
 <template>
   <v-card max-width="344" :ripple="false">
-    <!--            TODO: remove random once real avatars are added-->
+    <!--TODO: remove random once real avatars are added-->
     <v-img
       :src="`${organization.avatar}?random=${organization.id}`"
       height="194"
@@ -9,9 +9,7 @@
     <v-card-title>
       {{ organization.name }}
       <v-spacer></v-spacer>
-      <v-btn icon>
-        <v-icon>mdi-heart</v-icon>
-      </v-btn>
+      <FavoriteIndicator :organization="organization" />
     </v-card-title>
     <v-card-subtitle>
       {{ organization.address }}
@@ -20,10 +18,11 @@
 </template>
 
 <script>
+import FavoriteIndicator from "./FavoriteIndicator";
+
 export default {
   name: "Organization",
+  components: { FavoriteIndicator },
   props: { organization: Object }
 };
 </script>
-
-<style scoped></style>

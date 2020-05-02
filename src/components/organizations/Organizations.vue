@@ -61,6 +61,11 @@ export default {
       isFetching: true
     };
   },
+  mounted() {
+    window.getApp.$on("successfulLogin", () => {
+      this.getOrganizations();
+    });
+  },
   methods: {
     getOrganizations(filters) {
       this.isFetching = true;

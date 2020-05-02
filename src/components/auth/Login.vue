@@ -80,6 +80,7 @@ export default {
                 `Добро пожаловать, ${res.data.user.name}`
               );
               this.$emit("input", false);
+              window.getApp.$emit("successfulLogin");
             })
             .catch(res => {
               if (res.response.status === 401) {
