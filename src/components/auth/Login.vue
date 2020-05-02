@@ -61,10 +61,6 @@ export default {
       loading: false
     };
   },
-  mounted() {
-    console.log(this.$auth.check());
-    console.log(this.$auth.user());
-  },
   methods: {
     login() {
       if (this.$refs.form.validate()) {
@@ -79,11 +75,15 @@ export default {
             })
             .then(res => {
               this.$auth.user(res.data.user);
+              window.getApp.$emit(
+                "success",
+                `Добро пожаловать, ${res.data.user.name}`
+              );
               this.$emit("input", false);
             })
             .catch(res => {
               if (res.response.status === 401) {
-                alert(res.response.data);
+                window.getApp.$emit("error", res.response.data);
               }
             });
         });
