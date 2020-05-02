@@ -4,6 +4,12 @@
       <div class="text-center mx-auto">Фильтры</div>
     </v-card-title>
     <v-card-text>
+      <v-checkbox
+        v-if="$auth.check()"
+        @change="sendFilters"
+        v-model="favorite"
+        label="Только среди любимых"
+      />
       <v-text-field
         label="Поиск по названию"
         v-model="name"
@@ -38,6 +44,7 @@ export default {
       name: this.name || "",
       from: this.from || "",
       to: this.to || "",
+      favorite: false,
       errorMessage: null
     };
   },
@@ -56,7 +63,8 @@ export default {
         {},
         this.name && { name: this.name },
         this.from && { from: this.from },
-        this.to && { to: this.to }
+        this.to && { to: this.to },
+        this.favorite && { favorite: "1" }
       );
       this.$emit("filtersChanged", filters);
     },
