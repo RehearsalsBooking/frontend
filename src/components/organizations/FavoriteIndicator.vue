@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :style="inline ? 'display: inline' : ''">
     <v-btn icon @click.stop="toggleFavorite">
       <v-icon :color="iconColor">mdi-heart</v-icon>
     </v-btn>
@@ -16,7 +16,11 @@ export default {
   name: "FavoriteIndicator",
   components: { Login },
   props: {
-    organization: Object
+    organization: Object,
+    inline: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     return {

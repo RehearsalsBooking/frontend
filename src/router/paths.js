@@ -46,6 +46,9 @@ export default [
       {
         path: ":id",
         props: true,
+        meta: {
+          title: "Организации"
+        },
         name: "organization",
         component: () =>
           import(

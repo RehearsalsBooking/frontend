@@ -1,7 +1,7 @@
 <template>
   <v-layout align-center justify-center>
     <v-row align="start">
-      <v-slide-y-reverse-transition mode="out-in">
+      <v-fade-transition mode="out-in">
         <v-col cols="8" v-if="isFetching" key="organizations-loading">
           <v-row>
             <v-col cols="3" v-for="n in 8" :key="n">
@@ -36,7 +36,7 @@
             <v-col cols="12" class="text-center">Не найдено</v-col>
           </v-row>
         </v-col>
-      </v-slide-y-reverse-transition>
+      </v-fade-transition>
 
       <v-col cols="4">
         <OrganizationsFilter
