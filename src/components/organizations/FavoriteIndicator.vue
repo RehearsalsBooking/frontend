@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-btn icon @click="toggleFavorite">
+    <v-btn icon @click.stop="toggleFavorite">
       <v-icon :color="iconColor">mdi-heart</v-icon>
     </v-btn>
     <Login

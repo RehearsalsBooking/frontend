@@ -5,31 +5,16 @@ export default [
       auth: true
     },
     redirect: {
-      path: "/404"
+      path: "/organizations"
     }
-  },
-
-  {
-    path: "/404",
-    meta: {
-      auth: true,
-      title: "Страница не найдена"
-    },
-    name: "NotFound",
-    component: () =>
-      import(
-        /* webpackChunkName: "routes" */
-        `../pages/NotFound.vue`
-      )
   },
 
   {
     path: "/logout",
     meta: {
-      auth: true,
-      title: "Выход из системы"
+      auth: true
     },
-    name: "Logout",
+    name: "logout",
     component: () =>
       import(
         /* webpackChunkName: "routes" */
@@ -38,31 +23,36 @@ export default [
   },
 
   {
-    path: "/",
-    exact: true,
-    meta: {
-      auth: true,
-      title: "Главная"
-    },
-    name: "Home",
-    component: () =>
-      import(
-        /* webpackChunkName: "routes" */
-        `../pages/Home.vue`
-      )
-  },
-
-  {
     path: "/organizations",
     exact: true,
-    meta: {
-      title: "Организации"
-    },
-    name: "organizations",
     component: () =>
       import(
         /* webpackChunkName: "routes" */
         `../pages/OrganizationsPage.vue`
-      )
+      ),
+    children: [
+      {
+        path: "",
+        name: "organizations",
+        meta: {
+          title: "Организации"
+        },
+        component: () =>
+          import(
+            /* webpackChunkName: "routes" */
+            `../components/organizations/Organizations.vue`
+          )
+      },
+      {
+        path: ":id",
+        props: true,
+        name: "organization",
+        component: () =>
+          import(
+            /* webpackChunkName: "routes" */
+            `../pages/OrganizationPage.vue`
+          )
+      }
+    ]
   }
 ];

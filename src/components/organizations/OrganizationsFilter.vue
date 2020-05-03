@@ -20,8 +20,14 @@
       <v-card-title class="text-center">
         <div class="text-center mx-auto">Со свободным временем</div>
       </v-card-title>
-      <TimeStampPeriod v-model="from" :max="to" label="Начало" />
       <TimeStampPeriod
+        v-model="from"
+        @change="timestampChanged"
+        :max="to"
+        label="Начало"
+      />
+      <TimeStampPeriod
+        @change="timestampChanged"
         v-model="to"
         :min="from"
         :errorMessage="errorMessage"
@@ -74,24 +80,16 @@ export default {
       this.sendFilters();
     },
 
-    isFromAndToEqual() {
-      return this.from && this.to && this.from === this.to;
-    }
-  },
-  watch: {
-    from() {
+    timestampChanged() {
       if (this.isFromAndToEqual()) {
         this.errorMessage = "Выберите другое время";
         return;
       }
       this.sendFilters();
     },
-    to() {
-      if (this.isFromAndToEqual()) {
-        this.errorMessage = "Выберите другое время";
-        return;
-      }
-      this.sendFilters();
+
+    isFromAndToEqual() {
+      return this.from && this.to && this.from === this.to;
     }
   }
 };

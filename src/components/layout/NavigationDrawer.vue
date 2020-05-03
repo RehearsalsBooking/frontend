@@ -38,7 +38,7 @@
         <v-list-item
           v-else-if="(item.auth && $auth.check()) || !item.auth"
           :key="item.text"
-          :to="item.route"
+          :to="{ name: item.route }"
         >
           <v-list-item-action>
             <v-icon>{{ item.icon }}</v-icon>
@@ -65,8 +65,8 @@ export default {
         route: "organizations",
         auth: false
       },
-      { icon: "mdi-calendar", text: "Мои репетиции", auth: true },
-      { icon: "mdi-account-group", text: "Мои группы", auth: true },
+      // { icon: "mdi-calendar", text: "Мои репетиции", auth: true },
+      // { icon: "mdi-account-group", text: "Мои группы", auth: true },
       { icon: "mdi-logout", text: "Выход", route: "logout", auth: true }
       // {
       //     icon: 'mdi-chevron-up',

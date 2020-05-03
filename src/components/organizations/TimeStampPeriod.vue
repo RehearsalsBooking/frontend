@@ -50,6 +50,7 @@ export default {
     computeResultTimestamp(date, time) {
       const ts = `${date} ${time}`;
       this.$emit("input", ts);
+      this.$emit("change");
     },
     parseDate(timestamp) {
       return timestamp ? timestamp.split(" ")[0] : null;
@@ -61,6 +62,7 @@ export default {
       this.date = "";
       this.time = "";
       this.$emit("input", "");
+      this.$emit("change");
     }
   },
   watch: {

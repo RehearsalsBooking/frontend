@@ -1,15 +1,12 @@
 <template>
   <v-container fluid>
-    <Organizations></Organizations>
+    <router-view />
   </v-container>
 </template>
 
 <script>
-import Organizations from "../components/organizations/Organizations";
-
 export default {
-  name: "OrganizationsPage",
-  components: { Organizations }
+  name: "OrganizationsPage"
 };
 </script>
 
