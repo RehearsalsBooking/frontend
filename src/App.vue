@@ -5,11 +5,7 @@
     <AppBar v-model="drawer" />
     <v-content>
       <router-view></router-view>
-      <v-snackbar-queue
-        ><template slot="close">
-          <v-icon>mdi-close</v-icon>
-        </template>
-      </v-snackbar-queue>
+      <v-snackbar-notification />
     </v-content>
   </v-app>
 </template>

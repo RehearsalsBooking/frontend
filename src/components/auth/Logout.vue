@@ -10,7 +10,7 @@ export default {
         redirect: "/organizations"
       })
       .then(() => {
-        this.$snackbar("Вы успешно вышли из системы", "success");
+        this.$snackbar("Вы успешно вышли из системы");
       });
   }
 };

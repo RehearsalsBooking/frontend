@@ -80,10 +80,7 @@ export default {
             .then(res => {
               this.$auth.user(res.data.user);
 
-              this.$snackbar(
-                `Добро пожаловать, ${res.data.user.name}`,
-                "success"
-              );
+              this.$snackbar(`Добро пожаловать, ${res.data.user.name}`);
 
               this.$emit("input", false);
               window.getApp.$emit("successfulLogin");

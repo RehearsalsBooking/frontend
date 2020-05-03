@@ -7,7 +7,7 @@ import router from "./router/";
 import VueSync from "vue-sync";
 import auth from "@websanova/vue-auth";
 import AuthOptions from "./auth/options";
-import VSnackbarQueue from "./plugins/snackbar_notification";
+import VSnackbarNotification from "./plugins/snackbar_notification";
 
 Vue.config.productionTip = false;
 
@@ -19,7 +19,7 @@ Vue.use(VueAxios, axios);
 
 Vue.use(VueSync);
 
-Vue.use(VSnackbarQueue);
+Vue.use(VSnackbarNotification);
 
 Vue.use(auth, AuthOptions);
 new Vue({

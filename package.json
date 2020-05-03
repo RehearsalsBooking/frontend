@@ -8,7 +8,6 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@tozd/vue-snackbar-queue": "^1.0.0",
     "@websanova/vue-auth": "^3.1.2-beta",
     "axios": "^0.19.2",
     "core-js": "^3.6.4",
