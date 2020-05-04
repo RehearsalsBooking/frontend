@@ -10,9 +10,10 @@
           <v-img :src="organization.avatar" />
         </v-col>
         <v-col cols="8">
-          <div class="display-2 mb-3 text-uppercase">
+          <div class="display-2 mb-3 text-uppercase d-flex">
             {{ organization.name }}
             <FavoriteIndicator
+              class="ml-2"
               :organization="organization"
               inline
             ></FavoriteIndicator>

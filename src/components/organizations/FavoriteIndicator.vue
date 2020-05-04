@@ -1,5 +1,8 @@
 <template>
-  <div :style="inline ? 'display: inline' : ''">
+  <div
+    class="flex-column justify-center "
+    :class="inline ? 'd-inline-flex' : 'd-flex'"
+  >
     <v-btn icon @click.stop="toggleFavorite">
       <v-icon :color="iconColor">mdi-heart</v-icon>
     </v-btn>
