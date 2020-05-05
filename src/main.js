@@ -8,6 +8,7 @@ import VueSync from "vue-sync";
 import auth from "@websanova/vue-auth";
 import AuthOptions from "./auth/options";
 import VSnackbarNotification from "./plugins/snackbar_notification";
+import AuthorizableAction from "./plugins/authorizable_action/authorizable_action";
 
 Vue.config.productionTip = false;
 
@@ -19,6 +20,7 @@ Vue.use(VueAxios, axios);
 Vue.use(VueSync);
 
 Vue.use(VSnackbarNotification);
+Vue.use(AuthorizableAction);
 
 Vue.use(auth, AuthOptions);
 new Vue({

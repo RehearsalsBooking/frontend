@@ -24,23 +24,14 @@
         />
       </v-avatar>
     </template>
-    <v-btn v-else text @click="loginDialog = true">Войти</v-btn>
-    <Login v-model="loginDialog" />
+    <v-btn v-else text @click="$authorize()">Войти</v-btn>
   </v-app-bar>
 </template>
 <script>
-import Login from "../auth/Login";
-
 export default {
   name: "AppBar",
-  components: { Login },
   props: {
     value: Boolean
-  },
-  data() {
-    return {
-      loginDialog: false
-    };
   }
 };
 </script>

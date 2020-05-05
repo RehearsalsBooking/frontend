@@ -6,18 +6,11 @@
     <v-btn icon @click.stop="toggleFavorite">
       <v-icon :color="iconColor">mdi-heart</v-icon>
     </v-btn>
-    <Login
-      v-model="loginModal"
-      title="Авторизуйтесь, чтобы сохранить организацию"
-    />
   </div>
 </template>
 <script>
-import Login from "../auth/Login";
-
 export default {
   name: "OrganizationFavoriteIndicator",
-  components: { Login },
   props: {
     organization: Object,
     inline: {
@@ -27,8 +20,7 @@ export default {
   },
   data() {
     return {
-      isFavorited: this.organization.is_favorited,
-      loginModal: false
+      isFavorited: this.organization.is_favorited
     };
   },
   computed: {
@@ -38,16 +30,13 @@ export default {
   },
   methods: {
     toggleFavorite() {
-      if (!this.$auth.check()) {
-        this.loginModal = true;
-        return;
-      }
-
-      if (this.isFavorited) {
-        this.unFavoriteOrganization();
-      } else {
-        this.favoriteOrganization();
-      }
+      this.$authorize(() => {
+        if (this.isFavorited) {
+          this.unFavoriteOrganization();
+        } else {
+          this.favoriteOrganization();
+        }
+      }, "Авторизуйтесь, чтобы сохранить организацию");
     },
 
     unFavoriteOrganization() {

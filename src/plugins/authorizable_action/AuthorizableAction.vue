@@ -1,5 +1,5 @@
 <template>
-  <Dialog :value="value" @input="$emit('input')" :max-width="'500px'">
+  <Dialog v-model="showDialog" :max-width="'500px'">
     <v-card>
       <v-toolbar color="primary" dark flat class="mb-5">
         <v-toolbar-title class="mx-auto">{{ title }}</v-toolbar-title>
@@ -43,31 +43,11 @@
 </template>
 
 <script>
-import Dialog from "../common/Dialog";
+import Dialog from "../../components/common/Dialog";
 
 export default {
-  name: "Login",
-  props: {
-    value: Boolean,
-    title: {
-      type: String,
-      default: "Вход в приложение"
-    }
-  },
+  name: "AuthorizableAction",
   components: { Dialog },
-  data() {
-    return {
-      email: "",
-      emailRules: [
-        v => !!v || "Введите почтовый адрес",
-        v => /.+@.+/.test(v) || "Неправильный почтовый адрес"
-      ],
-      password: "",
-      passwordRules: [v => !!v || "Введите пароль"],
-      valid: true,
-      loading: false
-    };
-  },
   methods: {
     login() {
       if (this.$refs.form.validate()) {
@@ -84,8 +64,7 @@ export default {
               this.$auth.user(res.data.user);
 
               this.$snackbar(`Добро пожаловать, ${res.data.user.name}`);
-
-              this.$emit("input", false);
+              this.showDialog = false;
               window.getApp.$emit("successfulLogin");
             })
             .catch(res => {
@@ -99,5 +78,3 @@ export default {
   }
 };
 </script>
-
-<style scoped></style>
