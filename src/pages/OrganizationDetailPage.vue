@@ -9,7 +9,7 @@
           <!--suppress HtmlUnknownTarget -->
           <v-img :src="organization.avatar" />
         </v-col>
-        <v-col cols="8">
+        <v-col cols="6">
           <div class="display-2 mb-3 text-uppercase d-flex">
             {{ organization.name }}
             <OrganizationFavoriteIndicator
@@ -21,6 +21,9 @@
           <organization-prices :prices="organization.prices" class="mb-4" />
           <p>{{ organization.description }}</p>
         </v-col>
+        <v-col cols="2">
+          <OrganizationOwner :owner="organization.owner" />
+        </v-col>
       </v-row>
     </v-fade-transition>
   </v-container>
@@ -29,10 +32,15 @@
 <script>
 import OrganizationFavoriteIndicator from "../components/organizations/OrganizationFavoriteIndicator";
 import OrganizationPrices from "../components/organizations/OrganizationPrices";
+import OrganizationOwner from "../components/organizations/OrganizationOwner";
 
 export default {
   name: "OrganizationDetailPage",
-  components: { OrganizationFavoriteIndicator, OrganizationPrices },
+  components: {
+    OrganizationFavoriteIndicator,
+    OrganizationPrices,
+    OrganizationOwner
+  },
   props: {
     id: [String, Number]
   },
