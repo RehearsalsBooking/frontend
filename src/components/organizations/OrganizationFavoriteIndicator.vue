@@ -16,7 +16,7 @@
 import Login from "../auth/Login";
 
 export default {
-  name: "FavoriteIndicator",
+  name: "OrganizationFavoriteIndicator",
   components: { Login },
   props: {
     organization: Object,

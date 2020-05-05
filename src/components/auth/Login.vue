@@ -1,5 +1,5 @@
 <template>
-  <v-dialog :value="value" @input="$emit('input')" max-width="500px">
+  <Dialog :value="value" @input="$emit('input')" :max-width="'500px'">
     <v-card>
       <v-toolbar color="primary" dark flat class="mb-5">
         <v-toolbar-title class="mx-auto">{{ title }}</v-toolbar-title>
@@ -39,10 +39,12 @@
         >
       </v-card-actions>
     </v-card>
-  </v-dialog>
+  </Dialog>
 </template>
 
 <script>
+import Dialog from "../common/Dialog";
+
 export default {
   name: "Login",
   props: {
@@ -52,6 +54,7 @@ export default {
       default: "Вход в приложение"
     }
   },
+  components: { Dialog },
   data() {
     return {
       email: "",

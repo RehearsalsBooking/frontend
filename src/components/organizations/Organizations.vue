@@ -26,7 +26,7 @@
               v-for="organization in organizations"
               :key="organization.id"
             >
-              <Organization :organization="organization"></Organization>
+              <OrganizationCard :organization="organization"></OrganizationCard>
             </v-col>
           </v-row>
         </v-col>
@@ -49,12 +49,12 @@
 </template>
 
 <script>
-import Organization from "./Organization";
+import OrganizationCard from "./OrganizationCard";
 import OrganizationsFilter from "./OrganizationsFilter";
 
 export default {
   name: "Organizations",
-  components: { OrganizationsFilter, Organization },
+  components: { OrganizationsFilter, OrganizationCard },
   data() {
     return {
       organizations: [],

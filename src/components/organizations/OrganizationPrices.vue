@@ -3,7 +3,7 @@
     <v-btn rounded color="primary" @click="showModal = true">
       Цены
     </v-btn>
-    <v-dialog v-model="showModal">
+    <Dialog v-model="showModal">
       <v-card>
         <v-card-title>
           <div class="mx-auto">Цены</div>
@@ -27,18 +27,20 @@
           </v-calendar>
         </v-card-text>
       </v-card>
-    </v-dialog>
+    </Dialog>
   </div>
 </template>
 
 <script>
 import generateGradient from "../../utils/gradient_generator";
+import Dialog from "../common/Dialog";
 
 export default {
   name: "OrganizationPrices",
   props: {
     prices: Array
   },
+  components: { Dialog },
   data() {
     return {
       showModal: false,

@@ -12,11 +12,11 @@
         <v-col cols="8">
           <div class="display-2 mb-3 text-uppercase d-flex">
             {{ organization.name }}
-            <FavoriteIndicator
+            <OrganizationFavoriteIndicator
               class="ml-2"
               :organization="organization"
               inline
-            ></FavoriteIndicator>
+            ></OrganizationFavoriteIndicator>
           </div>
           <organization-prices :prices="organization.prices" class="mb-4" />
           <p>{{ organization.description }}</p>
@@ -27,12 +27,12 @@
 </template>
 
 <script>
-import FavoriteIndicator from "../components/organizations/FavoriteIndicator";
+import OrganizationFavoriteIndicator from "../components/organizations/OrganizationFavoriteIndicator";
 import OrganizationPrices from "../components/organizations/OrganizationPrices";
 
 export default {
-  name: "OrganizationsPage",
-  components: { FavoriteIndicator, OrganizationPrices },
+  name: "OrganizationDetailPage",
+  components: { OrganizationFavoriteIndicator, OrganizationPrices },
   props: {
     id: [String, Number]
   },

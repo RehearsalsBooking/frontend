@@ -37,7 +37,7 @@
   </v-card>
 </template>
 <script>
-import TimeStampPeriod from "./TimeStampPeriod";
+import TimeStampPeriod from "../common/TimeStampPeriod";
 
 export default {
   name: "OrganizationsFilter",

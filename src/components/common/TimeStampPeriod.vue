@@ -26,8 +26,8 @@
   </v-row>
 </template>
 <script>
-import FormattedDatePicker from "../FormattedDatePicker";
-import TimePicker from "../TimePicker";
+import FormattedDatePicker from "./FormattedDatePicker";
+import TimePicker from "./TimePicker";
 
 export default {
   name: "TimeStampPeriod",

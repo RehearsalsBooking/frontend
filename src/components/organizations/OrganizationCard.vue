@@ -16,7 +16,7 @@
     <v-card-title>
       {{ organization.name }}
       <v-spacer></v-spacer>
-      <FavoriteIndicator :organization="organization" />
+      <OrganizationFavoriteIndicator :organization="organization" />
     </v-card-title>
     <v-card-subtitle>
       {{ organization.address }}
@@ -25,11 +25,11 @@
 </template>
 
 <script>
-import FavoriteIndicator from "./FavoriteIndicator";
+import OrganizationFavoriteIndicator from "./OrganizationFavoriteIndicator";
 
 export default {
-  name: "Organization",
-  components: { FavoriteIndicator },
+  name: "OrganizationCard",
+  components: { OrganizationFavoriteIndicator },
   props: { organization: Object }
 };
 </script>
