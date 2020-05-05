@@ -18,6 +18,7 @@
               inline
             ></FavoriteIndicator>
           </div>
+          <organization-prices :prices="organization.prices" class="mb-4" />
           <p>{{ organization.description }}</p>
         </v-col>
       </v-row>
@@ -27,10 +28,11 @@
 
 <script>
 import FavoriteIndicator from "../components/organizations/FavoriteIndicator";
+import OrganizationPrices from "../components/organizations/OrganizationPrices";
 
 export default {
   name: "OrganizationsPage",
-  components: { FavoriteIndicator },
+  components: { FavoriteIndicator, OrganizationPrices },
   props: {
     id: [String, Number]
   },
