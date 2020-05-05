@@ -1,5 +1,5 @@
 <template>
-  <v-card height="345" class="overflow-hidden">
+  <v-card class="pb-2 overflow-hidden">
     <v-navigation-drawer :right="true" :permanent="true">
       <v-list dense nav class="py-0">
         <v-list-item two-line>
@@ -18,11 +18,14 @@
 
         <v-divider></v-divider>
 
-        <!-- TODO: owner contact information-->
-        contacts
-        <v-list-item v-for="item in items" :key="item.title" link>
+        <v-list-item
+          v-for="item in items"
+          :key="item.title"
+          :href="item.link"
+          target="_blank"
+        >
           <v-list-item-icon>
-            <v-icon>{{ item.icon }}</v-icon>
+            <v-icon color="primary">{{ item.icon }}</v-icon>
           </v-list-item-icon>
 
           <v-list-item-content>
@@ -43,9 +46,17 @@ export default {
   data() {
     return {
       items: [
-        { icon: "mdi-email", title: "some@email.com" },
-        { icon: "mdi-phone", title: "81231231234" },
-        { icon: "mdi-vk", title: "vk.com/belamov" }
+        {
+          icon: "mdi-email",
+          title: this.owner.contacts.public_email,
+          link: `mailto:${this.owner.contacts.public_email}`
+        },
+        { icon: "mdi-phone", title: this.owner.contacts.phone },
+        {
+          icon: "mdi-vk",
+          title: this.owner.contacts.link,
+          link: this.owner.contacts.link
+        }
       ]
     };
   }
