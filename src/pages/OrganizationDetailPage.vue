@@ -26,19 +26,7 @@
       </v-row>
       <div class="display-1 text-center mt-3 text-uppercase">Контакты</div>
       <v-divider></v-divider>
-      <v-row class="mt-3">
-        <v-col cols="3">
-          <div class="text-center mb-2"><b>Мы находимся по адресу</b></div>
-          {{ organization.address }}
-        </v-col>
-        <v-col cols="9" style="background-color: orange;">
-          map
-          <OrganizationOwner
-            :owner="organization.owner"
-            style="width: 30%; float:right;"
-          />
-        </v-col>
-      </v-row>
+      <OrganizationContacts :organization="organization" />
     </v-container>
   </v-fade-transition>
 </template>
@@ -46,14 +34,14 @@
 <script>
 import OrganizationFavoriteIndicator from "../components/organizations/OrganizationFavoriteIndicator";
 import OrganizationPrices from "../components/organizations/OrganizationPrices";
-import OrganizationOwner from "../components/organizations/OrganizationOwner";
+import OrganizationContacts from "../components/organizations/OrganizationContacts";
 
 export default {
   name: "OrganizationDetailPage",
   components: {
+    OrganizationContacts,
     OrganizationFavoriteIndicator,
-    OrganizationPrices,
-    OrganizationOwner
+    OrganizationPrices
   },
   props: {
     id: [String, Number]
@@ -83,5 +71,3 @@ export default {
   }
 };
 </script>
-
-<style scoped></style>

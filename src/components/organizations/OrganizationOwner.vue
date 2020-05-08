@@ -1,40 +1,38 @@
 <template>
-  <v-card class="pb-2 overflow-hidden">
-    <v-navigation-drawer :right="true" :permanent="true">
-      <v-list dense nav class="py-0">
-        <v-list-item two-line>
-          <v-list-item-avatar>
-            <img
-              src="https://randomuser.me/api/portraits/men/81.jpg"
-              :alt="owner.name"
-            />
-          </v-list-item-avatar>
+  <div class="pb-2 overflow-hidden">
+    <div class="text-center mb-2">
+      <b>Администратор</b>
+    </div>
+    <v-list dense nav class="py-0">
+      <v-list-item>
+        <v-list-item-avatar>
+          <img
+            src="https://randomuser.me/api/portraits/men/81.jpg"
+            :alt="owner.name"
+          />
+        </v-list-item-avatar>
 
-          <v-list-item-content>
-            <v-list-item-title>{{ owner.name }}</v-list-item-title>
-            <v-list-item-subtitle>администратор</v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
+        <v-list-item-content>
+          <v-list-item-title>{{ owner.name }}</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
 
-        <v-divider></v-divider>
+      <v-list-item
+        v-for="item in items"
+        :key="item.title"
+        :href="item.link"
+        target="_blank"
+      >
+        <v-list-item-icon>
+          <v-icon color="primary">{{ item.icon }}</v-icon>
+        </v-list-item-icon>
 
-        <v-list-item
-          v-for="item in items"
-          :key="item.title"
-          :href="item.link"
-          target="_blank"
-        >
-          <v-list-item-icon>
-            <v-icon color="primary">{{ item.icon }}</v-icon>
-          </v-list-item-icon>
-
-          <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-  </v-card>
+        <v-list-item-content>
+          <v-list-item-title>{{ item.title }}</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+    </v-list>
+  </div>
 </template>
 
 <script>
