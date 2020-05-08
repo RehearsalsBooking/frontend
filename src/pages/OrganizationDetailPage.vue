@@ -1,10 +1,12 @@
 <template>
-  <v-container fluid>
-    <v-fade-transition mode="out-in">
-      <v-row v-if="isFetching" key="fetching">
+  <v-fade-transition group mode="out-in">
+    <v-container fluid v-if="isFetching" key="fetching">
+      <v-row>
         <v-progress-circular indeterminate color="primary" class="mx-auto" />
       </v-row>
-      <v-row v-else key="fetched">
+    </v-container>
+    <v-container fluid v-else key="fetched">
+      <v-row>
         <v-col cols="4">
           <!--suppress HtmlUnknownTarget -->
           <v-img :src="organization.avatar" />
@@ -21,12 +23,24 @@
           <organization-prices :prices="organization.prices" class="mb-4" />
           <p>{{ organization.description }}</p>
         </v-col>
-        <v-col cols="2">
-          <OrganizationOwner :owner="organization.owner" />
+      </v-row>
+      <div class="display-1 text-center mt-3 text-uppercase">Контакты</div>
+      <v-divider></v-divider>
+      <v-row class="mt-3">
+        <v-col cols="3">
+          <div class="text-center mb-2"><b>Мы находимся по адресу</b></div>
+          {{ organization.address }}
+        </v-col>
+        <v-col cols="9" style="background-color: orange;">
+          map
+          <OrganizationOwner
+            :owner="organization.owner"
+            style="width: 30%; float:right;"
+          />
         </v-col>
       </v-row>
-    </v-fade-transition>
-  </v-container>
+    </v-container>
+  </v-fade-transition>
 </template>
 
 <script>
