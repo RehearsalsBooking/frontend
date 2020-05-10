@@ -24,6 +24,11 @@
           <p>{{ organization.description }}</p>
         </v-col>
       </v-row>
+
+      <div class="display-1 text-center mt-3 text-uppercase">Расписание</div>
+      <v-divider></v-divider>
+      <OrganizationTimetable :organization="organization" />
+
       <div class="display-1 text-center mt-3 text-uppercase">Контакты</div>
       <v-divider></v-divider>
       <OrganizationContacts :organization="organization" />
@@ -35,13 +40,15 @@
 import OrganizationFavoriteIndicator from "../components/organizations/OrganizationFavoriteIndicator";
 import OrganizationPrices from "../components/organizations/OrganizationPrices";
 import OrganizationContacts from "../components/organizations/OrganizationContacts";
+import OrganizationTimetable from "../components/organizations/OrganizationTimetable";
 
 export default {
   name: "OrganizationDetailPage",
   components: {
     OrganizationContacts,
     OrganizationFavoriteIndicator,
-    OrganizationPrices
+    OrganizationPrices,
+    OrganizationTimetable
   },
   props: {
     id: [String, Number]

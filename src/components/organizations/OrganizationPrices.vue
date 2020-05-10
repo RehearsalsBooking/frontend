@@ -23,8 +23,7 @@
             :event-color="getEventColor"
             locale="ru-RU"
             @change="transformPricesToEvents"
-          >
-          </v-calendar>
+          />
         </v-card-text>
       </v-card>
     </Dialog>

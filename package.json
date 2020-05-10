@@ -16,7 +16,7 @@
     "vue-router": "^3.1.6",
     "vue-sync": "^3.2.0",
     "vue-yandex-maps": "^0.10.7",
-    "vuetify": "^2.2.11"
+    "vuetify": "^2.2.27"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.3.0",
@@ -28,7 +28,7 @@
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-vue": "^6.2.2",
     "prettier": "^1.19.1",
-    "sass": "^1.19.0",
+    "sass": "^1.26.5",
     "sass-loader": "^8.0.0",
     "vue-cli-plugin-vuetify": "~2.0.5",
     "vue-cli-plugin-vuetify-preset-crane": "~1.0.2",
