@@ -20,44 +20,33 @@
       <v-card-title class="text-center">
         <div class="text-center mx-auto">Со свободным временем</div>
       </v-card-title>
-      <TimeStampPeriod
-        v-model="from"
-        @change="timestampChanged"
-        :max="to"
-        label="Начало"
-      />
-      <TimeStampPeriod
-        @change="timestampChanged"
-        v-model="to"
-        :min="from"
-        :errorMessage="errorMessage"
-        label="Конец"
-      />
+      <RehearsalTimeInput :period.sync="availableTime" @change="sendFilters" />
     </v-card-text>
   </v-card>
 </template>
 <script>
-import TimeStampPeriod from "../common/TimeStampPeriod";
+import RehearsalTimeInput from "../common/RehearsalTimeInput";
 
 export default {
   name: "OrganizationsFilter",
-  components: { TimeStampPeriod },
+  components: { RehearsalTimeInput },
   props: {
     isFetching: Boolean
   },
   data() {
     return {
       name: this.name || "",
-      from: this.from || "",
-      to: this.to || "",
       favorite: false,
-      errorMessage: null
+      errorMessage: null,
+      availableTime: this.availableTime || {
+        from: null,
+        to: null
+      }
     };
   },
   url: {
     name: "name",
-    from: "from",
-    to: "to"
+    availableTime: "available_time"
   },
   mounted() {
     this.sendFilters();
@@ -68,8 +57,8 @@ export default {
       let filters = Object.assign(
         {},
         this.name && { name: this.name },
-        this.from && { from: this.from },
-        this.to && { to: this.to },
+        this.availableTime.from && { from: this.availableTime.from },
+        this.availableTime.to && { to: this.availableTime.to },
         this.favorite && { favorite: "1" }
       );
       this.$emit("filtersChanged", filters);
@@ -78,18 +67,6 @@ export default {
     emptyNameQuery() {
       this.name = null;
       this.sendFilters();
-    },
-
-    timestampChanged() {
-      if (this.isFromAndToEqual()) {
-        this.errorMessage = "Выберите другое время";
-        return;
-      }
-      this.sendFilters();
-    },
-
-    isFromAndToEqual() {
-      return this.from && this.to && this.from === this.to;
     }
   }
 };
