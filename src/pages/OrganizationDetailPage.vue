@@ -26,11 +26,17 @@
       </v-row>
 
       <div class="display-1 text-center mt-3 text-uppercase">Расписание</div>
-      <v-divider></v-divider>
+      <v-divider class="mb-1"></v-divider>
       <OrganizationTimetable :organization="organization" />
 
+      <div class="display-1 text-center mt-3 text-uppercase">
+        Забронировать репетицию
+      </div>
+      <v-divider class="mb-1"></v-divider>
+      <OrganizationBooking :organization="organization" />
+
       <div class="display-1 text-center mt-3 text-uppercase">Контакты</div>
-      <v-divider></v-divider>
+      <v-divider class="mb-1"></v-divider>
       <OrganizationContacts :organization="organization" />
     </v-container>
   </v-fade-transition>
@@ -41,6 +47,7 @@ import OrganizationFavoriteIndicator from "../components/organizations/Organizat
 import OrganizationPrices from "../components/organizations/OrganizationPrices";
 import OrganizationContacts from "../components/organizations/OrganizationContacts";
 import OrganizationTimetable from "../components/organizations/OrganizationTimetable";
+import OrganizationBooking from "../components/organizations/OrganizationBooking";
 
 export default {
   name: "OrganizationDetailPage",
@@ -48,7 +55,8 @@ export default {
     OrganizationContacts,
     OrganizationFavoriteIndicator,
     OrganizationPrices,
-    OrganizationTimetable
+    OrganizationTimetable,
+    OrganizationBooking
   },
   props: {
     id: [String, Number]

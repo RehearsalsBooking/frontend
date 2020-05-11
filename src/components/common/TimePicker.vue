@@ -24,6 +24,7 @@
       :value="value"
       :min="min"
       :max="max"
+      :allowed-minutes="[0, 30]"
       format="24hr"
       @input="timeChosen"
       full-width
