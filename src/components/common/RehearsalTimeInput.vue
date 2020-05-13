@@ -26,8 +26,15 @@
         close-on-complete
         auto-scroll
         hide-disabled-hours
-        :disabled="isTimeObjectEmpty(this.fromTime)"
+        :disabled="isFromTimeEmpty || tillTheEndOfDay"
         :hour-range="availableToHours"
+      />
+      <v-checkbox
+        label="До конца дня"
+        v-model="tillTheEndOfDay"
+        dense
+        :disabled="isFromTimeEmpty"
+        class="mt-1"
       />
     </v-col>
     <v-col cols="12" md="1">
@@ -54,7 +61,8 @@ export default {
       date: this.parseDate(this.period.from),
       fromTime: this.parseTime(this.period.from),
       toTime: this.parseTime(this.period.to),
-      availableToHours: []
+      availableToHours: [],
+      tillTheEndOfDay: false
     };
   },
   computed: {
@@ -70,6 +78,9 @@ export default {
       let month = `${date.getMonth() + 1}`.padStart(2, "0");
       let day = `${date.getDate()}`.padStart(2, "0");
       return `${year}-${month}-${day}`;
+    },
+    isFromTimeEmpty() {
+      return this.isTimeObjectEmpty(this.fromTime);
     }
   },
   watch: {
@@ -77,13 +88,26 @@ export default {
       this.date = this.parseDate(value.from);
       this.fromTime = this.parseTime(value.from);
       this.toTime = this.parseTime(value.to);
+    },
+    tillTheEndOfDay(value) {
+      if (value) {
+        this.toTime = {
+          HH: "23",
+          mm: "59"
+        };
+      } else {
+        this.toTime = {
+          HH: null,
+          mm: null
+        };
+      }
     }
   },
   methods: {
     generateAvailableHours(min) {
       let availableHours = [];
 
-      for (let i = min; i <= 24; i++) {
+      for (let i = min; i < 24; i++) {
         availableHours.push(i);
       }
 
@@ -105,6 +129,10 @@ export default {
       return null;
     },
     fromTimeChanged() {
+      if (this.tillTheEndOfDay) {
+        return this.timestampChanged();
+      }
+
       this.toTime = {
         HH: null,
         mm: null
