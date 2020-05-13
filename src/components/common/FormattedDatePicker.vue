@@ -37,6 +37,7 @@ export default {
   methods: {
     dateChosen(value) {
       this.$emit("input", value);
+      this.$emit("change");
       this.menu = false;
     }
   },
