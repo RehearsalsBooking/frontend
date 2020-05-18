@@ -79,6 +79,7 @@ export default {
         from: null,
         to: null
       };
+      this.$router.push({ query: {} });
       this.sendFilters();
     },
     emptyNameQuery() {

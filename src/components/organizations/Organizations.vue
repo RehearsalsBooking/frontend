@@ -3,7 +3,6 @@
     <v-row align="start">
       <v-fade-transition mode="out-in">
         <v-col cols="8" v-if="isFetching" key="organizations-loading">
-          <OrganizationsActiveFilters :filters="activeFilters" />
           <v-row>
             <v-col cols="3" v-for="n in 8" :key="n">
               <v-card max-width="344" class="mx-auto">
