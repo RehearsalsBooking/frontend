@@ -38,6 +38,7 @@ export default {
     calculatePrice() {
       if (!(this.time.from && this.time.to)) {
         this.$emit("update:price", null);
+        this.priceErrorMessage = "";
         return;
       }
 

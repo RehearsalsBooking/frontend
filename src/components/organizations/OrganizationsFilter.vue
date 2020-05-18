@@ -22,6 +22,16 @@
       </v-card-title>
       <RehearsalTimeInput :period.sync="availableTime" @change="sendFilters" />
     </v-card-text>
+    <v-card-actions>
+      <v-btn
+        v-if="isAnyFiltersSelected"
+        color="secondary"
+        rounded
+        block
+        @click="resetFilters"
+        >Сбросить фильтры</v-btn
+      >
+    </v-card-actions>
   </v-card>
 </template>
 <script>
@@ -37,11 +47,11 @@ export default {
     return {
       name: this.name || "",
       favorite: false,
-      errorMessage: null,
       availableTime: this.availableTime || {
         from: null,
         to: null
-      }
+      },
+      isAnyFiltersSelected: false
     };
   },
   url: {
@@ -53,7 +63,6 @@ export default {
   },
   methods: {
     sendFilters() {
-      this.errorMessage = null;
       let filters = Object.assign(
         {},
         this.name && { name: this.name },
@@ -61,9 +70,17 @@ export default {
         this.availableTime.to && { to: this.availableTime.to },
         this.favorite && { favorite: "1" }
       );
+      this.isAnyFiltersSelected = Object.keys(filters).length > 0;
       this.$emit("filtersChanged", filters);
     },
-
+    resetFilters() {
+      this.name = "";
+      this.availableTime = {
+        from: null,
+        to: null
+      };
+      this.sendFilters();
+    },
     emptyNameQuery() {
       this.name = null;
       this.sendFilters();

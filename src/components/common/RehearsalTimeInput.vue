@@ -33,12 +33,15 @@
         label="До конца дня"
         v-model="tillTheEndOfDay"
         dense
+        hide-details
         :disabled="isFromTimeEmpty"
         class="mt-1"
       />
     </v-col>
     <v-col cols="12" md="1">
-      <v-btn icon @click="reset"><v-icon>mdi-delete</v-icon></v-btn>
+      <v-btn v-if="!isPeriodEmpty" icon @click="reset"
+        ><v-icon>mdi-delete</v-icon></v-btn
+      >
     </v-col>
   </v-row>
 </template>
@@ -57,15 +60,29 @@ export default {
   },
   data() {
     return {
-      errorMessage: "",
       date: this.parseDate(this.period.from),
-      fromTime: this.parseTime(this.period.from),
-      toTime: this.parseTime(this.period.to),
+      fromTime: {
+        HH: null,
+        mm: null
+      },
+      toTime: {
+        HH: null,
+        mm: null
+      },
       availableToHours: [],
       tillTheEndOfDay: false
     };
   },
   mounted() {
+    this.fromTime = this.parseTime(this.period.from);
+    this.toTime = this.parseTime(this.period.to);
+    if (this.toTimeIsBeforeFromTime()) {
+      this.toTime = {
+        HH: null,
+        mm: null
+      };
+      this.reset();
+    }
     if (this.toTime.HH === "23" && this.toTime.mm === "59") {
       this.tillTheEndOfDay = true;
     }
@@ -86,6 +103,13 @@ export default {
     },
     isFromTimeEmpty() {
       return this.isTimeObjectEmpty(this.fromTime);
+    },
+    isPeriodEmpty() {
+      return (
+        this.period.from === null &&
+        this.period.to === null &&
+        this.date === null
+      );
     }
   },
   watch: {
@@ -141,10 +165,12 @@ export default {
         return this.timestampChanged();
       }
 
-      this.toTime = {
-        HH: null,
-        mm: null
-      };
+      if (this.toTimeIsBeforeFromTime()) {
+        this.toTime = {
+          HH: null,
+          mm: null
+        };
+      }
 
       if (this.isTimeObjectEmpty(this.fromTime)) {
         this.availableToHours = [];
@@ -155,6 +181,15 @@ export default {
       }
 
       this.timestampChanged();
+    },
+    toTimeIsBeforeFromTime() {
+      if (this.toTime.HH < this.fromTime.HH) {
+        return true;
+      }
+      if (this.toTime.HH === this.fromTime.HH) {
+        return this.toTime.mm < this.fromTime.mm;
+      }
+      return false;
     },
     timestampChanged() {
       if (this.from && this.to) {
@@ -169,6 +204,7 @@ export default {
       return `${time.HH}:${time.mm}`;
     },
     reset() {
+      this.tillTheEndOfDay = false;
       this.$emit("update:period", { from: null, to: null });
       this.$emit("change");
     },
