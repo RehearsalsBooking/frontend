@@ -137,6 +137,19 @@ export default {
     setToday() {
       this.focus = this.today;
     },
+    setFocus(date) {
+      let startOld = this.start.date;
+      this.focus = date;
+      this.$nextTick(() => {
+        let startNew = this.start.date;
+        // if calendar period is not changed
+        // then refresh rehearsals manually
+        // otherwise calendarDatesChanged event will be triggered
+        if (startNew === startOld) {
+          this.getRehearsals(this.start.date, this.end.date);
+        }
+      });
+    },
     prev() {
       this.$refs.calendar.prev();
     },

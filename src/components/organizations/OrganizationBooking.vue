@@ -85,9 +85,10 @@ export default {
           .post("rehearsals", this.getParamsForBooking())
           .then(() => {
             this.$snackbar("Репетиция успешно забронирована");
+            this.$emit("rehearsalAdded", this.getParamsForBooking());
+            this.resetParams();
           })
           .catch(error => {
-            console.log(error.response);
             if (error.response.status === 401) {
               this.$snackbar("Действие не ваторизовано", "error");
             }
@@ -99,6 +100,14 @@ export default {
             }
           });
       });
+    },
+    resetParams() {
+      this.time = {
+        from: null,
+        to: null
+      };
+      this.bandId = null;
+      this.price = null;
     }
   }
 };

@@ -27,13 +27,20 @@
 
       <div class="display-1 text-center mt-3 text-uppercase">Расписание</div>
       <v-divider class="mb-1"></v-divider>
-      <OrganizationTimetable :organization="organization" />
+      <OrganizationTimetable
+        id="timetable"
+        ref="timetable"
+        :organization="organization"
+      />
 
       <div class="display-1 text-center mt-3 text-uppercase">
         Забронировать репетицию
       </div>
       <v-divider class="mb-1"></v-divider>
-      <OrganizationBooking :organization="organization" />
+      <OrganizationBooking
+        :organization="organization"
+        @rehearsalAdded="rehearsalAdded"
+      />
 
       <div class="display-1 text-center mt-3 text-uppercase">Контакты</div>
       <v-divider class="mb-1"></v-divider>
@@ -82,6 +89,17 @@ export default {
         .finally(() => {
           this.isFetching = false;
         });
+    },
+    rehearsalAdded(rehearsalParams) {
+      this.scrollToCalendar();
+      this.$refs.timetable.setFocus(rehearsalParams.starts_at.split(" ")[0]);
+    },
+    scrollToCalendar() {
+      this.$vuetify.goTo("#timetable", {
+        duration: 650,
+        offset: 0,
+        easing: "easeOutCubic"
+      });
     }
   }
 };
