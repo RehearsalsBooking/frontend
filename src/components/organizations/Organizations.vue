@@ -3,6 +3,7 @@
     <v-row align="start">
       <v-fade-transition mode="out-in">
         <v-col cols="8" v-if="isFetching" key="organizations-loading">
+          <OrganizationsActiveFilters :filters="activeFilters" />
           <v-row>
             <v-col cols="3" v-for="n in 8" :key="n">
               <v-card max-width="344" class="mx-auto">
@@ -20,6 +21,7 @@
           v-else-if="organizations.length > 0"
           key="organizations-loaded"
         >
+          <OrganizationsActiveFilters :filters="activeFilters" />
           <v-row>
             <v-col
               cols="3"
@@ -32,6 +34,7 @@
         </v-col>
 
         <v-col cols="8" v-else key="organizations-none">
+          <OrganizationsActiveFilters :filters="activeFilters" />
           <v-row>
             <v-col cols="12" class="text-center">Не найдено</v-col>
           </v-row>
@@ -51,14 +54,20 @@
 <script>
 import OrganizationCard from "./OrganizationCard";
 import OrganizationsFilter from "./OrganizationsFilter";
+import OrganizationsActiveFilters from "./OrganizationsActiveFilters";
 
 export default {
   name: "Organizations",
-  components: { OrganizationsFilter, OrganizationCard },
+  components: {
+    OrganizationsFilter,
+    OrganizationCard,
+    OrganizationsActiveFilters
+  },
   data() {
     return {
       organizations: [],
-      isFetching: true
+      isFetching: true,
+      activeFilters: {}
     };
   },
   mounted() {
@@ -69,6 +78,7 @@ export default {
   methods: {
     getOrganizations(filters) {
       this.isFetching = true;
+      this.setActiveFilters(filters);
       this.$http
         .get("/organizations", {
           params: filters
@@ -77,6 +87,9 @@ export default {
           this.organizations = res.data.data;
         })
         .finally(() => (this.isFetching = false));
+    },
+    setActiveFilters(filters) {
+      this.activeFilters = filters;
     }
   }
 };

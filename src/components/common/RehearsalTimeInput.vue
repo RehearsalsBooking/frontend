@@ -65,6 +65,11 @@ export default {
       tillTheEndOfDay: false
     };
   },
+  mounted() {
+    if (this.toTime.HH === "23" && this.toTime.mm === "59") {
+      this.tillTheEndOfDay = true;
+    }
+  },
   computed: {
     from() {
       return this.compileTimestamp(this.date, this.fromTime);
@@ -100,6 +105,9 @@ export default {
           HH: null,
           mm: null
         };
+        this.availableToHours = this.generateAvailableHours(
+          this.getMinimumHourForToTime()
+        );
       }
     }
   },
