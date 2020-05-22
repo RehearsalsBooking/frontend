@@ -27,7 +27,7 @@
           v-model="focus"
           :first-interval="firstInterval"
           :interval-count="intervalCount"
-          color="primary"
+          :event-color="getRehearsalColor"
           @change="calendarDatesChanged"
         />
       </v-sheet>
@@ -81,6 +81,9 @@ export default {
     }
   },
   methods: {
+    getRehearsalColor(rehearsal) {
+      return rehearsal.color;
+    },
     getRehearsals(from, to) {
       this.$http
         .get("/rehearsals", {
@@ -105,7 +108,8 @@ export default {
         return {
           start: rehearsal.starts_at,
           end: rehearsal.ends_at,
-          name: "Занято"
+          name: "Занято",
+          color: rehearsal.is_participant ? "secondary" : "primary"
         };
       });
 
