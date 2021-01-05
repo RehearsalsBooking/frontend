@@ -20,21 +20,21 @@
     "vuetify": "^2.4.0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.3.0",
-    "@vue/cli-plugin-eslint": "~4.3.0",
-    "@vue/cli-service": "~4.3.0",
-    "@vue/eslint-config-prettier": "^6.0.0",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-prettier": "^3.3.1",
-    "eslint-plugin-vue": "^6.2.2",
-    "prettier": "^1.19.1",
-    "sass": "^1.32.0",
-    "sass-loader": "^8.0.0",
-    "serialize-javascript": "^5.0.1",
-    "vue-cli-plugin-vuetify": "^2.0.9",
-    "vue-cli-plugin-vuetify-preset-crane": "^1.0.3",
-    "vue-template-compiler": "^2.6.12",
-    "vuetify-loader": "^1.6.0"
+    "@vue/cli-plugin-babel": "latest",
+    "@vue/cli-plugin-eslint": "latest",
+    "@vue/cli-service": "latest",
+    "@vue/eslint-config-prettier": "latest",
+    "babel-eslint": "latest",
+    "eslint": "latest",
+    "eslint-plugin-prettier": "latest",
+    "eslint-plugin-vue": "latest",
+    "prettier": "latest",
+    "sass": "latest",
+    "sass-loader": "latest",
+    "serialize-javascript": "latest",
+    "vue-cli-plugin-vuetify": "latest",
+    "vue-cli-plugin-vuetify-preset-crane": "latest",
+    "vue-template-compiler": "latest",
+    "vuetify-loader": "latest"
   }
 }
