@@ -5,6 +5,7 @@
 SHELL = /bin/sh
 
 php_container_name := backend
+node_container_name := frontend
 docker_bin := $(shell command -v docker 2> /dev/null)
 docker_compose_bin := $(shell command -v docker-compose 2> /dev/null)
 docker_compose_yml := docker/docker-compose.yml
@@ -28,7 +29,9 @@ routes:
 	$(docker_compose_bin) --file "$(docker_compose_yml)" exec "$(php_container_name)" /bin/bash -c "php artisan route:list"
 
 init:
+	$(docker_compose_bin) --file "$(docker_compose_yml)" exec -e XDEBUG_MODE=off "$(php_container_name)" /bin/bash -c "composer install"
 	$(docker_compose_bin) --file "$(docker_compose_yml)" exec "$(php_container_name)" /bin/bash -c "php artisan key:generate"
+	$(docker_compose_bin) --file "$(docker_compose_yml)" exec "$(php_container_name)" /bin/bash -c "php artisan migrate --force"
 	$(docker_compose_bin) --file "$(docker_compose_yml)" exec "$(php_container_name)" /bin/bash -c "php artisan config:cache"
 	$(docker_compose_bin) --file "$(docker_compose_yml)" exec "$(php_container_name)" /bin/bash -c "php artisan route:cache"
 
@@ -37,6 +40,9 @@ up:
 	$(docker_compose_bin) --file "$(docker_compose_yml)" up
 
 stop:
-	docker pull docker.pkg.github.com/rehearsalsbooking/backend/php:latest
 	$(docker_compose_bin) --file "$(docker_compose_yml)" stop
+
+update:
+	$(docker_compose_bin) --file "$(docker_compose_yml)" run --rm "$(node_container_name)" npm update && npm audit fix
+
 
