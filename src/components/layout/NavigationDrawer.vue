@@ -62,9 +62,15 @@ export default {
     items: [
       {
         icon: "mdi-magnify",
-        text: "Организации",
+        text: "Репточки",
         route: "organizations",
         auth: false,
+      },
+      {
+        icon: "mdi-account",
+        text: "Мой профиль",
+        route: "profile",
+        auth: true,
       },
       // { icon: "mdi-calendar", text: "Мои репетиции", auth: true },
       // { icon: "mdi-account-group", text: "Мои группы", auth: true },

@@ -23,6 +23,20 @@ export default [
   },
 
   {
+    path: "/profile",
+    meta: {
+      auth: true,
+      title: "Мой профиль",
+    },
+    name: "profile",
+    component: () =>
+      import(
+        /* webpackChunkName: "routes" */
+        `../pages/ProfilePage.vue`
+      ),
+  },
+
+  {
     path: "/organizations",
     exact: true,
     component: () =>
@@ -35,7 +49,7 @@ export default [
         path: "",
         name: "organizations",
         meta: {
-          title: "Организации",
+          title: "Репточки",
         },
         component: () =>
           import(
@@ -47,7 +61,7 @@ export default [
         path: ":id",
         props: true,
         meta: {
-          title: "Организации",
+          title: "Репточки",
         },
         name: "organization",
         component: () =>

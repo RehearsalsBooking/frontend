@@ -3,11 +3,11 @@
     <NavigationDrawer :drawer="drawer" />
 
     <AppBar v-model="drawer" />
-    <v-content>
+    <v-main>
       <router-view></router-view>
       <v-snackbar-notification />
       <AuthorizableAction />
-    </v-content>
+    </v-main>
   </v-app>
 </template>
 

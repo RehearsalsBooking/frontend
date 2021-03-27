@@ -17,12 +17,6 @@
     <v-spacer />
     <template v-if="$auth.check()">
       {{ $auth.user().name }}
-      <v-avatar size="32px" item class="ml-3 mr-3">
-        <v-img
-          src="https://cdn.vuetifyjs.com/images/logos/logo.svg"
-          alt="Vuetify"
-        />
-      </v-avatar>
     </template>
     <v-btn v-else text @click="$authorize()">Войти</v-btn>
   </v-app-bar>
