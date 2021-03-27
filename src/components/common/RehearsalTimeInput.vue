@@ -39,9 +39,9 @@
       />
     </v-col>
     <v-col cols="12" md="1">
-      <v-btn v-if="!isPeriodEmpty" icon @click="reset"
-        ><v-icon>mdi-delete</v-icon></v-btn
-      >
+      <v-btn v-if="!isPeriodEmpty" icon @click="reset">
+        <v-icon>mdi-delete</v-icon>
+      </v-btn>
     </v-col>
   </v-row>
 </template>
@@ -54,7 +54,6 @@ export default {
   components: { FormattedDatePicker, VueTimepicker },
   props: {
     period: {
-      type: Object,
       required: true,
     },
   },
@@ -106,17 +105,20 @@ export default {
     },
     isPeriodEmpty() {
       return (
-        this.period.from === null &&
-        this.period.to === null &&
-        this.date === null
+        this.period === undefined ||
+        (this.period.from === null &&
+          this.period.to === null &&
+          this.date === null)
       );
     },
   },
   watch: {
     period(value) {
-      this.date = this.parseDate(value.from);
-      this.fromTime = this.parseTime(value.from);
-      this.toTime = this.parseTime(value.to);
+      if (value) {
+        this.date = this.parseDate(value.from);
+        this.fromTime = this.parseTime(value.from);
+        this.toTime = this.parseTime(value.to);
+      }
     },
     tillTheEndOfDay(value) {
       if (value) {

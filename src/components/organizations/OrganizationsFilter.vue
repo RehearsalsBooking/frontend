@@ -66,10 +66,15 @@ export default {
       let filters = Object.assign(
         {},
         this.name && { name: this.name },
-        this.availableTime.from && { from: this.availableTime.from },
-        this.availableTime.to && { to: this.availableTime.to },
         this.favorite && { favorite: "1" }
       );
+      if (this.availableTime) {
+        Object.assign(
+          filters,
+          this.availableTime.from && { from: this.availableTime.from },
+          this.availableTime.to && { to: this.availableTime.to }
+        );
+      }
       this.isAnyFiltersSelected = Object.keys(filters).length > 0;
       this.$emit("filtersChanged", filters);
     },
