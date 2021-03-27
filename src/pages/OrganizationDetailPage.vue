@@ -63,15 +63,15 @@ export default {
     OrganizationFavoriteIndicator,
     OrganizationPrices,
     OrganizationTimetable,
-    OrganizationBooking
+    OrganizationBooking,
   },
   props: {
-    id: [String, Number]
+    id: [String, Number],
   },
   data() {
     return {
       isFetching: true,
-      organization: null
+      organization: null,
     };
   },
   mounted() {
@@ -82,7 +82,7 @@ export default {
       this.isFetching = true;
       this.$http
         .get(`/organizations/${this.id}`)
-        .then(res => {
+        .then((res) => {
           this.organization = res.data.data;
           document.title = `Организации | ${this.organization.name}`;
         })
@@ -98,9 +98,9 @@ export default {
       this.$vuetify.goTo("#timetable", {
         duration: 650,
         offset: 0,
-        easing: "easeOutCubic"
+        easing: "easeOutCubic",
       });
-    }
-  }
+    },
+  },
 };
 </script>

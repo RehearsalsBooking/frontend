@@ -19,7 +19,7 @@ export default {
   name: "OrganizationContactInfo",
   components: { OrganizationOwner },
   props: {
-    organization: Object
-  }
+    organization: Object,
+  },
 };
 </script>

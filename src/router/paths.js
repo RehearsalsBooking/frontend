@@ -2,24 +2,24 @@ export default [
   {
     path: "*",
     meta: {
-      auth: true
+      auth: true,
     },
     redirect: {
-      path: "/organizations"
-    }
+      path: "/organizations",
+    },
   },
 
   {
     path: "/logout",
     meta: {
-      auth: true
+      auth: true,
     },
     name: "logout",
     component: () =>
       import(
         /* webpackChunkName: "routes" */
         `../components/auth/Logout`
-      )
+      ),
   },
 
   {
@@ -35,27 +35,27 @@ export default [
         path: "",
         name: "organizations",
         meta: {
-          title: "Организации"
+          title: "Организации",
         },
         component: () =>
           import(
             /* webpackChunkName: "routes" */
             `../components/organizations/Organizations.vue`
-          )
+          ),
       },
       {
         path: ":id",
         props: true,
         meta: {
-          title: "Организации"
+          title: "Организации",
         },
         name: "organization",
         component: () =>
           import(
             /* webpackChunkName: "routes" */
             `../pages/OrganizationDetailPage`
-          )
-      }
-    ]
-  }
+          ),
+      },
+    ],
+  },
 ];

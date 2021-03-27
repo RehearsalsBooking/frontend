@@ -16,7 +16,7 @@ function pad(n, width, z) {
   return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 }
 
-export default function(start, end, stepsInt) {
+export default function (start, end, stepsInt) {
   //attach start value
 
   let val1RGB = processHEX(start);
@@ -30,7 +30,7 @@ export default function(start, end, stepsInt) {
   let valClampRGB = [
     val2RGB[0] - val1RGB[0],
     val2RGB[1] - val1RGB[1],
-    val2RGB[2] - val1RGB[2]
+    val2RGB[2] - val1RGB[2],
   ];
 
   // build the color array out with color steps

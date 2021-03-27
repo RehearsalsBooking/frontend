@@ -21,7 +21,7 @@
 export default {
   name: "OrganizationsActiveFilters",
   props: {
-    filters: Object
+    filters: Object,
   },
   computed: {
     isFiltersActive() {
@@ -42,7 +42,7 @@ export default {
     },
     toTime() {
       return this.filters.to.split(" ")[1];
-    }
-  }
+    },
+  },
 };
 </script>

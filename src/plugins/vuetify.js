@@ -9,6 +9,6 @@ export default new Vuetify({
   preset,
   lang: {
     locales: { ru },
-    current: "ru"
-  }
+    current: "ru",
+  },
 });

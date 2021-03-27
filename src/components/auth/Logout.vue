@@ -7,11 +7,11 @@ export default {
   created() {
     this.$auth
       .logout({
-        redirect: "/organizations"
+        redirect: "/organizations",
       })
       .then(() => {
         this.$snackbar("Вы успешно вышли из системы");
       });
-  }
+  },
 };
 </script>

@@ -11,8 +11,8 @@ export default {
     value: Boolean,
     title: {
       type: String,
-      default: "Вход в приложение"
-    }
+      default: "Вход в приложение",
+    },
   },
   created() {
     const unregisterRouterGuard = this.$router.beforeEach((to, from, next) => {
@@ -27,7 +27,7 @@ export default {
     this.$once("hook:destroyed", () => {
       unregisterRouterGuard();
     });
-  }
+  },
 };
 </script>
 

@@ -22,17 +22,17 @@ export default {
   props: {
     price: Number,
     time: Object,
-    organization: Object
+    organization: Object,
   },
   data() {
     return {
-      priceErrorMessage: ""
+      priceErrorMessage: "",
     };
   },
   watch: {
     time() {
       this.calculatePrice();
-    }
+    },
   },
   methods: {
     calculatePrice() {
@@ -46,14 +46,14 @@ export default {
         .get(`organizations/${this.organization.id}/price`, {
           params: {
             starts_at: this.time.from,
-            ends_at: this.time.to
-          }
+            ends_at: this.time.to,
+          },
         })
-        .then(res => {
+        .then((res) => {
           this.$emit("update:price", res.data);
           this.priceErrorMessage = "";
         })
-        .catch(err => {
+        .catch((err) => {
           this.$emit("update:price", null);
           if (err.response.status === 422) {
             if (typeof err.response.data === "string") {
@@ -64,7 +64,7 @@ export default {
             }
           }
         });
-    }
-  }
+    },
+  },
 };
 </script>

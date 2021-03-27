@@ -1,8 +1,6 @@
 <template>
   <div class="d-flex">
-    <v-btn rounded color="primary" @click="showModal = true">
-      Цены
-    </v-btn>
+    <v-btn rounded color="primary" @click="showModal = true"> Цены </v-btn>
     <Dialog v-model="showModal">
       <v-card>
         <v-card-title>
@@ -37,7 +35,7 @@ import Dialog from "../common/Dialog";
 export default {
   name: "OrganizationPrices",
   props: {
-    prices: Array
+    prices: Array,
   },
   components: { Dialog },
   data() {
@@ -45,13 +43,13 @@ export default {
       showModal: false,
       priceEvents: [],
       firstInterval: 0,
-      priceColors: {}
+      priceColors: {},
     };
   },
   computed: {
     intervalCount() {
       return 24 - this.firstInterval;
-    }
+    },
   },
   mounted() {
     this.generatePriceColors();
@@ -59,7 +57,7 @@ export default {
   },
   methods: {
     generatePriceColors() {
-      let orderedPrices = this.prices.map(price => price.price).sort();
+      let orderedPrices = this.prices.map((price) => price.price).sort();
       let prices = [...new Set(orderedPrices)]; //remove duplicates
       let colors = generateGradient("#16c630", "#e04205", prices.length);
       colors.forEach((color, index) => {
@@ -78,14 +76,14 @@ export default {
     },
     transformPricesToEvents() {
       let startDate = new Date(this.$refs.calendar.lastStart.date);
-      this.prices.forEach(price => {
+      this.prices.forEach((price) => {
         let date = new Date(startDate.toString());
         date.setDate(date.getDate() + price.day);
         this.priceEvents.push({
           start: this.addDateToTime(date, price.starts_at),
           end: this.addDateToTime(date, price.ends_at),
           name: price.price.slice(0, -3) + " руб/ч",
-          price: price.price
+          price: price.price,
         });
       });
     },
@@ -94,8 +92,8 @@ export default {
       let month = `${date.getMonth() + 1}`.padStart(2, "0");
       let day = `${date.getDate()}`.padStart(2, "0");
       return `${year}-${month}-${day} ${time}`;
-    }
-  }
+    },
+  },
 };
 </script>
 

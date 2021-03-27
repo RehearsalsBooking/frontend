@@ -2,7 +2,7 @@ import authBearer from "@websanova/vue-auth/drivers/auth/bearer.js";
 import authHttp from "@websanova/vue-auth/drivers/http/axios.1.x";
 import authRouter from "@websanova/vue-auth/drivers/router/vue-router.2.x";
 
-authBearer.response = res => {
+authBearer.response = (res) => {
   return (res.data || {}).token;
 };
 
@@ -12,16 +12,16 @@ export default {
   router: authRouter,
   loginData: {
     url: "/login",
-    fetchUser: false
+    fetchUser: false,
   },
   logoutData: {
     url: "/logout",
-    makeRequest: true
+    makeRequest: true,
   },
   refreshData: {
-    enabled: false
+    enabled: false,
   },
   fetchData: {
-    url: "/me"
-  }
+    url: "/me",
+  },
 };

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex-column justify-center "
+    class="flex-column justify-center"
     :class="inline ? 'd-inline-flex' : 'd-flex'"
   >
     <v-btn icon @click.stop="toggleFavorite">
@@ -15,18 +15,18 @@ export default {
     organization: Object,
     inline: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
-      isFavorited: this.organization.is_favorited
+      isFavorited: this.organization.is_favorited,
     };
   },
   computed: {
     iconColor() {
       return this.isFavorited ? "red" : null;
-    }
+    },
   },
   methods: {
     toggleFavorite() {
@@ -53,7 +53,7 @@ export default {
         .then(() => {
           this.isFavorited = true;
         });
-    }
-  }
+    },
+  },
 };
 </script>

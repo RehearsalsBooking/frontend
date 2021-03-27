@@ -9,7 +9,7 @@
     <v-toolbar-title style="width: 300px" class="ml-0 pl-4">
       <router-link
         class="hidden-sm-and-down white--text"
-        style="text-decoration:none;"
+        style="text-decoration: none"
         :to="'/'"
         >Rehearsals booking</router-link
       >
@@ -31,7 +31,7 @@
 export default {
   name: "AppBar",
   props: {
-    value: Boolean
-  }
+    value: Boolean,
+  },
 };
 </script>

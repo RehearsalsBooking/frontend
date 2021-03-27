@@ -39,7 +39,7 @@
 export default {
   name: "OrganizationOwner",
   props: {
-    owner: Object
+    owner: Object,
   },
   data() {
     return {
@@ -47,17 +47,17 @@ export default {
         {
           icon: "mdi-email",
           title: this.owner.contacts.public_email,
-          link: `mailto:${this.owner.contacts.public_email}`
+          link: `mailto:${this.owner.contacts.public_email}`,
         },
         { icon: "mdi-phone", title: this.owner.contacts.phone },
         {
           icon: "mdi-vk",
           title: this.owner.contacts.link,
-          link: this.owner.contacts.link
-        }
-      ]
+          link: this.owner.contacts.link,
+        },
+      ],
     };
-  }
+  },
 };
 </script>
 

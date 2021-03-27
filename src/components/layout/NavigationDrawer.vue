@@ -64,11 +64,11 @@ export default {
         icon: "mdi-magnify",
         text: "Организации",
         route: "organizations",
-        auth: false
+        auth: false,
       },
       // { icon: "mdi-calendar", text: "Мои репетиции", auth: true },
       // { icon: "mdi-account-group", text: "Мои группы", auth: true },
-      { icon: "mdi-logout", text: "Выход", route: "logout", auth: true }
+      { icon: "mdi-logout", text: "Выход", route: "logout", auth: true },
       // {
       //     icon: 'mdi-chevron-up',
       //     'icon-alt': 'mdi-chevron-down',
@@ -82,7 +82,7 @@ export default {
       //         {text: 'Other contacts'},
       //     ],
       // },
-    ]
-  })
+    ],
+  }),
 };
 </script>

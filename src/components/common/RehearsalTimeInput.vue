@@ -55,22 +55,22 @@ export default {
   props: {
     period: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
       date: this.parseDate(this.period.from),
       fromTime: {
         HH: null,
-        mm: null
+        mm: null,
       },
       toTime: {
         HH: null,
-        mm: null
+        mm: null,
       },
       availableToHours: [],
-      tillTheEndOfDay: false
+      tillTheEndOfDay: false,
     };
   },
   mounted() {
@@ -79,7 +79,7 @@ export default {
     if (this.toTimeIsBeforeFromTime()) {
       this.toTime = {
         HH: null,
-        mm: null
+        mm: null,
       };
       this.reset();
     }
@@ -110,7 +110,7 @@ export default {
         this.period.to === null &&
         this.date === null
       );
-    }
+    },
   },
   watch: {
     period(value) {
@@ -122,18 +122,18 @@ export default {
       if (value) {
         this.toTime = {
           HH: "23",
-          mm: "59"
+          mm: "59",
         };
       } else {
         this.toTime = {
           HH: null,
-          mm: null
+          mm: null,
         };
         this.availableToHours = this.generateAvailableHours(
           this.getMinimumHourForToTime()
         );
       }
-    }
+    },
   },
   methods: {
     generateAvailableHours(min) {
@@ -168,7 +168,7 @@ export default {
       if (this.toTimeIsBeforeFromTime()) {
         this.toTime = {
           HH: null,
-          mm: null
+          mm: null,
         };
       }
 
@@ -215,7 +215,7 @@ export default {
       if (timestamp === null) {
         return {
           HH: null,
-          mm: null
+          mm: null,
         };
       }
 
@@ -223,9 +223,9 @@ export default {
 
       return {
         HH: time.split(":")[0],
-        mm: time.split(":")[1]
+        mm: time.split(":")[1],
       };
-    }
-  }
+    },
+  },
 };
 </script>

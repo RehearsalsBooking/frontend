@@ -41,7 +41,7 @@ export default {
   name: "OrganizationsFilter",
   components: { RehearsalTimeInput },
   props: {
-    isFetching: Boolean
+    isFetching: Boolean,
   },
   data() {
     return {
@@ -49,14 +49,14 @@ export default {
       favorite: false,
       availableTime: this.availableTime || {
         from: null,
-        to: null
+        to: null,
       },
-      isAnyFiltersSelected: false
+      isAnyFiltersSelected: false,
     };
   },
   url: {
     name: "name",
-    availableTime: "available_time"
+    availableTime: "available_time",
   },
   mounted() {
     this.sendFilters();
@@ -77,7 +77,7 @@ export default {
       this.name = "";
       this.availableTime = {
         from: null,
-        to: null
+        to: null,
       };
       this.$router.push({ query: {} });
       this.sendFilters();
@@ -85,7 +85,7 @@ export default {
     emptyNameQuery() {
       this.name = null;
       this.sendFilters();
-    }
-  }
+    },
+  },
 };
 </script>

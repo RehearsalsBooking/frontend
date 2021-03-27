@@ -40,19 +40,19 @@ export default {
     min: String,
     max: String,
     label: String,
-    errorMessage: String
+    errorMessage: String,
   },
   data() {
     return {
-      menu: false
+      menu: false,
     };
   },
   methods: {
     timeChosen(value) {
       this.menu = false;
       this.$emit("input", value);
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -41,8 +41,8 @@ export default {
   props: {
     organization: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
@@ -52,7 +52,7 @@ export default {
       type: "week",
       today: this.formatDate(new Date()),
       start: null,
-      end: null
+      end: null,
     };
   },
   computed: {
@@ -78,7 +78,7 @@ export default {
       const endDay = end.day;
 
       return `${startDay} ${startMonth} ${startYear} - ${endDay} ${endMonth} ${suffixYear}`;
-    }
+    },
   },
   methods: {
     getRehearsalColor(rehearsal) {
@@ -91,25 +91,25 @@ export default {
             { organization_id: this.organization.id },
             from && { from: from + " 00:00:00" },
             to && { to: to + " 23:59:59" }
-          )
+          ),
         })
         .then(
-          res =>
+          (res) =>
             (this.rehearsals = this.transformRehearsalsForCalendar(
               res.data.data
             ))
         )
-        .catch(res => {
+        .catch((res) => {
           this.$snackbar(res.response.data);
         });
     },
     transformRehearsalsForCalendar(rehearsalsFromBackend) {
-      let events = rehearsalsFromBackend.map(rehearsal => {
+      let events = rehearsalsFromBackend.map((rehearsal) => {
         return {
           start: rehearsal.starts_at,
           end: rehearsal.ends_at,
           name: "Занято",
-          color: rehearsal.is_participant ? "secondary" : "primary"
+          color: rehearsal.is_participant ? "secondary" : "primary",
         };
       });
 
@@ -162,7 +162,7 @@ export default {
     },
     formatDate(date) {
       return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
-    }
-  }
+    },
+  },
 };
 </script>

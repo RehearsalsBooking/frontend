@@ -4,7 +4,7 @@ export default function install(Vue) {
   const data = {
     isShown: false,
     message: null,
-    color: null
+    color: null,
   };
 
   const VSnackbarNotification = {
@@ -13,15 +13,15 @@ export default function install(Vue) {
     props: {
       timeout: {
         type: Number,
-        default: 4000
-      }
+        default: 4000,
+      },
     },
 
     data() {
       return data;
     },
 
-    render: function(createElement) {
+    render: function (createElement) {
       return createElement(
         VSnackbar,
         {
@@ -30,13 +30,13 @@ export default function install(Vue) {
             bottom: true,
             right: true,
             timeout: this.timeout,
-            color: this.color
+            color: this.color,
           },
           on: {
-            input: value => {
+            input: (value) => {
               this.isShown = value;
-            }
-          }
+            },
+          },
         },
         [
           this.message,
@@ -45,17 +45,17 @@ export default function install(Vue) {
             {
               props: {
                 icon: true,
-                color: "white"
+                color: "white",
               },
               on: {
-                click: () => (this.isShown = false)
-              }
+                click: () => (this.isShown = false),
+              },
             },
             [createElement(VIcon, {}, ["mdi-close"])]
-          )
+          ),
         ]
       );
-    }
+    },
   };
 
   Vue.component("VSnackbarNotification", VSnackbarNotification);

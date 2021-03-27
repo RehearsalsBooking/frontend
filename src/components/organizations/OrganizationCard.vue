@@ -30,6 +30,6 @@ import OrganizationFavoriteIndicator from "./OrganizationFavoriteIndicator";
 export default {
   name: "OrganizationCard",
   components: { OrganizationFavoriteIndicator },
-  props: { organization: Object }
+  props: { organization: Object },
 };
 </script>

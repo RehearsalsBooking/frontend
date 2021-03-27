@@ -19,12 +19,12 @@ export default {
   components: { AppBar, NavigationDrawer },
   data() {
     return {
-      drawer: false
+      drawer: false,
     };
   },
   created() {
     window.getApp = this;
     this.drawer = this.$vuetify.breakpoint.lgAndUp;
-  }
+  },
 };
 </script>

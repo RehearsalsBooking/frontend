@@ -9,7 +9,7 @@ const router = new Router({
   mode: "history",
   hashbang: false,
   linkActiveClass: "active",
-  routes: paths
+  routes: paths,
 });
 
 router.beforeEach((to, from, next) => {

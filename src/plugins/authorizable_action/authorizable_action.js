@@ -4,14 +4,14 @@ export default function install(Vue) {
     showDialog: false,
     email: "",
     emailRules: [
-      v => !!v || "Введите почтовый адрес",
-      v => /.+@.+/.test(v) || "Неправильный почтовый адрес"
+      (v) => !!v || "Введите почтовый адрес",
+      (v) => /.+@.+/.test(v) || "Неправильный почтовый адрес",
     ],
     password: "",
-    passwordRules: [v => !!v || "Введите пароль"],
+    passwordRules: [(v) => !!v || "Введите пароль"],
     valid: true,
     loading: false,
-    title: ""
+    title: "",
   };
   AuthorizableAction.data = () => data;
 

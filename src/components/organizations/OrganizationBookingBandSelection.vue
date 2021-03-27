@@ -26,7 +26,7 @@
 export default {
   name: "OrganizationBookingBandSelection",
   props: {
-    bandId: Number
+    bandId: Number,
   },
   data() {
     return { onBehalfOfBand: false };
@@ -36,8 +36,8 @@ export default {
       if (!this.$auth.check() || !this.$auth.user().bands) {
         return [];
       }
-      return this.$auth.user().bands.filter(band => band.is_admin);
-    }
+      return this.$auth.user().bands.filter((band) => band.is_admin);
+    },
   },
   watch: {
     onBehalfOfBand(value) {
@@ -48,7 +48,7 @@ export default {
       } else {
         this.$emit("update:bandId", null);
       }
-    }
-  }
+    },
+  },
 };
 </script>

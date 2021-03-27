@@ -11,7 +11,7 @@
       </v-card>
     </v-col>
     <OrganizationBookingBandSelection :bandId.sync="bandId" />
-    <v-col cols="4" class="d-flex flex-column align-center ">
+    <v-col cols="4" class="d-flex flex-column align-center">
       <v-card
         height="100%"
         width="100%"
@@ -49,22 +49,22 @@ export default {
   components: {
     OrganizationBookingPriceCalculation,
     OrganizationBookingBandSelection,
-    RehearsalTimeInput
+    RehearsalTimeInput,
   },
   props: {
     organization: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
       time: {
         from: null,
-        to: null
+        to: null,
       },
       price: null,
-      bandId: null
+      bandId: null,
     };
   },
   methods: {
@@ -72,7 +72,7 @@ export default {
       let params = {
         organization_id: this.organization.id,
         starts_at: this.time.from,
-        ends_at: this.time.to
+        ends_at: this.time.to,
       };
       if (this.bandId) {
         params.band_id = this.bandId;
@@ -88,7 +88,7 @@ export default {
             this.$emit("rehearsalAdded", this.getParamsForBooking());
             this.resetParams();
           })
-          .catch(error => {
+          .catch((error) => {
             if (error.response.status === 401) {
               this.$snackbar("Действие не ваторизовано", "error");
             }
@@ -104,11 +104,11 @@ export default {
     resetParams() {
       this.time = {
         from: null,
-        to: null
+        to: null,
       };
       this.bandId = null;
       this.price = null;
-    }
-  }
+    },
+  },
 };
 </script>

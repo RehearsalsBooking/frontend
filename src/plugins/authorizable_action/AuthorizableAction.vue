@@ -56,25 +56,25 @@ export default {
             .login({
               data: {
                 email: this.email,
-                password: this.password
+                password: this.password,
               },
-              redirect: null
+              redirect: null,
             })
-            .then(res => {
+            .then((res) => {
               this.$auth.user(res.data.user);
 
               this.$snackbar(`Добро пожаловать, ${res.data.user.name}`);
               this.showDialog = false;
               window.getApp.$emit("successfulLogin");
             })
-            .catch(res => {
+            .catch((res) => {
               if (res.response.status === 401) {
                 this.$snackbar(res.response.data, "error");
               }
             });
         });
       }
-    }
-  }
+    },
+  },
 };
 </script>

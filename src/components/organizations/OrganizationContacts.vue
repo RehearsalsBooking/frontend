@@ -16,7 +16,7 @@ export default {
   name: "OrganizationContacts",
   components: { OrganizationContactInfo, OrganizationMap },
   props: {
-    organization: Object
-  }
+    organization: Object,
+  },
 };
 </script>

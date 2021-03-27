@@ -60,13 +60,13 @@ export default {
   components: {
     OrganizationsFilter,
     OrganizationCard,
-    OrganizationsActiveFilters
+    OrganizationsActiveFilters,
   },
   data() {
     return {
       organizations: [],
       isFetching: true,
-      activeFilters: {}
+      activeFilters: {},
     };
   },
   mounted() {
@@ -80,16 +80,16 @@ export default {
       this.setActiveFilters(filters);
       this.$http
         .get("/organizations", {
-          params: filters
+          params: filters,
         })
-        .then(res => {
+        .then((res) => {
           this.organizations = res.data.data;
         })
         .finally(() => (this.isFetching = false));
     },
     setActiveFilters(filters) {
       this.activeFilters = filters;
-    }
-  }
+    },
+  },
 };
 </script>

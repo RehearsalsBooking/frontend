@@ -27,11 +27,11 @@ export default {
     value: String,
     min: String,
     max: String,
-    label: String
+    label: String,
   },
   data() {
     return {
-      menu: false
+      menu: false,
     };
   },
   methods: {
@@ -39,7 +39,7 @@ export default {
       this.$emit("input", value);
       this.$emit("change");
       this.menu = false;
-    }
+    },
   },
   computed: {
     dateFormatted() {
@@ -47,8 +47,8 @@ export default {
 
       const [year, month, day] = this.value.split("-");
       return `${day}.${month}.${year}`;
-    }
-  }
+    },
+  },
 };
 </script>
 
