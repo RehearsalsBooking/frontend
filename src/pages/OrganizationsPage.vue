@@ -9,5 +9,3 @@ export default {
   name: "OrganizationsPage",
 };
 </script>
-
-<style scoped></style>

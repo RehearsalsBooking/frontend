@@ -27,7 +27,7 @@
               v-for="organization in organizations"
               :key="organization.id"
             >
-              <OrganizationCard :organization="organization"></OrganizationCard>
+              <OrganizationCard :organization="organization" />
             </v-col>
           </v-row>
         </v-col>

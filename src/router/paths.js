@@ -1,15 +1,5 @@
 export default [
   {
-    path: "*",
-    meta: {
-      auth: true,
-    },
-    redirect: {
-      path: "/organizations",
-    },
-  },
-
-  {
     path: "/logout",
     meta: {
       auth: true,
@@ -24,6 +14,7 @@ export default [
 
   {
     path: "/profile",
+    exact: true,
     meta: {
       auth: true,
       title: "Мой профиль",
@@ -34,6 +25,34 @@ export default [
         /* webpackChunkName: "routes" */
         `../pages/ProfilePage.vue`
       ),
+    children: [
+      {
+        path: "edit",
+        meta: {
+          auth: true,
+          title: "Редактирование профиля",
+        },
+        name: "profile/edit",
+        component: () =>
+          import(
+            /* webpackChunkName: "routes" */
+            `../components/user/UserProfileEdit.vue`
+          ),
+      },
+      {
+        path: "bands",
+        meta: {
+          auth: true,
+          title: "Мои группы",
+        },
+        name: "profile/bands",
+        component: () =>
+          import(
+            /* webpackChunkName: "routes" */
+            `../pages/UserBandsPage.vue`
+          ),
+      },
+    ],
   },
 
   {
@@ -46,8 +65,8 @@ export default [
       ),
     children: [
       {
-        path: "",
-        name: "organizations",
+        path: "/",
+        name: "/organizations",
         meta: {
           title: "Репточки",
         },
@@ -71,5 +90,11 @@ export default [
           ),
       },
     ],
+  },
+  {
+    path: "*",
+    redirect: {
+      path: "/organizations",
+    },
   },
 ];

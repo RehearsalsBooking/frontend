@@ -8,7 +8,7 @@
     <v-list dense>
       <template v-for="item in items">
         <v-list-group
-          v-if="item.children"
+          v-if="item.children && ((item.auth && $auth.check()) || !item.auth)"
           :key="item.text"
           v-model="item.model"
           :prepend-icon="item.model ? item.icon : item['icon-alt']"
@@ -22,9 +22,9 @@
             </v-list-item-content>
           </template>
           <v-list-item
-            v-for="(child, i) in item.children"
-            :key="i"
-            :to="item.route"
+            v-for="child in item.children"
+            :key="child.text"
+            :to="child.route"
           >
             <v-list-item-action v-if="child.icon">
               <v-icon>{{ child.icon }}</v-icon>
@@ -63,30 +63,45 @@ export default {
       {
         icon: "mdi-magnify",
         text: "Репточки",
-        route: "organizations",
+        route: "/organizations",
         auth: false,
       },
       {
-        icon: "mdi-account",
-        text: "Мой профиль",
-        route: "profile",
+        icon: "mdi-chevron-up",
+        "icon-alt": "mdi-chevron-down",
+        text: "Профиль",
+        model: true,
         auth: true,
+        children: [
+          {
+            icon: "mdi-pencil",
+            text: "Редактирование профиля",
+            route: "/profile/edit",
+            auth: true,
+          },
+          {
+            icon: "mdi-account-group",
+            text: "Мои группы",
+            route: "/profile/bands",
+            auth: true,
+          },
+        ],
       },
+
       // { icon: "mdi-calendar", text: "Мои репетиции", auth: true },
-      // { icon: "mdi-account-group", text: "Мои группы", auth: true },
       { icon: "mdi-logout", text: "Выход", route: "logout", auth: true },
       // {
-      //     icon: 'mdi-chevron-up',
-      //     'icon-alt': 'mdi-chevron-down',
-      //     text: 'More',
-      //     model: false,
-      //     children: [
-      //         {text: 'Import'},
-      //         {text: 'Export'},
-      //         {text: 'Print'},
-      //         {text: 'Undo changes'},
-      //         {text: 'Other contacts'},
-      //     ],
+      //   icon: "mdi-chevron-up",
+      //   "icon-alt": "mdi-chevron-down",
+      //   text: "More",
+      //   model: false,
+      //   children: [
+      //     { text: "Import" },
+      //     { text: "Export" },
+      //     { text: "Print" },
+      //     { text: "Undo changes" },
+      //     { text: "Other contacts" },
+      //   ],
       // },
     ],
   }),
