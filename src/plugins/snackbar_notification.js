@@ -1,4 +1,4 @@
-import { VSnackbar, VBtn, VIcon } from "vuetify/lib";
+import { VSnackbar, VBtn, VIcon, VSpacer } from "vuetify/lib";
 
 export default function install(Vue) {
   const data = {
@@ -40,13 +40,16 @@ export default function install(Vue) {
         },
         [
           this.message,
+          createElement(VSpacer),
           createElement(
             VBtn,
             {
               props: {
                 icon: true,
                 color: "white",
+                right: true,
               },
+              slot: "action",
               on: {
                 click: () => (this.isShown = false),
               },
