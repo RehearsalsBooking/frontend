@@ -17,14 +17,11 @@
     </v-card-title>
     <v-card-actions class="pt-0">
       <v-chip-group active-class="deep-purple accent-4 white--text" column>
-        <v-chip>Rock</v-chip>
-        <v-chip>Rap</v-chip>
-        <v-chip>Indie</v-chip>
-        <v-chip>Metal</v-chip>
-        <v-chip>Indie</v-chip>
-        <v-chip>Metal</v-chip>
+        <v-chip v-for="genre in band.genres" :key="genre.id">
+          {{ genre.name }}
+        </v-chip>
       </v-chip-group>
-      <span class="subheading mr-2">4</span>
+      <span class="subheading mr-2">{{ band.members_count }}</span>
       <v-icon class="mr-4"> mdi-account-group </v-icon>
     </v-card-actions>
   </v-card>
