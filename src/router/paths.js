@@ -86,7 +86,56 @@ export default [
         component: () =>
           import(
             /* webpackChunkName: "routes" */
-            `../pages/OrganizationDetailPage`
+            `../pages/OrganizationPage`
+          ),
+      },
+    ],
+  },
+  {
+    path: "/bands",
+    component: () =>
+      import(
+        /* webpackChunkName: "routes" */
+        `../pages/BandsPage.vue`
+      ),
+    children: [
+      {
+        path: "/",
+        name: "bands",
+        meta: {
+          title: "Группы",
+        },
+        component: () =>
+          import(
+            /* webpackChunkName: "routes" */
+            `../components/organizations/Organizations.vue`
+          ),
+      },
+      {
+        path: ":id",
+        exact: true,
+        props: true,
+        meta: {
+          title: "Группы",
+        },
+        name: "band",
+        component: () =>
+          import(
+            /* webpackChunkName: "routes" */
+            `../pages/BandPage`
+          ),
+      },
+      {
+        path: "/:id/edit",
+        name: "band-edit",
+        props: true,
+        meta: {
+          title: "Группы",
+        },
+        component: () =>
+          import(
+            /* webpackChunkName: "routes" */
+            `../pages/BandEditPage`
           ),
       },
     ],

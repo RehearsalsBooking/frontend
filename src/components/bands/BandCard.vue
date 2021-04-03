@@ -16,11 +16,7 @@
       <v-spacer></v-spacer>
     </v-card-title>
     <v-card-actions class="pt-0">
-      <v-chip-group active-class="deep-purple accent-4 white--text" column>
-        <v-chip v-for="genre in band.genres" :key="genre.id">
-          {{ genre.name }}
-        </v-chip>
-      </v-chip-group>
+      <BandGenres :genres="band.genres" />
       <span class="subheading mr-2">{{ band.members_count }}</span>
       <v-icon class="mr-4"> mdi-account-group </v-icon>
     </v-card-actions>
@@ -28,8 +24,11 @@
 </template>
 
 <script>
+import BandGenres from "@/components/bands/BandGenres";
+
 export default {
   name: "BandCard",
+  components: { BandGenres },
   props: { band: Object },
 };
 </script>

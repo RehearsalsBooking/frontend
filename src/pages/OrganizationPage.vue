@@ -18,7 +18,7 @@
               class="ml-2"
               :organization="organization"
               inline
-            ></OrganizationFavoriteIndicator>
+            />
           </div>
           <organization-prices :prices="organization.prices" class="mb-4" />
           <p>{{ organization.description }}</p>
@@ -57,7 +57,7 @@ import OrganizationTimetable from "../components/organizations/OrganizationTimet
 import OrganizationBooking from "../components/organizations/OrganizationBooking";
 
 export default {
-  name: "OrganizationDetailPage",
+  name: "OrganizationPage",
   components: {
     OrganizationContacts,
     OrganizationFavoriteIndicator,
@@ -66,7 +66,7 @@ export default {
     OrganizationBooking,
   },
   props: {
-    id: [String, Number],
+    id: [Number],
   },
   data() {
     return {
