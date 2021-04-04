@@ -7,21 +7,14 @@
         </v-card-title>
         <v-card-text>
           <v-form ref="form">
-            <v-text-field
-              v-model="user.name"
-              label="Имя"
-              required
-            ></v-text-field>
+            <v-text-field v-model="user.name" label="Имя" required />
             <v-text-field
               v-model="user.public_email"
               :error-messages="errors.public_email"
               label="Почта для связи"
-            ></v-text-field>
-            <v-text-field v-model="user.phone" label="Телефон"></v-text-field>
-            <v-text-field
-              v-model="user.link"
-              label="Сайт/ссылка на соцсети"
-            ></v-text-field>
+            />
+            <v-text-field v-model="user.phone" label="Телефон" />
+            <v-text-field v-model="user.link" label="Сайт/ссылка на соцсети" />
 
             <v-btn color="success" block rounded @click="update">
               Сохранить
