@@ -9,7 +9,10 @@
         <v-list-item-content>
           <!--TODO: add link to user profile-->
           <v-list-item-title>{{ member.name }}</v-list-item-title>
-          <v-list-item-subtitle>роль в группе</v-list-item-subtitle>
+          <v-list-item-subtitle>{{ member.role }}</v-list-item-subtitle>
+          <v-list-item-subtitle>
+            Присоединился {{ member.joined_at | formatDate }}
+          </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
     </template>
@@ -17,10 +20,18 @@
 </template>
 
 <script>
+import moment from "moment";
+
 export default {
   name: "BandMembers",
   props: {
     members: Array,
+  },
+  filters: {
+    formatDate: function (value) {
+      if (!value) return "";
+      return moment(value).format("DD.MM.YY");
+    },
   },
 };
 </script>

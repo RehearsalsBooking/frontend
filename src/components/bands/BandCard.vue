@@ -9,7 +9,19 @@
     <v-img
       :src="`https://picsum.photos/300/200?random=${band.id}`"
       height="194"
-    ></v-img>
+    >
+      <v-btn
+        v-if="band.is_admin"
+        class="mx-2 mt-2 float-right"
+        fab
+        right
+        dark
+        color="primary"
+        @click="$router.push({ name: 'band-edit', params: { id: band.id } })"
+      >
+        <v-icon dark> mdi-pencil </v-icon>
+      </v-btn>
+    </v-img>
 
     <v-card-title class="pb-0">
       {{ band.name }}
