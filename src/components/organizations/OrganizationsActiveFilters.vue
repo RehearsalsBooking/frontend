@@ -6,6 +6,14 @@
         Название содержит "{{ filters.name }}"
       </v-chip>
       <v-chip
+        v-if="isFilteredByFavorite"
+        class="ma-2"
+        color="secondary"
+        outlined
+      >
+        Только среди любимых
+      </v-chip>
+      <v-chip
         v-if="isFilteredByAvailableTime"
         class="ma-2"
         color="secondary"
@@ -25,10 +33,13 @@ export default {
   },
   computed: {
     isFiltersActive() {
-      return Object.keys(this.filters).length > 0;
+      return this.filters && Object.keys(this.filters).length > 0;
     },
     isFilteredByName() {
       return this.filters.name && this.filters.name !== "";
+    },
+    isFilteredByFavorite() {
+      return this.filters.favorite;
     },
     isFilteredByAvailableTime() {
       return this.filters.from && this.filters.to;

@@ -57,6 +57,7 @@ export default {
   url: {
     name: "name",
     availableTime: "available_time",
+    favorite: "favorite",
   },
   mounted() {
     this.sendFilters();

@@ -126,7 +126,7 @@ export default [
           ),
       },
       {
-        path: "/:id/edit",
+        path: ":id/edit",
         name: "band-edit",
         props: true,
         meta: {
