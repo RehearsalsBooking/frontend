@@ -1,5 +1,5 @@
 <template>
-  <v-list three-line>
+  <v-list three-line max-width="600">
     <template v-for="member in members">
       <v-list-item :key="member.title">
         <v-list-item-avatar>
@@ -14,24 +14,17 @@
             Присоединился {{ member.joined_at | formatDate }}
           </v-list-item-subtitle>
         </v-list-item-content>
+        <slot name="actions" v-bind:member="member"></slot>
       </v-list-item>
     </template>
   </v-list>
 </template>
 
 <script>
-import moment from "moment";
-
 export default {
   name: "BandMembers",
   props: {
     members: Array,
-  },
-  filters: {
-    formatDate: function (value) {
-      if (!value) return "";
-      return moment(value).format("DD.MM.YY");
-    },
   },
 };
 </script>

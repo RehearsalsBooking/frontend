@@ -9,6 +9,7 @@ import auth from "@websanova/vue-auth";
 import AuthOptions from "./auth/options";
 import VSnackbarNotification from "./plugins/snackbar_notification";
 import AuthorizableAction from "./plugins/authorizable_action/authorizable_action";
+import "@/filters";
 
 Vue.config.productionTip = false;
 
