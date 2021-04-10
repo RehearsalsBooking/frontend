@@ -1,6 +1,6 @@
 <template>
-  <BandMembers :members="members">
-    <template v-slot:actions="{ member }">
+  <BandMembers :members="members" :band="band">
+    <template #actions="{ member, band }">
       <v-list-item-action>
         <BandEditMembersEditRole
           :band="band"
@@ -8,9 +8,8 @@
           @memberRoleEdited="member.role = $event"
         />
       </v-list-item-action>
-      <v-list-item-action>
+      <v-list-item-action v-if="member.id !== $auth.user().id">
         <BandEditMembersDelete
-          v-if="member.id !== $auth.user().id"
           :band="band"
           :member="member"
           @memberDeleted="members = members.filter((m) => m.id !== $event.id)"
@@ -38,6 +37,5 @@ export default {
       members: this.band.members,
     };
   },
-  methods: {},
 };
 </script>

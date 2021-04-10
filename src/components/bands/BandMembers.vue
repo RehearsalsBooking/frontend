@@ -14,17 +14,36 @@
             Присоединился {{ member.joined_at | formatDate }}
           </v-list-item-subtitle>
         </v-list-item-content>
-        <slot name="actions" v-bind:member="member"></slot>
+        <slot name="actions" v-bind:member="member" v-bind:band="band"></slot>
+        <v-list-item-action
+          v-if="member.id === $auth.user().id && !band.is_admin"
+        >
+          <BandMembersLeave
+            :member="member"
+            :band="band"
+            @memberDeleted="$emit('memberDeleted', $event)"
+          />
+        </v-list-item-action>
       </v-list-item>
     </template>
   </v-list>
 </template>
 
 <script>
+import BandMembersLeave from "@/components/bands/BandMembersLeave";
+
 export default {
   name: "BandMembers",
+  components: { BandMembersLeave },
   props: {
-    members: Array,
+    members: {
+      type: Array,
+      required: true,
+    },
+    band: {
+      type: Object,
+      required: true,
+    },
   },
 };
 </script>
