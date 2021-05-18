@@ -1,5 +1,10 @@
 <template>
-  <v-layout align-center justify-center class="mt-4">
+  <v-container class="mt-4">
+    <v-row>
+      <v-col cols="12">
+        <BandInvitesAdd :band="band" @inviteAdded="getInvites" />
+      </v-col>
+    </v-row>
     <v-row align="start" style="min-height: 200px">
       <v-fade-transition mode="out-in">
         <v-col cols="8" v-if="isFetching" key="invites-loading">
@@ -19,13 +24,16 @@
                   <v-list-item-title>{{ invite.email }}</v-list-item-title>
                   <v-list-item-subtitle>{{ invite.role }}</v-list-item-subtitle>
                   <v-list-item-subtitle>
-                    Приглашение отправлено {{ invite.invited_at | formatDate }}
+                    Приглашение отправлено
+                    {{ invite.invited_at | formatDate }}
                   </v-list-item-subtitle>
                 </v-list-item-content>
                 <v-list-item-action>
-                  <v-btn icon @click="cancelInvite(invite)">
-                    <v-icon color="error">mdi-delete</v-icon>
-                  </v-btn>
+                  <BandInviteCancel
+                    :invite="invite"
+                    :band="band"
+                    @inviteCanceled="getInvites"
+                  />
                 </v-list-item-action>
               </v-list-item>
             </v-list>
@@ -40,18 +48,20 @@
       </v-fade-transition>
 
       <v-col cols="4">
-        <BandSentInvitesFilters @filtersChanged="getInvites" />
+        <BandInvitesFilters @filtersChanged="filtersChanged" />
       </v-col>
     </v-row>
-  </v-layout>
+  </v-container>
 </template>
 
 <script>
-import BandSentInvitesFilters from "@/components/bands/BandSentInvitesFilters";
+import BandInvitesFilters from "@/components/bands/BandInvitesFilters";
+import BandInvitesAdd from "@/components/bands/BandInvitesAdd";
+import BandInviteCancel from "@/components/bands/BandInviteCancel";
 
 export default {
-  name: "BandSentInvites",
-  components: { BandSentInvitesFilters },
+  name: "BandInvites",
+  components: { BandInviteCancel, BandInvitesFilters, BandInvitesAdd },
   props: {
     band: {
       type: Object,
@@ -62,27 +72,23 @@ export default {
     return {
       invites: [],
       isFetching: true,
+      filters: { pending: false },
     };
   },
   mounted() {
     this.getInvites();
   },
   methods: {
-    getInvites(filters) {
+    getInvites() {
       this.isFetching = true;
       this.$http
-        .get(`/bands/${this.band.id}/invites`, { params: filters })
+        .get(`/bands/${this.band.id}/invites`, { params: this.filters })
         .then((res) => (this.invites = res.data.data))
         .finally(() => (this.isFetching = false));
     },
-    cancelInvite(invite) {
-      this.isFetching = true;
-      this.$http
-        .delete(`/bands/${this.band.id}/invites/${invite.id}`)
-        .then(() => {
-          this.invites = this.invites.filter((item) => invite.id !== item.id);
-        })
-        .finally(() => (this.isFetching = false));
+    filtersChanged(filters) {
+      this.filters = filters;
+      this.getInvites();
     },
   },
 };

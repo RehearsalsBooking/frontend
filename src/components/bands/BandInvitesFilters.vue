@@ -14,7 +14,7 @@
 </template>
 <script>
 export default {
-  name: "BandSentInvitesFilters",
+  name: "BandInvitesFilters",
   data() {
     return {
       pending: false,
@@ -30,10 +30,6 @@ export default {
         this.pending && { pending: this.pending }
       );
       this.$emit("filtersChanged", filters);
-    },
-    resetFilters() {
-      this.pending = false;
-      this.sendFilters();
     },
   },
 };

@@ -16,7 +16,7 @@
       <v-tabs-items v-model="tab">
         <v-tab-item> <BandEditMainInfo :band="band" /></v-tab-item>
         <v-tab-item> <BandEditMembers :band="band" /> </v-tab-item>
-        <v-tab-item> <BandSentInvites :band="band" /> </v-tab-item>
+        <v-tab-item> <BandInvites :band="band" /> </v-tab-item>
       </v-tabs-items>
     </v-container>
   </v-fade-transition>
@@ -25,11 +25,11 @@
 <script>
 import BandEditMainInfo from "@/components/bands/BandEditMainInfo";
 import BandEditMembers from "@/components/bands/BandEditMembers";
-import BandSentInvites from "@/components/bands/BandSentInvites";
+import BandInvites from "@/components/bands/BandInvites";
 
 export default {
   name: "BandEditPage",
-  components: { BandSentInvites, BandEditMainInfo, BandEditMembers },
+  components: { BandInvites, BandEditMainInfo, BandEditMembers },
   props: {
     id: [String, Number],
   },
