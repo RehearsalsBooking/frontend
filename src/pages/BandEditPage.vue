@@ -10,11 +10,13 @@
       <v-tabs v-model="tab" background-color="transparent" color="basil">
         <v-tab> Общая информация </v-tab>
         <v-tab> Состав </v-tab>
+        <v-tab> Приглашения </v-tab>
       </v-tabs>
 
       <v-tabs-items v-model="tab">
         <v-tab-item> <BandEditMainInfo :band="band" /></v-tab-item>
         <v-tab-item> <BandEditMembers :band="band" /> </v-tab-item>
+        <v-tab-item> <BandSentInvites :band="band" /> </v-tab-item>
       </v-tabs-items>
     </v-container>
   </v-fade-transition>
@@ -23,10 +25,11 @@
 <script>
 import BandEditMainInfo from "@/components/bands/BandEditMainInfo";
 import BandEditMembers from "@/components/bands/BandEditMembers";
+import BandSentInvites from "@/components/bands/BandSentInvites";
 
 export default {
   name: "BandEditPage",
-  components: { BandEditMainInfo, BandEditMembers },
+  components: { BandSentInvites, BandEditMainInfo, BandEditMembers },
   props: {
     id: [String, Number],
   },
