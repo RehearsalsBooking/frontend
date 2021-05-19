@@ -30,7 +30,6 @@ routes:
 
 init:
 	$(docker_compose_bin) --file "$(docker_compose_yml)" exec -e XDEBUG_MODE=off "$(php_container_name)" composer install
-	$(docker_compose_bin) --file "$(docker_compose_yml)" exec "$(php_container_name)" php artisan key:generate
 	$(docker_compose_bin) --file "$(docker_compose_yml)" exec "$(php_container_name)" php artisan migrate --force
 	$(docker_compose_bin) --file "$(docker_compose_yml)" exec "$(php_container_name)" php artisan config:cache
 	$(docker_compose_bin) --file "$(docker_compose_yml)" exec "$(php_container_name)" php artisan route:cache

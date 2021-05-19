@@ -19,7 +19,11 @@
         <v-col cols="8" v-else-if="invites.length > 0" key="invites-loaded">
           <v-row>
             <v-list three-line>
-              <v-list-item v-for="invite in invites" :key="invite.id">
+              <v-list-item
+                v-for="invite in invites"
+                :key="invite.id"
+                :class="getInviteStatusColor(invite.status)"
+              >
                 <v-list-item-content>
                   <v-list-item-title>{{ invite.email }}</v-list-item-title>
                   <v-list-item-subtitle>{{ invite.role }}</v-list-item-subtitle>
@@ -58,6 +62,7 @@
 import BandInvitesFilters from "@/components/bands/BandInvitesFilters";
 import BandInvitesAdd from "@/components/bands/BandInvitesAdd";
 import BandInviteCancel from "@/components/bands/BandInviteCancel";
+import constants from "@/constants";
 
 export default {
   name: "BandInvites",
@@ -72,7 +77,7 @@ export default {
     return {
       invites: [],
       isFetching: true,
-      filters: { pending: false },
+      filters: { status: [constants.INVITE_STATUS_PENDING] },
     };
   },
   mounted() {
@@ -89,6 +94,16 @@ export default {
     filtersChanged(filters) {
       this.filters = filters;
       this.getInvites();
+    },
+    getInviteStatusColor(status) {
+      switch (status) {
+        case constants.INVITE_STATUS_PENDING:
+          return "yellow lighten-5";
+        case constants.INVITE_STATUS_ACCEPTED:
+          return "green lighten-5";
+        case constants.INVITE_STATUS_REJECTED:
+          return "red lighten-5";
+      }
     },
   },
 };

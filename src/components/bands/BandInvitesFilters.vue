@@ -13,11 +13,13 @@
   </v-card>
 </template>
 <script>
+import constants from "@/constants";
+
 export default {
   name: "BandInvitesFilters",
   data() {
     return {
-      pending: false,
+      pending: true,
     };
   },
   mounted() {
@@ -27,7 +29,7 @@ export default {
     sendFilters() {
       let filters = Object.assign(
         {},
-        this.pending && { pending: this.pending }
+        this.pending && { status: [constants.INVITE_STATUS_PENDING] }
       );
       this.$emit("filtersChanged", filters);
     },
