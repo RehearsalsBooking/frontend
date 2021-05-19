@@ -2,7 +2,7 @@
   <v-container class="mt-4">
     <v-row>
       <v-col cols="12">
-        <BandInvitesAdd :band="band" @inviteAdded="getInvites" />
+        <BandInvitesAdd :bandId="id" @inviteAdded="getInvites" />
       </v-col>
     </v-row>
     <v-row align="start" style="min-height: 200px">
@@ -35,7 +35,7 @@
                 <v-list-item-action>
                   <BandInviteCancel
                     :invite="invite"
-                    :band="band"
+                    :bandId="id"
                     @inviteCanceled="getInvites"
                   />
                 </v-list-item-action>
@@ -68,10 +68,7 @@ export default {
   name: "BandInvites",
   components: { BandInviteCancel, BandInvitesFilters, BandInvitesAdd },
   props: {
-    band: {
-      type: Object,
-      required: true,
-    },
+    id: [String, Number],
   },
   data() {
     return {
@@ -87,8 +84,11 @@ export default {
     getInvites() {
       this.isFetching = true;
       this.$http
-        .get(`/bands/${this.band.id}/invites`, { params: this.filters })
-        .then((res) => (this.invites = res.data.data))
+        .get(`/bands/${this.id}/invites`, { params: this.filters })
+        .then((res) => {
+          this.invites = res.data.data;
+          document.title = `Приглашения`;
+        })
         .finally(() => (this.isFetching = false));
     },
     filtersChanged(filters) {

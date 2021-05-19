@@ -26,7 +26,10 @@
                 dark
                 color="primary"
                 @click="
-                  $router.push({ name: 'band-edit', params: { id: band.id } })
+                  $router.push({
+                    name: 'band-edit-main-info',
+                    params: { id: band.id },
+                  })
                 "
               >
                 <v-icon dark> mdi-pencil </v-icon>

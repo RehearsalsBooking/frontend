@@ -11,15 +11,15 @@ export default {
       type: Object,
       required: true,
     },
-    band: {
-      type: Object,
+    bandId: {
+      type: [String, Number],
       required: true,
     },
   },
   methods: {
     cancelInvite() {
       this.$http
-        .delete(`/bands/${this.band.id}/invites/${this.invite.id}`)
+        .delete(`/bands/${this.bandId}/invites/${this.invite.id}`)
         .then(() => {
           this.$snackbar("Приглашение отменено");
           this.$emit("inviteCanceled");

@@ -127,7 +127,7 @@ export default [
       },
       {
         path: ":id/edit",
-        name: "band-edit",
+        auth: true,
         props: true,
         meta: {
           title: "Группы",
@@ -137,6 +137,49 @@ export default [
             /* webpackChunkName: "routes" */
             `../pages/BandEditPage`
           ),
+        children: [
+          {
+            path: "",
+            meta: {
+              auth: true,
+            },
+            props: true,
+            name: "band-edit-main-info",
+            component: () =>
+              import(
+                /* webpackChunkName: "routes" */
+                `../components/bands/BandEditMainInfo.vue`
+              ),
+          },
+          {
+            path: "members",
+            meta: {
+              auth: true,
+              title: "Состав группы",
+            },
+            props: true,
+            name: "band-edit-members",
+            component: () =>
+              import(
+                /* webpackChunkName: "routes" */
+                `../components/bands/BandEditMembers.vue`
+              ),
+          },
+          {
+            path: "invites",
+            meta: {
+              auth: true,
+              title: "Приглашения группы",
+            },
+            props: true,
+            name: "band-edit-invites",
+            component: () =>
+              import(
+                /* webpackChunkName: "routes" */
+                `../components/bands/BandInvites.vue`
+              ),
+          },
+        ],
       },
     ],
   },

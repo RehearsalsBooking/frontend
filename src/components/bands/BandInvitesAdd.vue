@@ -27,8 +27,8 @@
 export default {
   name: "BandInvitesAdd",
   props: {
-    band: {
-      type: Object,
+    bandId: {
+      type: [String, Number],
       required: true,
     },
   },
@@ -54,17 +54,15 @@ export default {
       if (!isValid) {
         return;
       }
-      this.$http
-        .post(`/bands/${this.band.id}/invites`, this.invite)
-        .then(() => {
-          this.invite = {
-            email: null,
-            role: null,
-          };
-          this.$refs.form.reset();
-          this.$snackbar("Приглашение отправлено");
-          this.$emit("inviteAdded");
-        });
+      this.$http.post(`/bands/${this.bandId}/invites`, this.invite).then(() => {
+        this.invite = {
+          email: null,
+          role: null,
+        };
+        this.$refs.form.reset();
+        this.$snackbar("Приглашение отправлено");
+        this.$emit("inviteAdded");
+      });
     },
     validate() {
       this.$refs.form.validate();
