@@ -43,13 +43,7 @@
 
       <div class="display-1 text-center mt-3 text-uppercase">Состав</div>
       <v-divider class="mb-1"></v-divider>
-      <BandMembers
-        :members="band.members"
-        :band="band"
-        @memberDeleted="
-          band.members = band.members.filter((m) => m.id !== $event.id)
-        "
-      />
+      <BandMembers :band="band" />
     </v-container>
   </v-fade-transition>
 </template>

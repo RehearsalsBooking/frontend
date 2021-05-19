@@ -22,9 +22,6 @@ export default {
       pending: true,
     };
   },
-  mounted() {
-    this.sendFilters();
-  },
   methods: {
     sendFilters() {
       let filters = Object.assign(

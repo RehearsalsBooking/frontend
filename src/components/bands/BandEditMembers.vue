@@ -6,7 +6,7 @@
       </v-row>
     </v-container>
     <v-container fluid v-else key="fetched">
-      <BandMembers :members="members" :band="band">
+      <BandMembers :band="band">
         <template #actions="{ member, band }">
           <v-list-item-action>
             <BandEditMembersEditRole
@@ -60,9 +60,6 @@ export default {
         .get(`/bands/${this.id}`)
         .then((res) => {
           this.band = res.data.data;
-          this.band.genres = this.band.genres.map((genre) => genre.id);
-          this.members = this.band.members;
-          document.title = `${this.band.name} | Состав группы`;
         })
         .finally(() => (this.isFetching = false));
     },
