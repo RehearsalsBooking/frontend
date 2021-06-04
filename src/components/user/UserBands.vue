@@ -2,7 +2,9 @@
   <v-layout align-center justify-center>
     <v-row align="start">
       <BandsList :bands="bands" :is-fetching="isFetching">
-        <template #no-bands> Вы пока не состоите ни в одной группе </template>
+        <template #no-bands>
+          Пользователь не состоит ни в одной группе
+        </template>
       </BandsList>
     </v-row>
   </v-layout>
@@ -12,12 +14,15 @@
 import BandsList from "@/components/bands/BandsList";
 
 export default {
-  name: "UserBandsPage",
+  name: "UserBands",
   components: { BandsList },
+  props: {
+    userId: [String, Number],
+  },
   data() {
     return {
-      isFetching: true,
       bands: [],
+      isFetching: true,
     };
   },
   mounted() {
@@ -27,11 +32,7 @@ export default {
     getBands() {
       this.isFetching = true;
       this.$http
-        .get("/bands", {
-          params: {
-            member_id: this.$auth.user().id,
-          },
-        })
+        .get(`/bands`, { params: { member_id: this.userId } })
         .then((res) => {
           this.bands = res.data.data;
         })
@@ -40,3 +41,5 @@ export default {
   },
 };
 </script>
+
+<style scoped></style>

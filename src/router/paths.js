@@ -91,6 +91,19 @@ export default [
       },
     ],
   },
+
+  {
+    path: "/users/:id",
+    name: "user",
+    exact: true,
+    props: true,
+    component: () =>
+      import(
+        /* webpackChunkName: "routes" */
+        `../pages/UserPage.vue`
+      ),
+  },
+
   {
     path: "/bands",
     component: () =>
@@ -183,6 +196,7 @@ export default [
       },
     ],
   },
+
   {
     path: "*",
     redirect: {
