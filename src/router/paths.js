@@ -52,6 +52,19 @@ export default [
             `../pages/UserBandsPage.vue`
           ),
       },
+      {
+        path: "schedule",
+        meta: {
+          auth: true,
+          title: "Мои репетиции",
+        },
+        name: "profile/schedule",
+        component: () =>
+          import(
+            /* webpackChunkName: "routes" */
+            `../pages/UserSchedulePage.vue`
+          ),
+      },
     ],
   },
 

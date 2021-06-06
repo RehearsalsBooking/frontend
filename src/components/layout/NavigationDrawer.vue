@@ -80,6 +80,12 @@ export default {
             auth: true,
           },
           {
+            icon: "mdi-calendar",
+            text: "Мои репетиции",
+            route: "/profile/schedule",
+            auth: true,
+          },
+          {
             icon: "mdi-account-group",
             text: "Мои группы",
             route: "/profile/bands",

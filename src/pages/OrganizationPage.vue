@@ -66,7 +66,7 @@ export default {
     OrganizationBooking,
   },
   props: {
-    id: [Number],
+    id: [Number, String],
   },
   data() {
     return {
