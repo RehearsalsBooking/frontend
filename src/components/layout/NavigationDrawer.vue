@@ -39,7 +39,7 @@
         <v-list-item
           v-else-if="(item.auth && $auth.check()) || !item.auth"
           :key="item.text"
-          :to="{ name: item.route }"
+          :to="item.route"
         >
           <v-list-item-action>
             <v-icon>{{ item.icon }}</v-icon>
@@ -52,6 +52,11 @@
         </v-list-item>
       </template>
     </v-list>
+    <template v-slot:append v-if="$auth.check()">
+      <div class="pa-2">
+        <v-btn block color="primary" :to="'logout'"> Выйти </v-btn>
+      </div>
+    </template>
   </v-navigation-drawer>
 </template>
 <script>
@@ -63,53 +68,62 @@ export default {
       {
         icon: "mdi-magnify",
         text: "Репточки",
-        route: "/organizations",
+        route: { path: "/organizations" },
         auth: false,
       },
       {
         icon: "mdi-chevron-up",
         "icon-alt": "mdi-chevron-down",
         text: "Профиль",
-        model: true,
+        model: false,
         auth: true,
         children: [
           {
             icon: "mdi-pencil",
             text: "Редактирование профиля",
-            route: "/profile/edit",
+            route: { path: "/profile/edit" },
             auth: true,
           },
           {
             icon: "mdi-calendar",
             text: "Мои репетиции",
-            route: "/profile/schedule",
+            route: { path: "/profile/schedule" },
             auth: true,
           },
           {
             icon: "mdi-account-group",
             text: "Мои группы",
-            route: "/profile/bands",
+            route: { path: "/profile/bands" },
             auth: true,
           },
         ],
       },
-
-      // { icon: "mdi-calendar", text: "Мои репетиции", auth: true },
-      { icon: "mdi-logout", text: "Выход", route: "logout", auth: true },
-      // {
-      //   icon: "mdi-chevron-up",
-      //   "icon-alt": "mdi-chevron-down",
-      //   text: "More",
-      //   model: false,
-      //   children: [
-      //     { text: "Import" },
-      //     { text: "Export" },
-      //     { text: "Print" },
-      //     { text: "Undo changes" },
-      //     { text: "Other contacts" },
-      //   ],
-      // },
     ],
   }),
+  mounted() {
+    this.$http.get("management/organizations").then((res) => {
+      res.data.data.forEach((organization) => {
+        // noinspection JSUnfilteredForInLoop
+        this.items.push({
+          icon: "mdi-chevron-up",
+          "icon-alt": "mdi-chevron-down",
+          text: organization.name,
+          model: false,
+          auth: true,
+          children: [
+            {
+              icon: "mdi-cog",
+              text: "Редактирование группы",
+              route: {
+                name: "organization/edit",
+                params: { organization: organization, id: organization.id },
+              },
+              auth: true,
+            },
+          ],
+        });
+      });
+    });
+  },
 };
 </script>

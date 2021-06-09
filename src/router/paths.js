@@ -211,6 +211,31 @@ export default [
   },
 
   {
+    path: "/management/organizations",
+    component: () =>
+      import(
+        /* webpackChunkName: "routes" */
+        `../pages/management/ManagementHomePage.vue`
+      ),
+    children: [
+      {
+        path: ":id/edit",
+        auth: true,
+        props: true,
+        meta: {
+          title: "Репточки",
+        },
+        name: "organization/edit",
+        component: () =>
+          import(
+            /* webpackChunkName: "routes" */
+            `../pages/management/OrganizationEditPage.vue`
+          ),
+      },
+    ],
+  },
+
+  {
     path: "*",
     redirect: {
       path: "/organizations",
