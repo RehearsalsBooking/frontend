@@ -116,7 +116,7 @@ export default {
               text: "Редактирование группы",
               route: {
                 name: "organization/edit",
-                params: { organization: organization, id: organization.id },
+                params: { id: organization.id },
               },
               auth: true,
             },
