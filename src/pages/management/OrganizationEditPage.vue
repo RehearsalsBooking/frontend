@@ -22,13 +22,16 @@
                   required
                 />
               </v-row>
-              <v-row>
-                <v-textarea
+              <v-row class="mb-3">
+                Информация о репточке и ее оборудовании
+              </v-row>
+              <v-row class="mb-8">
+                <Wysiwyg
                   v-model="organization.gear"
                   label="Описание оборудования"
                 />
               </v-row>
-              <v-row class="mb-6"> Укажите место репточки на карте </v-row>
+              <v-row class="mb-6"> Укажите место репточки на карте</v-row>
               <v-row style="width: 100%; height: 500px" v-if="organization.id">
                 <OrganizationMap
                   :organization="organization"
@@ -36,13 +39,13 @@
                   @coordsChanged="organization.coordinates = $event"
                 />
               </v-row>
-              <v-row class="mt-6">
-                <v-btn color="success" block rounded @click="update">
-                  Сохранить
-                </v-btn>
-              </v-row>
             </v-form>
           </v-card-text>
+          <v-card-actions>
+            <v-btn color="success" block rounded @click="update">
+              Сохранить
+            </v-btn>
+          </v-card-actions>
         </v-card>
       </v-col>
     </v-row>
@@ -51,10 +54,11 @@
 
 <script>
 import OrganizationMap from "@/components/organizations/OrganizationMap";
+import Wysiwyg from "@/components/common/Wysiwyg";
 
 export default {
   name: "OrganizationEditPage",
-  components: { OrganizationMap },
+  components: { OrganizationMap, Wysiwyg },
   props: {
     id: [String, Number],
   },

@@ -10,6 +10,8 @@ import AuthOptions from "./auth/options";
 import VSnackbarNotification from "./plugins/snackbar_notification";
 import AuthorizableAction from "./plugins/authorizable_action/authorizable_action";
 import "@/filters";
+import { TiptapVuetifyPlugin } from "tiptap-vuetify";
+import "tiptap-vuetify/dist/main.css";
 
 Vue.config.productionTip = false;
 
@@ -24,6 +26,11 @@ Vue.use(VSnackbarNotification);
 Vue.use(AuthorizableAction);
 
 Vue.use(auth, AuthOptions);
+
+Vue.use(TiptapVuetifyPlugin, {
+  vuetify,
+  iconsGroup: "mdi",
+});
 
 new Vue({
   router,

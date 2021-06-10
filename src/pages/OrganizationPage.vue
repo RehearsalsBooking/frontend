@@ -21,7 +21,7 @@
             />
           </div>
           <organization-prices :prices="organization.prices" class="mb-4" />
-          <p>{{ organization.description }}</p>
+          <div v-html="organization.gear"></div>
         </v-col>
       </v-row>
 
