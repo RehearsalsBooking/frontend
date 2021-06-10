@@ -2,12 +2,13 @@
   <yandex-map
     :settings="mapSettings"
     :controls="['zoomControl']"
-    style="height: 100%"
-    :coords="coordsArray"
-    :scroll-zoom="false"
+    style="height: 100%; width: 100%"
+    :coords="marker"
+    :scroll-zoom="scrollZoom"
+    @click="setNewMarker"
   >
     <ymap-marker
-      :coords="coordsArray"
+      :coords="marker"
       :marker-id="organization.id"
       :hint-content="organization.name"
     ></ymap-marker>
@@ -21,6 +22,12 @@ export default {
   components: { yandexMap, ymapMarker },
   props: {
     organization: Object,
+    scrollZoom: {
+      default: false,
+    },
+    allowUpdate: {
+      default: false,
+    },
   },
   data() {
     return {
@@ -30,13 +37,24 @@ export default {
         coordorder: "latlong",
         version: "2.1",
       },
+      marker: [],
     };
   },
-  computed: {
-    coordsArray() {
+  mounted() {
+    this.marker = this.getOrganizationCoordinates();
+  },
+  methods: {
+    getOrganizationCoordinates() {
       const regex = RegExp("\\((\\S+),(\\S+)\\)");
       const coordinates = regex.exec(this.organization.coordinates);
       return [coordinates[1], coordinates[2]];
+    },
+    setNewMarker(e) {
+      if (!this.allowUpdate) {
+        return;
+      }
+      this.marker = e.get("coords");
+      this.$emit("coordsChanged", `(${this.marker.join(",")})`);
     },
   },
 };
