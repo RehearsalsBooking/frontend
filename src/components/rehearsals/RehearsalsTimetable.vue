@@ -28,15 +28,31 @@
         :interval-count="intervalCount"
         :event-color="getRehearsalColor"
         @change="calendarDatesChanged"
+        @click:event="showRehearsalDetails"
       />
+      <v-menu
+        v-model="selectedOpen"
+        :close-on-content-click="false"
+        :activator="selectedElement"
+        offset-x
+        rounded="xl"
+      >
+        <RehearsalTile outlined :rehearsal="selectedRehearsal" />
+      </v-menu>
     </v-sheet>
   </v-col>
 </template>
 <script>
+import RehearsalTile from "@/components/rehearsals/RehearsalDetailed";
 export default {
   name: "RehearsalsTimetable",
+  components: { RehearsalTile },
   props: {
     rehearsals: Array,
+    showDetailed: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -46,6 +62,9 @@ export default {
       today: this.formatDate(new Date()),
       start: null,
       end: null,
+      selectedRehearsal: {},
+      selectedElement: null,
+      selectedOpen: false,
     };
   },
   computed: {
@@ -84,6 +103,7 @@ export default {
     transformRehearsalsForCalendar(rehearsalsFromBackend) {
       let events = rehearsalsFromBackend.map((rehearsal) => {
         return {
+          id: rehearsal.id,
           start: rehearsal.starts_at,
           end: rehearsal.ends_at,
           name: "Занято",
@@ -140,6 +160,32 @@ export default {
     },
     formatDate(date) {
       return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+    },
+    showRehearsalDetails({ nativeEvent, event }) {
+      if (!this.showDetailed) {
+        return;
+      }
+
+      const open = async () => {
+        this.selectedRehearsal = await this.getRehearsal(event.id);
+        this.selectedElement = nativeEvent.target;
+        requestAnimationFrame(() =>
+          requestAnimationFrame(() => (this.selectedOpen = true))
+        );
+      };
+
+      if (this.selectedOpen) {
+        this.selectedOpen = false;
+        requestAnimationFrame(() => requestAnimationFrame(() => open()));
+      } else {
+        open();
+      }
+
+      nativeEvent.stopPropagation();
+    },
+    async getRehearsal(id) {
+      const rehearsal = await this.$http.get(`rehearsals/${id}`);
+      return rehearsal.data.data;
     },
   },
 };

@@ -14,9 +14,10 @@
     <div class="mt-6">
       <h1>Расписание</h1>
       <RehearsalsTimetable
+        show-detailed
         :rehearsals="allRehearsals"
         @calendarDatesChanged="getAllRehearsals"
-      ></RehearsalsTimetable>
+      />
     </div>
   </v-col>
 </template>

@@ -113,9 +113,18 @@ export default {
           children: [
             {
               icon: "mdi-cog",
-              text: "Редактирование группы",
+              text: "Редактирование",
               route: {
                 name: "organization/edit",
+                params: { id: organization.id },
+              },
+              auth: true,
+            },
+            {
+              icon: "mdi-calendar",
+              text: "Расписание",
+              route: {
+                name: "organization/timetable",
                 params: { id: organization.id },
               },
               auth: true,

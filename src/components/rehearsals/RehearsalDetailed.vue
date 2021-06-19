@@ -1,5 +1,5 @@
 <template>
-  <v-card>
+  <v-card v-if="rehearsal.id" v-bind="$attrs">
     <v-card-title>{{ rehearsal.starts_at | formatDateTime }}</v-card-title>
     <v-card-subtitle>{{ duration }}</v-card-subtitle>
     <v-card-text>
@@ -7,7 +7,8 @@
         {{ type }}
         <template v-if="!rehearsal.is_individual">
           <router-link
-            :to="{ name: 'band', params: { id: rehearsal.band.id } }"
+            target="_blank"
+            :to="{ name: 'band', params: { id: this.rehearsal.band.id } }"
           >
             {{ rehearsal.band.name }}
           </router-link>
@@ -16,6 +17,7 @@
       <div>
         Репточка:
         <router-link
+          target="_blank"
           :to="{
             name: 'organization',
             params: { id: rehearsal.organization.id },
@@ -23,6 +25,18 @@
           >{{ rehearsal.organization.name }}</router-link
         >
       </div>
+      <div>
+        Забронировал:
+        <router-link
+          target="_blank"
+          :to="{
+            name: 'user',
+            params: { id: rehearsal.user.id },
+          }"
+          >{{ rehearsal.user.name }}</router-link
+        >
+      </div>
+      <div>Стоимость: {{ rehearsal.price }}</div>
     </v-card-text>
   </v-card>
 </template>
@@ -43,10 +57,8 @@ export default {
       );
     },
     type() {
-      return this.rehearsal.is_individual ? "Индивидуальная" : "С группой";
+      return this.rehearsal.is_individual ? "Индивидуальная" : "С группой:";
     },
   },
 };
 </script>
-
-<style scoped></style>

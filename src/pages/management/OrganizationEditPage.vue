@@ -72,7 +72,7 @@ export default {
   },
   methods: {
     getOrganization() {
-      this.$http.get(`/organizations/${this.id}`).then((res) => {
+      this.$http.get(`/management/organizations/${this.id}`).then((res) => {
         this.organization = res.data.data;
         delete this.organization.avatar;
       });

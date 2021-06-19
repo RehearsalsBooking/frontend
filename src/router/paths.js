@@ -223,13 +223,27 @@ export default [
         auth: true,
         props: true,
         meta: {
-          title: "Репточки",
+          title: "Редактирование",
         },
         name: "organization/edit",
         component: () =>
           import(
             /* webpackChunkName: "routes" */
             `../pages/management/OrganizationEditPage.vue`
+          ),
+      },
+      {
+        path: ":id/timetable",
+        auth: true,
+        props: true,
+        meta: {
+          title: "Расписание",
+        },
+        name: "organization/timetable",
+        component: () =>
+          import(
+            /* webpackChunkName: "routes" */
+            `../pages/management/OrganizationTimetablePage.vue`
           ),
       },
     ],
