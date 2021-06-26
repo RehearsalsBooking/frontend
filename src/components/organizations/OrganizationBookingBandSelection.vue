@@ -29,15 +29,18 @@ export default {
     bandId: Number,
   },
   data() {
-    return { onBehalfOfBand: false };
+    return {
+      onBehalfOfBand: false,
+      userBands: [],
+    };
   },
-  computed: {
-    userBands() {
-      if (!this.$auth.check() || !this.$auth.user().bands) {
-        return [];
-      }
-      return this.$auth.user().bands.filter((band) => band.is_admin);
-    },
+  mounted() {
+    if (!this.$auth.check()) {
+      return;
+    }
+    this.$http.get(`bands/?member_id=${this.$auth.user().id}`).then((res) => {
+      this.userBands = res.data.data.filter((band) => band.is_admin);
+    });
   },
   watch: {
     onBehalfOfBand(value) {

@@ -14,6 +14,12 @@
           </RehearsalsDetailed>
         </div>
         <div class="mt-6">
+          <OrganizationBooking
+            :organizationId="id"
+            :with-band-selection="false"
+          />
+        </div>
+        <div class="mt-6">
           <h1>Расписание</h1>
           <RehearsalsTimetable
             show-detailed
@@ -29,10 +35,11 @@
 <script>
 import RehearsalsDetailed from "@/components/rehearsals/RehearsalsDetailed";
 import RehearsalsTimetable from "@/components/rehearsals/RehearsalsTimetable";
+import OrganizationBooking from "@/components/organizations/OrganizationBooking";
 
 export default {
   name: "OrganizationTimetablePage",
-  components: { RehearsalsTimetable, RehearsalsDetailed },
+  components: { OrganizationBooking, RehearsalsTimetable, RehearsalsDetailed },
   props: {
     id: [String, Number],
   },

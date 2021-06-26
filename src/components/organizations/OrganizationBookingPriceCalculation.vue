@@ -22,7 +22,7 @@ export default {
   props: {
     price: Number,
     time: Object,
-    organization: Object,
+    organizationId: [Number, String],
   },
   data() {
     return {
@@ -43,7 +43,7 @@ export default {
       }
 
       this.$http
-        .get(`organizations/${this.organization.id}/price`, {
+        .get(`organizations/${this.organizationId}/price`, {
           params: {
             starts_at: this.time.from,
             ends_at: this.time.to,

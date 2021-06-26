@@ -1,5 +1,5 @@
 <template>
-  <v-row class="justify-space-around">
+  <v-row class="justify-space-around mt-4 mb-4">
     <v-col cols="4">
       <v-card class="px-4">
         <v-card-title>
@@ -10,7 +10,10 @@
         </v-card-text>
       </v-card>
     </v-col>
-    <OrganizationBookingBandSelection :bandId.sync="bandId" />
+    <OrganizationBookingBandSelection
+      :bandId.sync="bandId"
+      v-if="withBandSelection"
+    />
     <v-col cols="4" class="d-flex flex-column align-center">
       <v-card
         height="100%"
@@ -20,7 +23,7 @@
         <OrganizationBookingPriceCalculation
           :price.sync="price"
           :time="time"
-          :organization="organization"
+          :organizationId="organizationId"
         />
         <v-card-actions>
           <v-btn
@@ -52,9 +55,13 @@ export default {
     RehearsalTimeInput,
   },
   props: {
-    organization: {
-      type: Object,
+    organizationId: {
+      type: [Number, String],
       required: true,
+    },
+    withBandSelection: {
+      type: Boolean,
+      default: true,
     },
   },
   data() {
@@ -70,7 +77,7 @@ export default {
   methods: {
     getParamsForBooking() {
       let params = {
-        organization_id: this.organization.id,
+        organization_id: this.organizationId,
         starts_at: this.time.from,
         ends_at: this.time.to,
       };

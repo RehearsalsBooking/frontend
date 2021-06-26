@@ -38,7 +38,7 @@
       </div>
       <v-divider class="mb-1"></v-divider>
       <OrganizationBooking
-        :organization="organization"
+        :organizationId="organization.id"
         @rehearsalAdded="rehearsalAdded"
       />
 
