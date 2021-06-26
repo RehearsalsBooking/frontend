@@ -1,6 +1,7 @@
 <template>
   <v-row>
     <RehearsalsTimetable
+      ref="timetable"
       @calendarDatesChanged="getRehearsals"
       :rehearsals="rehearsals"
     />
@@ -38,6 +39,9 @@ export default {
         .catch((res) => {
           this.$snackbar(res.response.data);
         });
+    },
+    setFocus(date) {
+      this.$refs.timetable.setFocus(date);
     },
   },
 };

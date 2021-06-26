@@ -148,7 +148,7 @@ export default {
         // then refresh rehearsals manually
         // otherwise calendarDatesChanged event will be triggered
         if (startNew === startOld) {
-          this.getRehearsals(this.start.date, this.end.date);
+          this.$emit("calendarDatesChanged", this.start.date, this.end.date);
         }
       });
     },
