@@ -5,53 +5,17 @@
     :clipped="$vuetify.breakpoint.lgAndUp"
     app
   >
-    <v-list dense>
-      <template v-for="item in items">
-        <v-list-group
-          v-if="item.children && ((item.auth && $auth.check()) || !item.auth)"
-          :key="item.text"
-          v-model="item.model"
-          :prepend-icon="item.model ? item.icon : item['icon-alt']"
-          append-icon=""
-        >
-          <template v-slot:activator>
-            <v-list-item-content>
-              <v-list-item-title>
-                {{ item.text }}
-              </v-list-item-title>
-            </v-list-item-content>
-          </template>
-          <v-list-item
-            v-for="child in item.children"
-            :key="child.text"
-            :to="child.route"
-          >
-            <v-list-item-action v-if="child.icon">
-              <v-icon>{{ child.icon }}</v-icon>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title>
-                {{ child.text }}
-              </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list-group>
-        <v-list-item
-          v-else-if="(item.auth && $auth.check()) || !item.auth"
-          :key="item.text"
-          :to="item.route"
-        >
-          <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title>
-              {{ item.text }}
-            </v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </template>
-    </v-list>
+    <NavigationDrawerSection :items="general" />
+    <NavigationDrawerSection
+      header="Мой профиль"
+      :items="profile"
+      v-if="$auth.check()"
+    />
+    <NavigationDrawerSection
+      header="Мои репточки"
+      :items="management"
+      v-if="management.length > 0"
+    />
     <template v-slot:append v-if="$auth.check()">
       <div class="pa-2">
         <v-btn block color="primary" :to="'logout'"> Выйти </v-btn>
@@ -60,56 +24,48 @@
   </v-navigation-drawer>
 </template>
 <script>
+import NavigationDrawerSection from "@/components/layout/NavigationDrawerSection";
+
 export default {
   name: "NavigationDrawer",
+  components: { NavigationDrawerSection },
   props: { drawer: Boolean },
   data: () => ({
-    items: [
+    general: [
       {
         icon: "mdi-magnify",
         text: "Репточки",
         route: { path: "/organizations" },
-        auth: false,
-      },
-      {
-        icon: "mdi-chevron-up",
-        "icon-alt": "mdi-chevron-down",
-        text: "Профиль",
-        model: false,
-        auth: true,
-        children: [
-          {
-            icon: "mdi-pencil",
-            text: "Редактирование профиля",
-            route: { path: "/profile/edit" },
-            auth: true,
-          },
-          {
-            icon: "mdi-calendar",
-            text: "Мои репетиции",
-            route: { path: "/profile/schedule" },
-            auth: true,
-          },
-          {
-            icon: "mdi-account-group",
-            text: "Мои группы",
-            route: { path: "/profile/bands" },
-            auth: true,
-          },
-        ],
       },
     ],
+    profile: [
+      {
+        icon: "mdi-pencil",
+        text: "Редактирование профиля",
+        route: { path: "/profile/edit" },
+      },
+      {
+        icon: "mdi-calendar",
+        text: "Мои репетиции",
+        route: { path: "/profile/schedule" },
+      },
+      {
+        icon: "mdi-account-group",
+        text: "Мои группы",
+        route: { path: "/profile/bands" },
+      },
+    ],
+    management: [],
   }),
   mounted() {
     this.$http.get("management/organizations").then((res) => {
       res.data.data.forEach((organization) => {
         // noinspection JSUnfilteredForInLoop
-        this.items.push({
+        this.management.push({
           icon: "mdi-chevron-up",
           "icon-alt": "mdi-chevron-down",
           text: organization.name,
           model: false,
-          auth: true,
           children: [
             {
               icon: "mdi-cog",
@@ -118,7 +74,6 @@ export default {
                 name: "organization/edit",
                 params: { id: organization.id },
               },
-              auth: true,
             },
             {
               icon: "mdi-calendar",
@@ -127,7 +82,6 @@ export default {
                 name: "organization/timetable",
                 params: { id: organization.id },
               },
-              auth: true,
             },
           ],
         });
