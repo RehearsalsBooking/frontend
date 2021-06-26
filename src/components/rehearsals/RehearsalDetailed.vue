@@ -38,14 +38,20 @@
       </div>
       <div>Стоимость: {{ rehearsal.price }}</div>
     </v-card-text>
+    <v-card-actions>
+      <v-spacer />
+      <CancelRehearsal :rehearsal="rehearsal" />
+    </v-card-actions>
   </v-card>
 </template>
 
 <script>
 import moment from "moment";
+import CancelRehearsal from "@/components/rehearsals/CancelRehearsal";
 
 export default {
   name: "RehearsalTile",
+  components: { CancelRehearsal },
   props: {
     rehearsal: Object,
   },
