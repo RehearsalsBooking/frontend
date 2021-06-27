@@ -22,8 +22,8 @@
             name: 'organization',
             params: { id: rehearsal.organization.id },
           }"
-          >{{ rehearsal.organization.name }}</router-link
-        >
+          >{{ rehearsal.organization.name }}
+        </router-link>
       </div>
       <div>
         Забронировал:
@@ -33,13 +33,16 @@
             name: 'user',
             params: { id: rehearsal.user.id },
           }"
-          >{{ rehearsal.user.name }}</router-link
-        >
+          >{{ rehearsal.user.name }}
+        </router-link>
       </div>
       <div>Стоимость: {{ rehearsal.price }}</div>
+      <div v-if="rehearsal.is_confirmed" class="success--text">Оплачено</div>
+      <div v-else class="error--text">Не оплачено</div>
     </v-card-text>
     <v-card-actions>
       <v-spacer />
+      <EditRehearsal :rehearsal="rehearsal" :forManager="forManager" />
       <CancelRehearsal :rehearsal="rehearsal" />
     </v-card-actions>
   </v-card>
@@ -48,12 +51,17 @@
 <script>
 import moment from "moment";
 import CancelRehearsal from "@/components/rehearsals/CancelRehearsal";
+import EditRehearsal from "@/components/rehearsals/EditRehearsal";
 
 export default {
   name: "RehearsalTile",
-  components: { CancelRehearsal },
+  components: { EditRehearsal, CancelRehearsal },
   props: {
     rehearsal: Object,
+    forManager: {
+      type: Boolean,
+      required: true,
+    },
   },
   computed: {
     duration() {

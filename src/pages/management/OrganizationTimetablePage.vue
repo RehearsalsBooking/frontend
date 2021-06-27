@@ -7,6 +7,7 @@
           <RehearsalsDetailed
             :is-fetching="isUpcomingRehearsalsFetching"
             :rehearsals="upcomingRehearsals"
+            :forManager="true"
           >
             <template #no-rehearsals>
               Пока не запланировано ни одной репетиции
@@ -23,6 +24,7 @@
           <h1>Расписание</h1>
           <RehearsalsTimetable
             show-detailed
+            :forManager="true"
             :rehearsals="rehearsals"
             @calendarDatesChanged="getOrganizationRehearsals"
           />

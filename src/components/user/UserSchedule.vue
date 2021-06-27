@@ -5,6 +5,7 @@
       <RehearsalsDetailed
         :is-fetching="isUpcomingRehearsalsFetching"
         :rehearsals="upcomingRehearsals"
+        :for-manager="false"
       >
         <template #no-rehearsals>
           Пока не запланировано ни одной репетиции
@@ -17,6 +18,7 @@
         show-detailed
         :rehearsals="allRehearsals"
         @calendarDatesChanged="getAllRehearsals"
+        :for-manager="false"
       />
     </div>
   </v-col>

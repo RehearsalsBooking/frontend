@@ -37,7 +37,11 @@
         offset-x
         rounded="xl"
       >
-        <RehearsalTile outlined :rehearsal="selectedRehearsal" />
+        <RehearsalTile
+          outlined
+          :rehearsal="selectedRehearsal"
+          :forManager="forManager"
+        />
       </v-menu>
     </v-sheet>
   </v-col>
@@ -52,6 +56,10 @@ export default {
     showDetailed: {
       type: Boolean,
       default: false,
+    },
+    forManager: {
+      type: Boolean,
+      required: true,
     },
   },
   data() {

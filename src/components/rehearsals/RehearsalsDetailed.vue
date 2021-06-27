@@ -17,7 +17,7 @@
     <v-col cols="12" v-else-if="rehearsals.length > 0" key="rehearsals-loaded">
       <v-row>
         <v-col cols="4" v-for="rehearsal in rehearsals" :key="rehearsal.id">
-          <RehearsalDetailed :rehearsal="rehearsal" />
+          <RehearsalDetailed :rehearsal="rehearsal" :forManager="forManager" />
         </v-col>
       </v-row>
     </v-col>
@@ -41,6 +41,10 @@ export default {
   props: {
     rehearsals: Array,
     isFetching: Boolean,
+    forManager: {
+      type: Boolean,
+      required: true,
+    },
   },
 };
 </script>

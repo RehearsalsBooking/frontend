@@ -22,15 +22,12 @@ user_id := $(shell id -u)
 help:  ## Display this help
 	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n\nTargets:\n"} /^[a-zA-Z_-]+:.*?##/ { printf "  \033[36m%-10s\033[0m %s\n", $$1, $$2 }' $(MAKEFILE_LIST)
 
-seed:
-	$(docker_compose_bin) --file "$(docker_compose_yml)" exec "$(php_container_name)" /bin/bash -c "php artisan migrate:fresh --force --seed"
-
 routes:
 	$(docker_compose_bin) --file "$(docker_compose_yml)" exec "$(php_container_name)" /bin/bash -c "php artisan route:list"
 
 init:
 	$(docker_compose_bin) --file "$(docker_compose_yml)" exec -e XDEBUG_MODE=off "$(php_container_name)" composer install
-	$(docker_compose_bin) --file "$(docker_compose_yml)" exec "$(php_container_name)" php artisan migrate --force
+	$(docker_compose_bin) --file "$(docker_compose_yml)" exec "$(php_container_name)" php artisan migrate:fresh --force --seed
 	$(docker_compose_bin) --file "$(docker_compose_yml)" exec "$(php_container_name)" php artisan config:cache
 	$(docker_compose_bin) --file "$(docker_compose_yml)" exec "$(php_container_name)" php artisan route:cache
 

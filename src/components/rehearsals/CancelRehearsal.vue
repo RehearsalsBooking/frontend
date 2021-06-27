@@ -1,5 +1,5 @@
 <template>
-  <v-btn icon @click="showDialog = true" class="delete-rehearsal-button">
+  <v-btn icon @click="showDialog = true">
     <v-icon color="error">mdi-delete</v-icon>
     <Dialog v-model="showDialog" :max-width="'500px'">
       <v-card>
@@ -55,5 +55,3 @@ export default {
   },
 };
 </script>
-
-<style scoped></style>
