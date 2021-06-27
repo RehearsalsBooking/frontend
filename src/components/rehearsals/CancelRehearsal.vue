@@ -33,6 +33,7 @@
 </template>
 <script>
 import Dialog from "@/components/common/Dialog";
+import { EventBus } from "@/event-bus";
 
 export default {
   name: "CancelRehearsal",
@@ -50,6 +51,7 @@ export default {
       this.$http.delete(`/rehearsals/${this.rehearsal.id}`).then(() => {
         this.showDialog = false;
         this.$snackbar("Репетиция отменена");
+        EventBus.$emit("rehearsals-changed");
       });
     },
   },

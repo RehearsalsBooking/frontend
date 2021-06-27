@@ -90,6 +90,7 @@ import Dialog from "@/components/common/Dialog";
 import moment from "moment";
 import RehearsalTimeInput from "@/components/common/RehearsalTimeInput";
 import OrganizationBookingPriceCalculation from "@/components/organizations/OrganizationBookingPriceCalculation";
+import { EventBus } from "@/event-bus";
 
 export default {
   name: "EditRehearsal",
@@ -153,6 +154,7 @@ export default {
         .then(() => {
           this.showDialog = false;
           this.$snackbar("Репетиция обновлена");
+          EventBus.$emit("rehearsals-changed");
         })
         .catch((err) => {
           if (err.response.status === 403) {

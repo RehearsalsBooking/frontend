@@ -27,6 +27,7 @@
 <script>
 import RehearsalsDetailed from "@/components/rehearsals/RehearsalsDetailed";
 import RehearsalsTimetable from "@/components/rehearsals/RehearsalsTimetable";
+import { EventBus } from "@/event-bus";
 
 export default {
   name: "UserSchedule",
@@ -43,6 +44,7 @@ export default {
   },
   mounted() {
     this.getUpcomingRehearsals();
+    EventBus.$on("rehearsals-changed", () => this.getUpcomingRehearsals());
   },
   methods: {
     getUpcomingRehearsals() {

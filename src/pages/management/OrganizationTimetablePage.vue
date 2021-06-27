@@ -38,6 +38,7 @@
 import RehearsalsDetailed from "@/components/rehearsals/RehearsalsDetailed";
 import RehearsalsTimetable from "@/components/rehearsals/RehearsalsTimetable";
 import OrganizationBooking from "@/components/organizations/OrganizationBooking";
+import { EventBus } from "@/event-bus";
 
 export default {
   name: "OrganizationTimetablePage",
@@ -54,6 +55,7 @@ export default {
   },
   mounted() {
     this.getUpcomingRehearsals();
+    EventBus.$on("rehearsals-changed", this.getUpcomingRehearsals);
   },
   methods: {
     getUpcomingRehearsals() {

@@ -48,6 +48,7 @@
 </template>
 <script>
 import RehearsalTile from "@/components/rehearsals/RehearsalDetailed";
+import { EventBus } from "@/event-bus";
 export default {
   name: "RehearsalsTimetable",
   components: { RehearsalTile },
@@ -74,6 +75,11 @@ export default {
       selectedElement: null,
       selectedOpen: false,
     };
+  },
+  mounted() {
+    EventBus.$on("rehearsals-changed", () =>
+      this.calendarDatesChanged({ start: this.start, end: this.end })
+    );
   },
   computed: {
     intervalCount() {
