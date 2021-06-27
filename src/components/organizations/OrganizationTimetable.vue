@@ -4,6 +4,7 @@
       ref="timetable"
       @calendarDatesChanged="getRehearsals"
       :rehearsals="rehearsals"
+      :for-manager="false"
     />
   </v-row>
 </template>

@@ -50,7 +50,7 @@ import FormattedDatePicker from "./FormattedDatePicker";
 import VueTimepicker from "vue2-timepicker/src/vue-timepicker.vue";
 
 export default {
-  name: "TimeStampPeriod",
+  name: "RehearsalTimeInput",
   components: { FormattedDatePicker, VueTimepicker },
   props: {
     period: {

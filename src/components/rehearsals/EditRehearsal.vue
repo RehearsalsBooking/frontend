@@ -40,9 +40,27 @@
               >{{ rehearsal.user.name }}
             </router-link>
           </div>
+          <div>
+            {{ rehearsal.starts_at | formatDateTime }}, на {{ duration }}
+          </div>
           <div>Стоимость: {{ rehearsal.price }}</div>
           <div v-if="forManager">
-            <v-switch v-model="isConfirmed" label="Репетиция оплачена" />
+            <v-switch v-model="newIsConfirmed" label="Репетиция оплачена" />
+          </div>
+          <div v-else>
+            <div v-if="rehearsal.is_confirmed" class="success--text">
+              Оплачено
+            </div>
+            <div v-else class="error--text">Не оплачено</div>
+          </div>
+          <div v-if="!forManager" class="mt-5">
+            <h3>Выбрать новое время</h3>
+            <RehearsalTimeInput :period.sync="newTime" />
+            <OrganizationBookingPriceCalculation
+              :price.sync="newPrice"
+              :time="newTime"
+              :organizationId="rehearsal.organization.id"
+            />
           </div>
         </v-card-text>
         <v-card-actions>
@@ -70,10 +88,16 @@
 <script>
 import Dialog from "@/components/common/Dialog";
 import moment from "moment";
+import RehearsalTimeInput from "@/components/common/RehearsalTimeInput";
+import OrganizationBookingPriceCalculation from "@/components/organizations/OrganizationBookingPriceCalculation";
 
 export default {
   name: "EditRehearsal",
-  components: { Dialog },
+  components: {
+    OrganizationBookingPriceCalculation,
+    RehearsalTimeInput,
+    Dialog,
+  },
   props: {
     rehearsal: Object,
     forManager: {
@@ -84,16 +108,21 @@ export default {
   data() {
     return {
       showDialog: false,
-      isConfirmed: null,
+      newIsConfirmed: null,
+      newTime: {
+        from: null,
+        to: null,
+      },
+      newPrice: null,
     };
   },
   mounted() {
-    this.isConfirmed = this.rehearsal.is_confirmed;
+    this.newIsConfirmed = this.rehearsal.is_confirmed;
   },
   watch: {
     showDialog(val) {
       if (val) {
-        this.isConfirmed = this.rehearsal.is_confirmed;
+        this.newIsConfirmed = this.rehearsal.is_confirmed;
       }
     },
   },
@@ -117,11 +146,18 @@ export default {
     editRehearsal() {
       this.$http
         .put(this.updateUrl, {
-          is_confirmed: this.isConfirmed,
+          is_confirmed: this.newIsConfirmed,
+          starts_at: this.newTime.from,
+          ends_at: this.newTime.to,
         })
         .then(() => {
           this.showDialog = false;
           this.$snackbar("Репетиция обновлена");
+        })
+        .catch((err) => {
+          if (err.response.status === 403) {
+            this.$snackbar("Вы не можете изменить репетицию.", "error");
+          }
         });
     },
   },
