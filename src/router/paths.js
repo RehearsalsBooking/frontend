@@ -246,6 +246,20 @@ export default [
             `../pages/management/OrganizationTimetablePage.vue`
           ),
       },
+      {
+        path: ":id/prices",
+        auth: true,
+        props: true,
+        meta: {
+          title: "Цены",
+        },
+        name: "organization/prices",
+        component: () =>
+          import(
+            /* webpackChunkName: "routes" */
+            `../pages/management/OrganizationPricesPage.vue`
+          ),
+      },
     ],
   },
 

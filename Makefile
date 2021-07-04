@@ -25,6 +25,9 @@ help:  ## Display this help
 routes:
 	$(docker_compose_bin) --file "$(docker_compose_yml)" exec "$(php_container_name)" /bin/bash -c "php artisan route:list"
 
+seed:
+	$(docker_compose_bin) --file "$(docker_compose_yml)" exec "$(php_container_name)" /bin/bash -c "php artisan migrate:fresh --force --seed"
+
 init:
 	$(docker_compose_bin) --file "$(docker_compose_yml)" exec -e XDEBUG_MODE=off "$(php_container_name)" composer install
 	$(docker_compose_bin) --file "$(docker_compose_yml)" exec "$(php_container_name)" php artisan migrate:fresh --force --seed

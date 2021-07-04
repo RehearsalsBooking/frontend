@@ -18,7 +18,7 @@
     />
     <template v-slot:append v-if="$auth.check()">
       <div class="pa-2">
-        <v-btn block color="primary" :to="'logout'"> Выйти </v-btn>
+        <v-btn block color="primary" :to="'logout'"> Выйти</v-btn>
       </div>
     </template>
   </v-navigation-drawer>
@@ -80,6 +80,14 @@ export default {
               text: "Расписание",
               route: {
                 name: "organization/timetable",
+                params: { id: organization.id },
+              },
+            },
+            {
+              icon: "mdi-currency-rub",
+              text: "Цены",
+              route: {
+                name: "organization/prices",
                 params: { id: organization.id },
               },
             },
