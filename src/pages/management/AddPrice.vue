@@ -195,9 +195,10 @@ export default {
         })
         .then(() => {
           this.$snackbar("Цена успешно добавлена", "success");
+          this.$emit("prices-updated");
         })
         .catch((err) => {
-          this.$snackbar(err.data, "error");
+          this.$snackbar(err.response.data.message, "error");
         });
     },
   },

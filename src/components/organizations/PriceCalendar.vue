@@ -20,10 +20,8 @@ import generateGradient from "@/utils/gradient_generator";
 
 export default {
   name: "PriceCalendar",
-  computed: {
-    intervalCount() {
-      return 24 - this.firstInterval;
-    },
+  props: {
+    prices: Array,
   },
   data() {
     return {
@@ -31,6 +29,18 @@ export default {
       firstInterval: 0,
       priceColors: {},
     };
+  },
+  computed: {
+    intervalCount() {
+      return 24 - this.firstInterval;
+    },
+  },
+  watch: {
+    prices() {
+      this.generatePriceColors();
+      this.setCalendarIntervalBoundaries();
+      this.transformPricesToEvents();
+    },
   },
   mounted() {
     this.generatePriceColors();
@@ -56,6 +66,7 @@ export default {
       this.firstInterval = +/(\d{2}):(\d{2}):(\d{2})/.exec(minimumTime)[1];
     },
     transformPricesToEvents() {
+      this.priceEvents = [];
       let startDate = new Date(this.$refs.calendar.lastStart.date);
       this.prices.forEach((price) => {
         let date = new Date(startDate.toString());
@@ -74,9 +85,6 @@ export default {
       let day = `${date.getDate()}`.padStart(2, "0");
       return `${year}-${month}-${day} ${time}`;
     },
-  },
-  props: {
-    prices: Array,
   },
 };
 </script>

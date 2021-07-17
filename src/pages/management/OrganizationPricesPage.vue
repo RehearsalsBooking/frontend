@@ -9,7 +9,10 @@
     </v-row>
     <v-row class="justify-space-around">
       <v-col cols="7">
-        <AddPrice :organizationId="id" />
+        <AddPrice
+          :organizationId="id"
+          @prices-updated="getOrganizationPrices"
+        />
       </v-col>
     </v-row>
     <v-row class="justify-space-around">
