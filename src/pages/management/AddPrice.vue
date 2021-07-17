@@ -29,6 +29,7 @@
 </template>
 <script>
 import TimeIntervalInput from "@/pages/management/TimeIntervalInput";
+import { EventBus } from "@/event-bus";
 
 export default {
   name: "AddPrice",
@@ -88,7 +89,7 @@ export default {
         })
         .then(() => {
           this.$snackbar("Цена успешно добавлена", "success");
-          this.$emit("prices-updated");
+          EventBus.$emit("prices-changed");
         })
         .catch((err) => {
           this.$snackbar(err.response.data.message, "error");

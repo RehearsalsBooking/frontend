@@ -1,33 +1,60 @@
 <template>
-  <v-calendar
-    ref="calendar"
-    type="week"
-    class="prices"
-    :short-intervals="false"
-    :short-weekdays="false"
-    :first-interval="firstInterval"
-    :interval-count="intervalCount"
-    :interval-height="30"
-    :weekdays="[1, 2, 3, 4, 5, 6, 0]"
-    :events="priceEvents"
-    :event-color="getEventColor"
-    locale="ru-RU"
-    @change="transformPricesToEvents"
-  />
+  <div>
+    <v-calendar
+      ref="calendar"
+      type="week"
+      class="prices"
+      :short-intervals="false"
+      :short-weekdays="false"
+      :first-interval="firstInterval"
+      :interval-count="intervalCount"
+      :interval-height="30"
+      :weekdays="[1, 2, 3, 4, 5, 6, 0]"
+      :events="priceEvents"
+      :event-color="getEventColor"
+      locale="ru-RU"
+      @change="transformPricesToEvents"
+      @click:event="editPrice"
+    />
+    <v-menu
+      v-model="selectedOpen"
+      :close-on-content-click="false"
+      :activator="selectedElement"
+      offset-x
+      rounded="xl"
+    >
+      <PriceEditCard
+        :price="selectedPrice"
+        :organization-id="organizationId"
+        outlined
+      />
+    </v-menu>
+  </div>
 </template>
 <script>
 import generateGradient from "@/utils/gradient_generator";
+import PriceEditCard from "@/components/organizations/PriceEditCard";
+import { EventBus } from "@/event-bus";
 
 export default {
   name: "PriceCalendar",
+  components: { PriceEditCard },
   props: {
     prices: Array,
+    forManager: {
+      type: Boolean,
+      default: false,
+    },
+    organizationId: [Number, String],
   },
   data() {
     return {
       priceEvents: [],
       firstInterval: 0,
       priceColors: {},
+      selectedPrice: {},
+      selectedElement: null,
+      selectedOpen: false,
     };
   },
   computed: {
@@ -45,10 +72,17 @@ export default {
   mounted() {
     this.generatePriceColors();
     this.setCalendarIntervalBoundaries();
+    EventBus.$on("prices-changed", () => {
+      this.selectedPrice = {};
+      this.selectedOpen = false;
+      this.selectedElement = null;
+    });
   },
   methods: {
     generatePriceColors() {
-      let orderedPrices = this.prices.map((price) => price.price).sort();
+      let orderedPrices = this.prices
+        .map((price) => price.price)
+        .sort((a, b) => a - b);
       let prices = [...new Set(orderedPrices)]; //remove duplicates
       let colors = generateGradient("#16c630", "#e04205", prices.length);
       colors.forEach((color, index) => {
@@ -76,6 +110,7 @@ export default {
           end: this.addDateToTime(date, price.ends_at),
           name: price.price.slice(0, -3) + " руб/ч",
           price: price.price,
+          id: price.id,
         });
       });
     },
@@ -84,6 +119,27 @@ export default {
       let month = `${date.getMonth() + 1}`.padStart(2, "0");
       let day = `${date.getDate()}`.padStart(2, "0");
       return `${year}-${month}-${day} ${time}`;
+    },
+    editPrice({ nativeEvent, event }) {
+      if (!this.forManager) {
+        return;
+      }
+      const open = async () => {
+        this.selectedPrice = event;
+        this.selectedElement = nativeEvent.target;
+        requestAnimationFrame(() =>
+          requestAnimationFrame(() => (this.selectedOpen = true))
+        );
+      };
+
+      if (this.selectedOpen) {
+        this.selectedOpen = false;
+        requestAnimationFrame(() => requestAnimationFrame(() => open()));
+      } else {
+        open();
+      }
+
+      nativeEvent.stopPropagation();
     },
   },
 };
