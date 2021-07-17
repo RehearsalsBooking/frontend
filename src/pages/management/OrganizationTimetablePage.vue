@@ -15,6 +15,7 @@
           </RehearsalsDetailed>
         </div>
         <div class="mt-6">
+          <h1>Забронировать репетицию</h1>
           <OrganizationBooking
             :organizationId="id"
             :with-band-selection="false"
