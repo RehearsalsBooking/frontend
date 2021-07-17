@@ -9,34 +9,7 @@
       />
     </v-col>
     <v-col cols="12" md="4">
-      <vue-timepicker
-        class="mb-2"
-        minute-interval="30"
-        v-model="fromTime"
-        @change="fromTimeChanged"
-        close-on-complete
-        auto-scroll
-        placeholder="Начало"
-      />
-      <vue-timepicker
-        minute-interval="30"
-        placeholder="Конец"
-        v-model="toTime"
-        @change="timestampChanged"
-        close-on-complete
-        auto-scroll
-        hide-disabled-hours
-        :disabled="isFromTimeEmpty || tillTheEndOfDay"
-        :hour-range="availableToHours"
-      />
-      <v-checkbox
-        label="До конца дня"
-        v-model="tillTheEndOfDay"
-        dense
-        hide-details
-        :disabled="isFromTimeEmpty"
-        class="mt-1"
-      />
+      <TimeIntervalInput v-model="time" />
     </v-col>
     <v-col cols="12" md="1">
       <v-btn v-if="!isPeriodEmpty" icon @click="reset">
@@ -47,11 +20,11 @@
 </template>
 <script>
 import FormattedDatePicker from "./FormattedDatePicker";
-import VueTimepicker from "vue2-timepicker/src/vue-timepicker.vue";
+import TimeIntervalInput from "@/pages/management/TimeIntervalInput";
 
 export default {
   name: "RehearsalTimeInput",
-  components: { FormattedDatePicker, VueTimepicker },
+  components: { TimeIntervalInput, FormattedDatePicker },
   props: {
     period: {
       required: true,
@@ -60,38 +33,22 @@ export default {
   data() {
     return {
       date: this.parseDate(this.period.from),
-      fromTime: {
-        HH: null,
-        mm: null,
+      time: {
+        from: "",
+        to: "",
       },
-      toTime: {
-        HH: null,
-        mm: null,
-      },
-      availableToHours: [],
-      tillTheEndOfDay: false,
     };
   },
   mounted() {
-    this.fromTime = this.parseTime(this.period.from);
-    this.toTime = this.parseTime(this.period.to);
-    if (this.toTimeIsBeforeFromTime()) {
-      this.toTime = {
-        HH: null,
-        mm: null,
-      };
-      this.reset();
-    }
-    if (this.toTime.HH === "23" && this.toTime.mm === "59") {
-      this.tillTheEndOfDay = true;
-    }
+    this.time.from = this.parseTime(this.period.from);
+    this.time.to = this.parseTime(this.period.to);
   },
   computed: {
     from() {
-      return this.compileTimestamp(this.date, this.fromTime);
+      return this.compileTimestamp(this.date, this.time.from);
     },
     to() {
-      return this.compileTimestamp(this.date, this.toTime);
+      return this.compileTimestamp(this.date, this.time.to);
     },
     today() {
       let date = new Date();
@@ -99,9 +56,6 @@ export default {
       let month = `${date.getMonth() + 1}`.padStart(2, "0");
       let day = `${date.getDate()}`.padStart(2, "0");
       return `${year}-${month}-${day}`;
-    },
-    isFromTimeEmpty() {
-      return this.isTimeObjectEmpty(this.fromTime);
     },
     isPeriodEmpty() {
       return (
@@ -116,82 +70,20 @@ export default {
     period(value) {
       if (value) {
         this.date = this.parseDate(value.from);
-        this.fromTime = this.parseTime(value.from);
-        this.toTime = this.parseTime(value.to);
+        this.time.from = this.parseTime(value.from);
+        this.time.to = this.parseTime(value.to);
       }
     },
-    tillTheEndOfDay(value) {
-      if (value) {
-        this.toTime = {
-          HH: "23",
-          mm: "59",
-        };
-      } else {
-        this.toTime = {
-          HH: null,
-          mm: null,
-        };
-        this.availableToHours = this.generateAvailableHours(
-          this.getMinimumHourForToTime()
-        );
-      }
+    time() {
+      this.timestampChanged();
     },
   },
   methods: {
-    generateAvailableHours(min) {
-      let availableHours = [];
-
-      for (let i = min; i < 24; i++) {
-        availableHours.push(i);
-      }
-
-      return availableHours;
-    },
-    getMinimumHourForToTime() {
-      let fromH = parseInt(this.fromTime.HH);
-
-      if (this.fromTime.mm === "00") {
-        return fromH;
-      }
-
-      return fromH + 1;
-    },
     compileTimestamp(date, time) {
-      if (date && !this.isTimeObjectEmpty(time)) {
-        return `${date} ${this.timeToString(time)}`;
+      if (date && time) {
+        return `${date} ${time}`;
       }
       return null;
-    },
-    fromTimeChanged() {
-      if (this.tillTheEndOfDay) {
-        return this.timestampChanged();
-      }
-
-      if (this.toTimeIsBeforeFromTime()) {
-        this.toTime = {
-          HH: null,
-          mm: null,
-        };
-      }
-
-      if (this.isTimeObjectEmpty(this.fromTime)) {
-        this.availableToHours = [];
-      } else {
-        this.availableToHours = this.generateAvailableHours(
-          this.getMinimumHourForToTime()
-        );
-      }
-
-      this.timestampChanged();
-    },
-    toTimeIsBeforeFromTime() {
-      if (this.toTime.HH < this.fromTime.HH) {
-        return true;
-      }
-      if (this.toTime.HH === this.fromTime.HH) {
-        return this.toTime.mm < this.fromTime.mm;
-      }
-      return false;
     },
     timestampChanged() {
       if (this.from && this.to) {
@@ -199,33 +91,20 @@ export default {
         this.$emit("change");
       }
     },
-    isTimeObjectEmpty(time) {
-      return !(parseInt(time.HH) >= 0 && parseInt(time.mm) >= 0);
-    },
-    timeToString(time) {
-      return `${time.HH}:${time.mm}`;
-    },
-    reset() {
-      this.tillTheEndOfDay = false;
-      this.$emit("update:period", { from: null, to: null });
-      this.$emit("change");
-    },
     parseDate(timestamp) {
       return timestamp ? timestamp.split(" ")[0] : null;
     },
     parseTime(timestamp) {
       if (timestamp === null) {
-        return {
-          HH: null,
-          mm: null,
-        };
+        return "";
       }
-
-      let time = timestamp.split(" ")[1];
-
-      return {
-        HH: time.split(":")[0],
-        mm: time.split(":")[1],
+      return timestamp.split(" ")[1];
+    },
+    reset() {
+      this.date = this.parseDate(this.period.from);
+      this.time = {
+        from: "",
+        to: "",
       };
     },
   },

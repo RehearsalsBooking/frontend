@@ -15,32 +15,7 @@
           />
         </v-col>
         <v-col cols="4">
-          <vue-timepicker
-            minute-interval="30"
-            v-model="fromTime"
-            close-on-complete
-            auto-scroll
-            placeholder="Начало"
-          />
-          <vue-timepicker
-            inputClass="skip-error-style"
-            minute-interval="30"
-            placeholder="Конец"
-            v-model="toTime"
-            close-on-complete
-            auto-scroll
-            hide-disabled-hours
-            :disabled="isFromTimeEmpty || tillTheEndOfDay"
-            :hour-range="availableToHours"
-          />
-          <v-checkbox
-            label="До конца дня"
-            v-model="tillTheEndOfDay"
-            dense
-            hide-details
-            :disabled="isFromTimeEmpty"
-            class="mt-1"
-          />
+          <TimeIntervalInput v-model="time" />
         </v-col>
         <v-col cols="4">
           <v-text-field type="number" label="Цена за час" v-model="price" />
@@ -53,28 +28,22 @@
   </v-card>
 </template>
 <script>
-import VueTimepicker from "vue2-timepicker/src/vue-timepicker.vue";
+import TimeIntervalInput from "@/pages/management/TimeIntervalInput";
 
 export default {
   name: "AddPrice",
-  components: { VueTimepicker },
+  components: { TimeIntervalInput },
   props: {
     organizationId: [Number, String],
   },
   data() {
     return {
-      fromTime: {
-        HH: null,
-        mm: null,
-      },
-      toTime: {
-        HH: null,
-        mm: null,
+      time: {
+        from: "",
+        to: "",
       },
       price: null,
       dayOfWeek: null,
-      availableToHours: [],
-      tillTheEndOfDay: false,
       daysOfWeek: [
         {
           id: 0,
@@ -107,91 +76,15 @@ export default {
       ],
     };
   },
-  computed: {
-    isFromTimeEmpty() {
-      return this.isTimeObjectEmpty(this.fromTime);
-    },
-    toTimeIsBeforeFromTime() {
-      if (this.toTime.HH < this.fromTime.HH) {
-        return true;
-      }
-      if (this.toTime.HH === this.fromTime.HH) {
-        return this.toTime.mm < this.fromTime.mm;
-      }
-      return false;
-    },
-  },
-  mounted() {
-    if (this.toTimeIsBeforeFromTime) {
-      this.toTime = {
-        HH: null,
-        mm: null,
-      };
-      this.reset();
-    }
-    if (this.toTime.HH === "23" && this.toTime.mm === "59") {
-      this.tillTheEndOfDay = true;
-    }
-  },
-  watch: {
-    tillTheEndOfDay(value) {
-      if (value) {
-        this.toTime = {
-          HH: "23",
-          mm: "59",
-        };
-      } else {
-        this.toTime = {
-          HH: null,
-          mm: null,
-        };
-        this.availableToHours = this.generateAvailableHours(
-          this.getMinimumHourForToTime()
-        );
-      }
-    },
-    fromTime: {
-      deep: true,
-      handler: function () {
-        this.availableToHours = this.generateAvailableHours(
-          this.getMinimumHourForToTime()
-        );
-      },
-    },
-  },
+
   methods: {
-    generateAvailableHours(min) {
-      let availableHours = [];
-
-      for (let i = min; i < 24; i++) {
-        availableHours.push(i);
-      }
-
-      return availableHours;
-    },
-    getMinimumHourForToTime() {
-      let fromH = parseInt(this.fromTime.HH);
-
-      if (this.fromTime.mm === "00") {
-        return fromH;
-      }
-
-      return fromH + 1;
-    },
-    isTimeObjectEmpty(time) {
-      return !(parseInt(time.HH) >= 0 && parseInt(time.mm) >= 0);
-    },
-    timeToString(time) {
-      return `${time.HH}:${time.mm}`;
-    },
-
     addPrice() {
       this.$http
         .post(`management/organizations/${this.organizationId}/prices`, {
           day: this.dayOfWeek,
           price: this.price,
-          starts_at: this.timeToString(this.fromTime),
-          ends_at: this.timeToString(this.toTime),
+          starts_at: this.time.from,
+          ends_at: this.time.to,
         })
         .then(() => {
           this.$snackbar("Цена успешно добавлена", "success");
