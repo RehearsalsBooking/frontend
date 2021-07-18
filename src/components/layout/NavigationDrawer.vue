@@ -91,6 +91,14 @@ export default {
                 params: { id: organization.id },
               },
             },
+            {
+              icon: "mdi-chart-line",
+              text: "Статистика",
+              route: {
+                name: "organization/statistics",
+                params: { id: organization.id },
+              },
+            },
           ],
         });
       });

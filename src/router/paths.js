@@ -260,6 +260,20 @@ export default [
             `../pages/management/OrganizationPricesPage.vue`
           ),
       },
+      {
+        path: ":id/statistics",
+        auth: true,
+        props: true,
+        meta: {
+          title: "Статистика",
+        },
+        name: "organization/statistics",
+        component: () =>
+          import(
+            /* webpackChunkName: "routes" */
+            `../pages/management/OrganizationStatisticsPage.vue`
+          ),
+      },
     ],
   },
 
