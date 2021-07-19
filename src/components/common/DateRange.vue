@@ -13,6 +13,13 @@
         </template>
         <template v-else>{{ item.name }}</template>
       </template>
+      <template v-slot:append-item v-if="selectedRange === 'custom'">
+        <v-list-item @click="dateRangeDialog = true">
+          <v-list-item-content>
+            <v-list-item-title> Выбрать другой период </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </template>
     </v-select>
     <v-dialog ref="dialog" v-model="dateRangeDialog" persistent width="290px">
       <v-date-picker

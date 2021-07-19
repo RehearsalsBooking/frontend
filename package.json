@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@websanova/vue-auth": "^3.3.8",
+    "apexcharts": "^3.27.2",
     "axios": "^0.21.1",
     "core-js": "^3.9.1",
     "is-svg": ">=4.2.2",
@@ -16,6 +17,7 @@
     "ssri": ">=8.0.1",
     "tiptap-vuetify": "^2.24.0",
     "vue": "^2.6.12",
+    "vue-apexcharts": "^1.6.1",
     "vue-axios": "^2.1.5",
     "vue-router": "^3.5.1",
     "vue-sync": "^3.2.0",

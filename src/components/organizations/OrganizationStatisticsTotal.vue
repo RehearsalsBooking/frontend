@@ -73,7 +73,6 @@ export default {
       return "-";
     },
   },
-  mounted() {},
   watch: {
     dateRange() {
       this.getTotalStatistics();

@@ -11,6 +11,7 @@ import VSnackbarNotification from "./plugins/snackbar_notification";
 import AuthorizableAction from "./plugins/authorizable_action/authorizable_action";
 import "@/filters";
 import { TiptapVuetifyPlugin } from "tiptap-vuetify";
+import VueApexCharts from "vue-apexcharts";
 import "tiptap-vuetify/dist/main.css";
 
 Vue.config.productionTip = false;
@@ -31,6 +32,9 @@ Vue.use(TiptapVuetifyPlugin, {
   vuetify,
   iconsGroup: "mdi",
 });
+
+Vue.use(VueApexCharts);
+Vue.component("apexchart", VueApexCharts);
 
 new Vue({
   router,
