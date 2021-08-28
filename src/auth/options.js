@@ -11,7 +11,7 @@ export default {
   http: authHttp,
   router: authRouter,
   loginData: {
-    url: "/login",
+    url: "/login/social",
     fetchUser: false,
   },
   logoutData: {

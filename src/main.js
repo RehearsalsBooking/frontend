@@ -13,6 +13,8 @@ import "@/filters";
 import { TiptapVuetifyPlugin } from "tiptap-vuetify";
 import VueApexCharts from "vue-apexcharts";
 import "tiptap-vuetify/dist/main.css";
+import HelloJs from "hellojs";
+import VueHello from "vue-hellojs";
 
 Vue.config.productionTip = false;
 
@@ -32,6 +34,17 @@ Vue.use(TiptapVuetifyPlugin, {
   vuetify,
   iconsGroup: "mdi",
 });
+
+HelloJs.init(
+  {
+    google:
+      "658456783577-fjialvns80jrvjg1rbiq0ibavjrq81gv.apps.googleusercontent.com",
+  },
+  {
+    redirect_uri: "https://tolocalhost.com/",
+  }
+);
+Vue.use(VueHello, HelloJs);
 
 Vue.use(VueApexCharts);
 Vue.component("apexchart", VueApexCharts);

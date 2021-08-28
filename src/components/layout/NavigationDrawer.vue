@@ -18,17 +18,18 @@
     />
     <template v-slot:append v-if="$auth.check()">
       <div class="pa-2">
-        <v-btn block color="primary" :to="'logout'"> Выйти</v-btn>
+        <LogoutButton />
       </div>
     </template>
   </v-navigation-drawer>
 </template>
 <script>
 import NavigationDrawerSection from "@/components/layout/NavigationDrawerSection";
+import LogoutButton from "@/components/auth/LogoutButton";
 
 export default {
   name: "NavigationDrawer",
-  components: { NavigationDrawerSection },
+  components: { LogoutButton, NavigationDrawerSection },
   props: { drawer: Boolean },
   data: () => ({
     general: [
@@ -58,6 +59,9 @@ export default {
     management: [],
   }),
   mounted() {
+    if (!this.$auth.check()) {
+      return;
+    }
     this.$http.get("management/organizations").then((res) => {
       res.data.data.forEach((organization) => {
         // noinspection JSUnfilteredForInLoop

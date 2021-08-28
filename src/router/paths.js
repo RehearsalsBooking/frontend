@@ -1,18 +1,5 @@
 export default [
   {
-    path: "/logout",
-    meta: {
-      auth: true,
-    },
-    name: "logout",
-    component: () =>
-      import(
-        /* webpackChunkName: "routes" */
-        `../components/auth/Logout`
-      ),
-  },
-
-  {
     path: "/profile",
     exact: true,
     meta: {
