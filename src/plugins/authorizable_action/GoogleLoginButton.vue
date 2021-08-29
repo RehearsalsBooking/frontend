@@ -7,7 +7,7 @@
         alt="google"
       />
     </div>
-    <p class="btn-text"><b>Войти через Google</b></p>
+    <p class="btn-text"><strong>Войти через Google</strong></p>
   </div>
 </template>
 
@@ -54,7 +54,7 @@ $button-active-blue: #1669f2;
     color: $white;
     font-size: 14px;
     letter-spacing: 0.2px;
-    font-family: "Roboto";
+    font-family: "Roboto", serif;
   }
 
   &:hover {

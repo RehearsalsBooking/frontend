@@ -39,6 +39,7 @@ HelloJs.init(
   {
     google:
       "658456783577-fjialvns80jrvjg1rbiq0ibavjrq81gv.apps.googleusercontent.com",
+    vk: "7938122",
   },
   {
     redirect_uri: "https://tolocalhost.com/",
