@@ -15,8 +15,13 @@
         </v-row>
       </v-card-text>
       <v-card-actions>
-        <v-btn class="mx-auto mb-3" width="50%" rounded color="primary"
-          >Войти
+        <v-btn
+          class="mx-auto mb-3"
+          width="100%"
+          rounded
+          color="primary"
+          @click="authTest"
+          >Войти под тестовым пользователем
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -47,18 +52,8 @@ export default {
           data: this.getDataForProvider(data, provider),
           redirect: null,
         })
-        .then((res) => {
-          this.$auth.user(res.data.user);
-
-          this.$snackbar(`Добро пожаловать, ${res.data.user.name}`);
-          this.showDialog = false;
-          window.getApp.$emit("successfulLogin");
-        })
-        .catch((res) => {
-          if (res.response.status === 401) {
-            this.$snackbar(res.response.data, "error");
-          }
-        });
+        .then(this.onSuccessLogin)
+        .catch(this.onFailedLogin);
     },
     getDataForProvider(data, provider) {
       if (provider === "vk") {
@@ -73,6 +68,27 @@ export default {
           token: data.access_token,
           provider: "google",
         };
+      }
+    },
+    authTest() {
+      this.$auth
+        .login({
+          url: "/login/test",
+          redirect: null,
+        })
+        .then(this.onSuccessLogin)
+        .catch(this.onFailedLogin);
+    },
+    onSuccessLogin(res) {
+      this.$auth.user(res.data.user);
+
+      this.$snackbar(`Добро пожаловать, ${res.data.user.name}`);
+      this.showDialog = false;
+      window.getApp.$emit("successfulLogin");
+    },
+    onFailedLogin(res) {
+      if (res.response.status === 401) {
+        this.$snackbar(res.response.data, "error");
       }
     },
   },
