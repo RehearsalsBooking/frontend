@@ -6,33 +6,12 @@
       </v-row>
     </v-container>
     <v-container fluid v-else key="fetched">
-      <BandMembers :band="band">
-        <template #actions="{ member, band }">
-          <v-list-item-action>
-            <BandEditMembersEditRole
-              :band="band"
-              :member="member"
-              @memberRoleEdited="member.role = $event"
-            />
-          </v-list-item-action>
-          <v-list-item-action v-if="member.id !== $auth.user().id">
-            <BandEditMembersDelete
-              :band="band"
-              :member="member"
-              @memberDeleted="
-                members = members.filter((m) => m.id !== $event.id)
-              "
-            />
-          </v-list-item-action>
-        </template>
-      </BandMembers>
+      <BandMembers :band="band" />
     </v-container>
   </v-fade-transition>
 </template>
 
 <script>
-import BandEditMembersDelete from "@/components/bands/BandEditMembersDelete";
-import BandEditMembersEditRole from "@/components/bands/BandEditMembersEditRole";
 import BandMembers from "@/components/bands/BandMembers";
 
 export default {
@@ -40,12 +19,9 @@ export default {
   props: { id: [String, Number] },
   components: {
     BandMembers,
-    BandEditMembersDelete,
-    BandEditMembersEditRole,
   },
   data() {
     return {
-      members: [],
       band: {},
       isFetching: true,
     };

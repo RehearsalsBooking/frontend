@@ -10,42 +10,24 @@
     </v-list>
 
     <v-list v-else three-line max-width="600">
-      <template v-for="member in members">
-        <v-list-item
-          :key="member.title"
-          :to="{ name: 'user', params: { id: member.id } }"
-        >
-          <v-list-item-avatar>
-            <v-img :src="member.avatar"></v-img>
-          </v-list-item-avatar>
-
-          <v-list-item-content>
-            <v-list-item-title>{{ member.name }}</v-list-item-title>
-            <v-list-item-subtitle>{{ member.role }}</v-list-item-subtitle>
-            <v-list-item-subtitle>
-              Присоединился {{ member.joined_at | formatDate }}
-            </v-list-item-subtitle>
-          </v-list-item-content>
-          <slot name="actions" v-bind:member="member" v-bind:band="band"></slot>
-          <v-list-item-action v-if="userCanLeaveBand(member)">
-            <BandMembersLeave
-              :member="member"
-              :band="band"
-              @memberDeleted="removeMember"
-            />
-          </v-list-item-action>
-        </v-list-item>
-      </template>
+      <MemberListItem
+        v-for="member in members"
+        :key="member.id"
+        :band="band"
+        :member="member"
+        @removed="removeMember"
+        @memberRoleEdited="member.roles = $event"
+      />
     </v-list>
   </v-fade-transition>
 </template>
 
 <script>
-import BandMembersLeave from "@/components/bands/BandMembersLeave";
+import MemberListItem from "@/components/bands/MemberListItem";
 
 export default {
   name: "BandMembers",
-  components: { BandMembersLeave },
+  components: { MemberListItem },
   props: {
     band: {
       type: Object,
@@ -69,11 +51,8 @@ export default {
         .then((res) => (this.members = res.data.data))
         .finally(() => (this.isFetching = false));
     },
-    userCanLeaveBand(member) {
-      return member.id === this.$auth.user().id && !this.band.is_admin;
-    },
-    removeMember(member) {
-      this.members = this.members.filter((item) => item.id !== member.id);
+    removeMember(memberId) {
+      this.members = this.members.filter((item) => item.id !== memberId);
     },
   },
 };
