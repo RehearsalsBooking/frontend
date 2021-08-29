@@ -38,8 +38,8 @@ export default {
     if (!this.$auth.check()) {
       return;
     }
-    this.$http.get(`bands/?member_id=${this.$auth.user().id}`).then((res) => {
-      this.userBands = res.data.data.filter((band) => band.is_admin);
+    this.$http.get(`bands/?only_managed=1`).then((res) => {
+      this.userBands = res.data.data;
     });
   },
   watch: {
