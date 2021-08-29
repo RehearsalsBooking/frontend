@@ -32,7 +32,7 @@ export default {
     getBands() {
       this.isFetching = true;
       this.$http
-        .get(`/bands`, { params: { member_id: this.userId } })
+        .get(`/bands`, { params: { active_member_id: this.userId } })
         .then((res) => {
           this.bands = res.data.data;
         })

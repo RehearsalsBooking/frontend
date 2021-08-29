@@ -29,7 +29,7 @@ export default {
       this.$http
         .get("/bands", {
           params: {
-            member_id: this.$auth.user().id,
+            active_member_id: this.$auth.user().id,
           },
         })
         .then((res) => {
