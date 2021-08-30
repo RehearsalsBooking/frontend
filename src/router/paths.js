@@ -113,15 +113,15 @@ export default [
       ),
     children: [
       {
-        path: "/",
-        name: "bands",
+        path: "create",
+        name: "band-create",
         meta: {
           title: "Группы",
         },
         component: () =>
           import(
             /* webpackChunkName: "routes" */
-            `../components/organizations/Organizations.vue`
+            `../pages/BandCreatePage`
           ),
       },
       {
@@ -152,7 +152,7 @@ export default [
           ),
         children: [
           {
-            path: "",
+            path: "main-info",
             meta: {
               auth: true,
             },

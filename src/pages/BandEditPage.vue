@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <v-tabs v-model="activeTab" background-color="transparent" color="basil">
+    <v-tabs background-color="transparent" color="basil">
       <v-tab v-for="tab in tabs" :key="tab.name" :to="tab.route">
         {{ tab.name }}
       </v-tab>
@@ -17,7 +17,6 @@ export default {
   },
   data() {
     return {
-      activeTab: `bands/${this.id}/edit`,
       tabs: [
         { name: "Общая информация", route: { name: "band-edit-main-info" } },
         { name: "Состав", route: { name: "band-edit-members" } },

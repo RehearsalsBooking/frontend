@@ -1,6 +1,12 @@
 <template>
   <v-layout align-center justify-center>
     <v-row align="start">
+      <v-col cols="10" align-self="center"><h1>Мои группы</h1></v-col>
+      <v-col cols="2" align-self="center">
+        <v-btn color="primary" rounded :to="{ name: 'band-create' }">
+          Создать группу
+        </v-btn>
+      </v-col>
       <BandsList :bands="bands" :is-fetching="isFetching">
         <template #no-bands> Вы пока не состоите ни в одной группе </template>
       </BandsList>

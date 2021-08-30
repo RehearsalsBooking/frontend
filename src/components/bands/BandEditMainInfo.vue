@@ -6,53 +6,32 @@
       </v-row>
     </v-container>
     <v-container fluid v-else key="fetched">
-      <v-form ref="form" class="mt-3" v-model="valid" lazy-validation>
-        <v-row>
-          <div class="col-6">
-            <v-text-field
-              v-model="band.name"
-              label="Название"
-              :rules="[(v) => !!v || 'Введите название группы']"
-            />
-          </div>
-          <div class="col-6">
-            <v-autocomplete
-              chips
-              deletable-chips
-              multiple
-              label="Жанры"
-              :items="genres"
-              item-text="name"
-              item-value="id"
-              v-model="band.genres"
-            />
-          </div>
-          <div class="col-12">
-            <v-textarea v-model="band.bio" label="Биография"></v-textarea>
-          </div>
-        </v-row>
-        <v-btn color="success" :disabled="!valid" rounded @click="update">
-          Сохранить
-        </v-btn>
-      </v-form>
+      <BandEditMainInfoForm
+        :band="band"
+        @save="update"
+        :is-loading="isLoading"
+      />
     </v-container>
   </v-fade-transition>
 </template>
 
 <script>
+import BandEditMainInfoForm from "@/components/bands/BandEditMainInfoForm";
+
 export default {
   name: "BandEditMainInfo",
+  components: { BandEditMainInfoForm },
   props: { id: [String, Number] },
   data() {
     return {
       isFetching: true,
+      isLoading: false,
       genres: [],
       valid: true,
       band: {},
     };
   },
   mounted() {
-    this.getAvailableGenres();
     this.getBand();
   },
   methods: {
@@ -67,30 +46,19 @@ export default {
         })
         .finally(() => (this.isFetching = false));
     },
-    update() {
-      if (this.$refs.form.validate()) {
-        let data = {
-          name: this.band.name,
-          bio: this.band.bio,
-          genres: this.band.genres,
-        };
-        this.$http
-          .put(`bands/${this.band.id}`, data)
-          .then(() => {
-            this.$snackbar("Информация о группе обновлена");
-            this.errors = {};
-            Object.assign(this.band, data);
-          })
-          .catch((error) => {
-            if (error.response.status === 422) {
-              this.errors = error.response.data.errors;
-            }
-            this.$snackbar("Не удалось обновить информацию о группе", "error");
-          });
-      }
-    },
-    getAvailableGenres() {
-      this.$http.get("genres").then(({ data }) => (this.genres = data.data));
+    update(data) {
+      this.isLoading = true;
+      this.$http
+        .put(`bands/${this.band.id}`, data)
+        .then(() => {
+          this.$snackbar("Информация о группе обновлена");
+        })
+        .catch(() => {
+          this.$snackbar("Не удалось обновить информацию о группе", "error");
+        })
+        .finally(() => {
+          this.isLoading = false;
+        });
     },
   },
 };
