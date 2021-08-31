@@ -265,9 +265,20 @@ export default [
   },
 
   {
-    path: "*",
+    path: "/",
     redirect: {
       path: "/organizations",
     },
+  },
+
+  {
+    path: "*",
+    name: "not-found",
+    exact: true,
+    component: () =>
+      import(
+        /* webpackChunkName: "routes" */
+        `../pages/NotFound.vue`
+      ),
   },
 ];
