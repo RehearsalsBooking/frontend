@@ -26,7 +26,9 @@
               >
                 <v-list-item-content>
                   <v-list-item-title>{{ invite.email }}</v-list-item-title>
-                  <v-list-item-subtitle>{{ invite.role }}</v-list-item-subtitle>
+                  <v-list-item-subtitle>
+                    {{ invite.roles.join(", ") }}
+                  </v-list-item-subtitle>
                   <v-list-item-subtitle>
                     Приглашение отправлено
                     {{ invite.invited_at | formatDate }}

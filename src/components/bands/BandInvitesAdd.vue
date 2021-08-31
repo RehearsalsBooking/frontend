@@ -11,7 +11,7 @@
           />
         </v-col>
         <v-col cols="4">
-          <v-text-field label="Роль" v-model="invite.role" />
+          <MemberRoles v-model="invite.roles" />
         </v-col>
         <v-col cols="4" class="align-self-center">
           <v-btn color="primary" block rounded @click="sendInvite">
@@ -24,8 +24,10 @@
 </template>
 
 <script>
+import MemberRoles from "@/components/bands/MemberRoles";
 export default {
   name: "BandInvitesAdd",
+  components: { MemberRoles },
   props: {
     bandId: {
       type: [String, Number],
@@ -36,12 +38,13 @@ export default {
     return {
       invite: {
         email: null,
-        role: null,
+        roles: [],
       },
       rules: {
         required: (value) => !!value || "Обязательное поле",
         email: (value) => {
-          const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+          const pattern =
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
           return pattern.test(value) || "Некорректная почта";
         },
       },
@@ -57,7 +60,7 @@ export default {
       this.$http.post(`/bands/${this.bandId}/invites`, this.invite).then(() => {
         this.invite = {
           email: null,
-          role: null,
+          roles: [],
         };
         this.$refs.form.reset();
         this.$snackbar("Приглашение отправлено");

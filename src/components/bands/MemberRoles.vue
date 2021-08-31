@@ -1,5 +1,12 @@
 <template>
   <div>
+    <v-text-field label="Роль" v-model="newRole" @keyup.enter="addRole">
+      <template v-slot:append>
+        <v-btn icon @click="addRole">
+          <v-icon color="success">mdi-playlist-plus</v-icon>
+        </v-btn>
+      </template>
+    </v-text-field>
     Выбранные роли:
     <v-chip-group
       active-class="primary--text"
@@ -24,11 +31,22 @@ export default {
   props: {
     value: Array,
   },
+  data() {
+    return {
+      newRole: "",
+    };
+  },
   methods: {
     removeRole(idx) {
       let filtered = this.value;
       filtered.splice(idx, 1);
       this.$emit("input", filtered);
+    },
+    addRole() {
+      let newRoles = this.value || [];
+      newRoles.push(this.newRole);
+      this.$emit("input", newRoles);
+      this.newRole = "";
     },
   },
 };

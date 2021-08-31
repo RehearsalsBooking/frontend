@@ -8,13 +8,6 @@
     <v-card>
       <v-card-title class="headline"> Изменить роль участника</v-card-title>
       <v-card-text>
-        <v-text-field label="Роль" v-model="newRole" @keyup.enter="addRole">
-          <template v-slot:append>
-            <v-btn icon @click="addRole">
-              <v-icon color="success">mdi-playlist-plus</v-icon>
-            </v-btn>
-          </template>
-        </v-text-field>
         <MemberRoles v-model="editedRoles" />
       </v-card-text>
       <v-card-actions>
@@ -56,13 +49,6 @@ export default {
     this.editedRoles = this.roles.slice();
   },
   methods: {
-    addRole() {
-      if (!this.editedRoles) {
-        this.editedRoles = [];
-      }
-      this.editedRoles.push(this.newRole);
-      this.newRole = "";
-    },
     editMember() {
       this.$http
         .patch(`bands/${this.band.id}/members/${this.member.id}`, {
