@@ -14,6 +14,7 @@
     </div>
     <div class="mt-6">
       <h1>Расписание</h1>
+      <RehearsalsFilter v-model="filters" :bands="bands" />
       <RehearsalsTimetable
         show-detailed
         :rehearsals="allRehearsals"
@@ -28,10 +29,11 @@
 import RehearsalsDetailed from "@/components/rehearsals/RehearsalsDetailed";
 import RehearsalsTimetable from "@/components/rehearsals/RehearsalsTimetable";
 import { EventBus } from "@/event-bus";
+import RehearsalsFilter from "@/components/rehearsals/RehearsalsFilter";
 
 export default {
   name: "UserSchedule",
-  components: { RehearsalsTimetable, RehearsalsDetailed },
+  components: { RehearsalsFilter, RehearsalsTimetable, RehearsalsDetailed },
   props: {
     userId: Number,
   },
@@ -40,13 +42,33 @@ export default {
       upcomingRehearsals: [],
       allRehearsals: [],
       isUpcomingRehearsalsFetching: true,
+      filters: {},
+      bands: [],
+      start: null,
+      end: null,
     };
   },
   mounted() {
     this.getUpcomingRehearsals();
+    this.getUserBands();
     EventBus.$on("rehearsals-changed", () => this.getUpcomingRehearsals());
   },
+  watch: {
+    filters: {
+      deep: true,
+      handler: function () {
+        this.getAllRehearsals({});
+      },
+    },
+  },
   methods: {
+    getUserBands() {
+      this.$http
+        .get(`/bands`, { params: { active_member_id: this.$auth.user().id } })
+        .then((res) => {
+          this.bands = res.data.data;
+        });
+    },
     getUpcomingRehearsals() {
       this.isUpcomingRehearsalsFetching = true;
       this.$http
@@ -57,12 +79,19 @@ export default {
         .finally(() => (this.isUpcomingRehearsalsFetching = false));
     },
     getAllRehearsals({ end, start }) {
+      if (start) {
+        this.start = start;
+      }
+      if (end) {
+        this.end = end;
+      }
       this.$http
         .get("/rehearsals", {
           params: Object.assign(
             { user_id: this.userId },
-            start && { from: start.date + " 00:00:00" },
-            end && { to: end.date + " 23:59:59" }
+            this.start && { from: this.start.date + " 00:00:00" },
+            this.end && { to: this.end.date + " 23:59:59" },
+            { ...this.filters }
           ),
         })
         .then((res) => (this.allRehearsals = res.data.data))

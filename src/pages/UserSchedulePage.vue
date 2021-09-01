@@ -1,9 +1,11 @@
 <template>
-  <v-layout align-center justify-center>
-    <v-row align="start">
-      <UserSchedule :user-id="$auth.user().id" />
-    </v-row>
-  </v-layout>
+  <v-container>
+    <v-layout align-center justify-center>
+      <v-row align="start">
+        <UserSchedule :user-id="$auth.user().id" />
+      </v-row>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
