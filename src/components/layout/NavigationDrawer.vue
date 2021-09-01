@@ -11,11 +11,13 @@
       :items="profile"
       v-if="$auth.check()"
     />
-    <NavigationDrawerSection
-      header="Мои репточки"
-      :items="management"
-      v-if="management.length > 0"
-    />
+    <v-fade-transition>
+      <NavigationDrawerSection
+        header="Мои репточки"
+        :items="management"
+        v-if="management.length > 0"
+      />
+    </v-fade-transition>
     <template v-slot:append v-if="$auth.check()">
       <div class="pa-2">
         <LogoutButton />
@@ -59,54 +61,66 @@ export default {
     management: [],
   }),
   mounted() {
-    if (!this.$auth.check()) {
-      return;
-    }
-    this.$http.get("management/organizations").then((res) => {
-      res.data.data.forEach((organization) => {
-        // noinspection JSUnfilteredForInLoop
-        this.management.push({
-          icon: "mdi-chevron-up",
-          "icon-alt": "mdi-chevron-down",
-          text: organization.name,
-          model: false,
-          children: [
-            {
-              icon: "mdi-cog",
-              text: "Редактирование",
-              route: {
-                name: "organization/edit",
-                params: { id: organization.id },
+    this.getOrganizationsMenu();
+    window.getApp.$on("successfulLogin", () => {
+      this.getOrganizationsMenu();
+    });
+    window.getApp.$on("successfulLogout", () => {
+      this.getOrganizationsMenu();
+    });
+  },
+  methods: {
+    getOrganizationsMenu() {
+      if (!this.$auth.check()) {
+        this.management = [];
+        return;
+      }
+      this.$http.get("management/organizations").then((res) => {
+        res.data.data.forEach((organization) => {
+          // noinspection JSUnfilteredForInLoop
+          this.management.push({
+            icon: "mdi-chevron-up",
+            "icon-alt": "mdi-chevron-down",
+            text: organization.name,
+            model: false,
+            children: [
+              {
+                icon: "mdi-cog",
+                text: "Редактирование",
+                route: {
+                  name: "organization/edit",
+                  params: { id: organization.id },
+                },
               },
-            },
-            {
-              icon: "mdi-calendar",
-              text: "Расписание",
-              route: {
-                name: "organization/timetable",
-                params: { id: organization.id },
+              {
+                icon: "mdi-calendar",
+                text: "Расписание",
+                route: {
+                  name: "organization/timetable",
+                  params: { id: organization.id },
+                },
               },
-            },
-            {
-              icon: "mdi-currency-rub",
-              text: "Цены",
-              route: {
-                name: "organization/prices",
-                params: { id: organization.id },
+              {
+                icon: "mdi-currency-rub",
+                text: "Цены",
+                route: {
+                  name: "organization/prices",
+                  params: { id: organization.id },
+                },
               },
-            },
-            {
-              icon: "mdi-chart-line",
-              text: "Статистика",
-              route: {
-                name: "organization/statistics",
-                params: { id: organization.id },
+              {
+                icon: "mdi-chart-line",
+                text: "Статистика",
+                route: {
+                  name: "organization/statistics",
+                  params: { id: organization.id },
+                },
               },
-            },
-          ],
+            ],
+          });
         });
       });
-    });
+    },
   },
 };
 </script>

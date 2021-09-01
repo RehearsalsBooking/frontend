@@ -8,10 +8,11 @@ export default {
     logout() {
       this.$auth
         .logout({
-          redirect: "/organizations",
+          redirect: "/",
         })
         .then(() => {
           this.$snackbar("Вы успешно вышли из системы");
+          window.getApp.$emit("successfulLogout");
         });
     },
   },
