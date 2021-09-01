@@ -23,6 +23,7 @@
         </div>
         <div class="mt-6">
           <h1>Расписание</h1>
+          <RehearsalsFilter v-model="filters" />
           <RehearsalsTimetable
             show-detailed
             :forManager="true"
@@ -40,10 +41,16 @@ import RehearsalsDetailed from "@/components/rehearsals/RehearsalsDetailed";
 import RehearsalsTimetable from "@/components/rehearsals/RehearsalsTimetable";
 import OrganizationBooking from "@/components/organizations/OrganizationBooking";
 import { EventBus } from "@/event-bus";
+import RehearsalsFilter from "@/components/rehearsals/RehearsalsFilter";
 
 export default {
   name: "OrganizationTimetablePage",
-  components: { OrganizationBooking, RehearsalsTimetable, RehearsalsDetailed },
+  components: {
+    RehearsalsFilter,
+    OrganizationBooking,
+    RehearsalsTimetable,
+    RehearsalsDetailed,
+  },
   props: {
     id: [String, Number],
   },
@@ -52,11 +59,22 @@ export default {
       rehearsals: [],
       upcomingRehearsals: [],
       isUpcomingRehearsalsFetching: false,
+      filters: {},
+      start: null,
+      end: null,
     };
   },
   mounted() {
     this.getUpcomingRehearsals();
     EventBus.$on("rehearsals-changed", this.getUpcomingRehearsals);
+  },
+  watch: {
+    filters: {
+      deep: true,
+      handler: function () {
+        this.getOrganizationRehearsals({});
+      },
+    },
   },
   methods: {
     getUpcomingRehearsals() {
@@ -71,12 +89,19 @@ export default {
         .finally(() => (this.isUpcomingRehearsalsFetching = false));
     },
     getOrganizationRehearsals({ end, start }) {
+      if (start) {
+        this.start = start;
+      }
+      if (end) {
+        this.end = end;
+      }
       this.$http
         .get(`/rehearsals`, {
           params: Object.assign(
             { organization_id: this.id },
-            start && { from: start.date + " 00:00:00" },
-            end && { to: end.date + " 23:59:59" }
+            this.start && { from: this.start.date + " 00:00:00" },
+            this.end && { to: this.end.date + " 23:59:59" },
+            { ...this.filters }
           ),
         })
         .then((res) => {

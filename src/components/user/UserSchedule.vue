@@ -14,7 +14,7 @@
     </div>
     <div class="mt-6">
       <h1>Расписание</h1>
-      <RehearsalsFilter v-model="filters" :bands="bands" />
+      <RehearsalsFilter v-model="filters" :bands="bands" with-individual />
       <RehearsalsTimetable
         show-detailed
         :rehearsals="allRehearsals"

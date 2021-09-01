@@ -45,12 +45,10 @@
           </div>
           <div>Стоимость: {{ rehearsal.price }}</div>
           <div v-if="forManager">
-            <v-switch v-model="newIsConfirmed" label="Репетиция оплачена" />
+            <v-switch v-model="newIsPaid" label="Репетиция оплачена" />
           </div>
           <div v-else>
-            <div v-if="rehearsal.is_confirmed" class="success--text">
-              Оплачено
-            </div>
+            <div v-if="rehearsal.is_paid" class="success--text">Оплачено</div>
             <div v-else class="error--text">Не оплачено</div>
           </div>
           <div v-if="!forManager" class="mt-5">
@@ -109,7 +107,7 @@ export default {
   data() {
     return {
       showDialog: false,
-      newIsConfirmed: null,
+      newIsPaid: null,
       newTime: {
         from: null,
         to: null,
@@ -118,12 +116,12 @@ export default {
     };
   },
   mounted() {
-    this.newIsConfirmed = this.rehearsal.is_confirmed;
+    this.newIsPaid = this.rehearsal.is_paid;
   },
   watch: {
     showDialog(val) {
       if (val) {
-        this.newIsConfirmed = this.rehearsal.is_confirmed;
+        this.newIsPaid = this.rehearsal.is_paid;
       }
     },
   },
@@ -147,7 +145,7 @@ export default {
     editRehearsal() {
       this.$http
         .put(this.updateUrl, {
-          is_confirmed: this.newIsConfirmed,
+          is_paid: this.newIsPaid,
           starts_at: this.newTime.from,
           ends_at: this.newTime.to,
         })

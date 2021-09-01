@@ -1,14 +1,13 @@
 <template>
   <v-row>
-    <v-col cols="2">
+    <v-col cols="2" v-if="withIndividual">
       <v-checkbox label="Индивидуальные" v-model="filters.isIndividual" />
     </v-col>
     <v-col cols="2">
       <v-checkbox label="Только неоплаченные" v-model="filters.onlyUnpaid" />
     </v-col>
-    <v-col cols="8">
+    <v-col cols="8" v-if="bands.length > 0">
       <v-select
-        v-if="bands.length > 0"
         label="С группой"
         :items="bands"
         item-value="id"
@@ -32,7 +31,14 @@ export default {
   name: "RehearsalsFilter",
   props: {
     value: Object,
-    bands: Array,
+    bands: {
+      type: Array,
+      default: () => [],
+    },
+    withIndividual: {
+      type: Boolean,
+      default: () => false,
+    },
   },
   data() {
     return {

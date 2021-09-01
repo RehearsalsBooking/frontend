@@ -37,7 +37,7 @@
         </router-link>
       </div>
       <div>Стоимость: {{ rehearsal.price }}</div>
-      <div v-if="rehearsal.is_confirmed" class="success--text">Оплачено</div>
+      <div v-if="rehearsal.is_paid" class="success--text">Оплачено</div>
       <div v-else class="error--text">Не оплачено</div>
     </v-card-text>
     <v-card-actions>
