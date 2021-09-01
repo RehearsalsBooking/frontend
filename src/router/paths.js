@@ -1,3 +1,26 @@
+import UserBands from "@/components/user/UserBands";
+import ProfilePage from "@/pages/ProfilePage";
+import UserProfileEdit from "@/components/user/UserProfileEdit";
+import UserBandsPage from "@/pages/UserBandsPage";
+import UserSchedulePage from "@/pages/UserSchedulePage";
+import OrganizationsPage from "@/pages/OrganizationsPage";
+import Organizations from "@/components/organizations/Organizations";
+import OrganizationPage from "@/pages/OrganizationPage";
+import UserPage from "@/pages/UserPage";
+import BandPage from "@/pages/BandPage";
+import BandsPage from "@/pages/BandsPage";
+import BandCreatePage from "@/pages/BandCreatePage";
+import BandEditPage from "@/pages/BandEditPage";
+import BandEditMainInfo from "@/components/bands/BandEditMainInfo";
+import BandEditMembers from "@/components/bands/BandEditMembers";
+import BandInvites from "@/components/bands/BandInvites";
+import ManagementHomePage from "@/pages/management/ManagementHomePage";
+import OrganizationEditPage from "@/pages/management/OrganizationEditPage";
+import OrganizationTimetablePage from "@/pages/management/OrganizationTimetablePage";
+import OrganizationPricesPage from "@/pages/management/OrganizationPricesPage";
+import OrganizationStatisticsPage from "@/pages/management/OrganizationStatisticsPage";
+import NotFound from "@/pages/NotFound";
+
 export default [
   {
     path: "/profile",
@@ -7,11 +30,7 @@ export default [
       title: "Мой профиль",
     },
     name: "profile",
-    component: () =>
-      import(
-        /* webpackChunkName: "routes" */
-        `../pages/ProfilePage.vue`
-      ),
+    component: ProfilePage,
     children: [
       {
         path: "edit",
@@ -20,11 +39,7 @@ export default [
           title: "Редактирование профиля",
         },
         name: "profile/edit",
-        component: () =>
-          import(
-            /* webpackChunkName: "routes" */
-            `../components/user/UserProfileEdit.vue`
-          ),
+        component: UserProfileEdit,
       },
       {
         path: "bands",
@@ -33,11 +48,31 @@ export default [
           title: "Мои группы",
         },
         name: "profile/bands",
-        component: () =>
-          import(
-            /* webpackChunkName: "routes" */
-            `../pages/UserBandsPage.vue`
-          ),
+        component: UserBandsPage,
+        children: [
+          {
+            path: "active",
+            name: "active-bands",
+            meta: {
+              title: "Мои активные группы",
+            },
+            props: {
+              membershipStatus: "active",
+            },
+            component: UserBands,
+          },
+          {
+            path: "inactive",
+            name: "inactive-bands",
+            meta: {
+              title: "Мои прошлые группы",
+            },
+            props: {
+              membershipStatus: "inactive",
+            },
+            component: UserBands,
+          },
+        ],
       },
       {
         path: "schedule",
@@ -46,11 +81,7 @@ export default [
           title: "Мои репетиции",
         },
         name: "profile/schedule",
-        component: () =>
-          import(
-            /* webpackChunkName: "routes" */
-            `../pages/UserSchedulePage.vue`
-          ),
+        component: UserSchedulePage,
       },
     ],
   },
@@ -58,11 +89,7 @@ export default [
   {
     path: "/organizations",
     exact: true,
-    component: () =>
-      import(
-        /* webpackChunkName: "routes" */
-        `../pages/OrganizationsPage.vue`
-      ),
+    component: OrganizationsPage,
     children: [
       {
         path: "/",
@@ -70,11 +97,7 @@ export default [
         meta: {
           title: "Репточки",
         },
-        component: () =>
-          import(
-            /* webpackChunkName: "routes" */
-            `../components/organizations/Organizations.vue`
-          ),
+        component: Organizations,
       },
       {
         path: ":id",
@@ -83,11 +106,7 @@ export default [
           title: "Репточки",
         },
         name: "organization",
-        component: () =>
-          import(
-            /* webpackChunkName: "routes" */
-            `../pages/OrganizationPage`
-          ),
+        component: OrganizationPage,
       },
     ],
   },
@@ -97,20 +116,12 @@ export default [
     name: "user",
     exact: true,
     props: true,
-    component: () =>
-      import(
-        /* webpackChunkName: "routes" */
-        `../pages/UserPage.vue`
-      ),
+    component: UserPage,
   },
 
   {
     path: "/bands",
-    component: () =>
-      import(
-        /* webpackChunkName: "routes" */
-        `../pages/BandsPage.vue`
-      ),
+    component: BandsPage,
     children: [
       {
         path: "create",
@@ -118,11 +129,7 @@ export default [
         meta: {
           title: "Группы",
         },
-        component: () =>
-          import(
-            /* webpackChunkName: "routes" */
-            `../pages/BandCreatePage`
-          ),
+        component: BandCreatePage,
       },
       {
         path: ":id",
@@ -132,11 +139,7 @@ export default [
           title: "Группы",
         },
         name: "band",
-        component: () =>
-          import(
-            /* webpackChunkName: "routes" */
-            `../pages/BandPage`
-          ),
+        component: BandPage,
       },
       {
         path: ":id/edit",
@@ -145,11 +148,7 @@ export default [
         meta: {
           title: "Группы",
         },
-        component: () =>
-          import(
-            /* webpackChunkName: "routes" */
-            `../pages/BandEditPage`
-          ),
+        component: BandEditPage,
         children: [
           {
             path: "main-info",
@@ -158,11 +157,7 @@ export default [
             },
             props: true,
             name: "band-edit-main-info",
-            component: () =>
-              import(
-                /* webpackChunkName: "routes" */
-                `../components/bands/BandEditMainInfo.vue`
-              ),
+            component: BandEditMainInfo,
           },
           {
             path: "members",
@@ -172,11 +167,7 @@ export default [
             },
             props: true,
             name: "band-edit-members",
-            component: () =>
-              import(
-                /* webpackChunkName: "routes" */
-                `../components/bands/BandEditMembers.vue`
-              ),
+            component: BandEditMembers,
           },
           {
             path: "invites",
@@ -186,11 +177,7 @@ export default [
             },
             props: true,
             name: "band-edit-invites",
-            component: () =>
-              import(
-                /* webpackChunkName: "routes" */
-                `../components/bands/BandInvites.vue`
-              ),
+            component: BandInvites,
           },
         ],
       },
@@ -199,11 +186,7 @@ export default [
 
   {
     path: "/management/organizations",
-    component: () =>
-      import(
-        /* webpackChunkName: "routes" */
-        `../pages/management/ManagementHomePage.vue`
-      ),
+    component: ManagementHomePage,
     children: [
       {
         path: ":id/edit",
@@ -213,11 +196,7 @@ export default [
           title: "Редактирование",
         },
         name: "organization/edit",
-        component: () =>
-          import(
-            /* webpackChunkName: "routes" */
-            `../pages/management/OrganizationEditPage.vue`
-          ),
+        component: OrganizationEditPage,
       },
       {
         path: ":id/timetable",
@@ -227,11 +206,7 @@ export default [
           title: "Расписание",
         },
         name: "organization/timetable",
-        component: () =>
-          import(
-            /* webpackChunkName: "routes" */
-            `../pages/management/OrganizationTimetablePage.vue`
-          ),
+        component: OrganizationTimetablePage,
       },
       {
         path: ":id/prices",
@@ -241,11 +216,7 @@ export default [
           title: "Цены",
         },
         name: "organization/prices",
-        component: () =>
-          import(
-            /* webpackChunkName: "routes" */
-            `../pages/management/OrganizationPricesPage.vue`
-          ),
+        component: OrganizationPricesPage,
       },
       {
         path: ":id/statistics",
@@ -255,11 +226,7 @@ export default [
           title: "Статистика",
         },
         name: "organization/statistics",
-        component: () =>
-          import(
-            /* webpackChunkName: "routes" */
-            `../pages/management/OrganizationStatisticsPage.vue`
-          ),
+        component: OrganizationStatisticsPage,
       },
     ],
   },
@@ -275,10 +242,6 @@ export default [
     path: "*",
     name: "not-found",
     exact: true,
-    component: () =>
-      import(
-        /* webpackChunkName: "routes" */
-        `../pages/NotFound.vue`
-      ),
+    component: NotFound,
   },
 ];

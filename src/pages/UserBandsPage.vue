@@ -1,48 +1,30 @@
 <template>
-  <v-layout align-center justify-center>
-    <v-row align="start">
-      <v-col cols="10" align-self="center"><h1>Мои группы</h1></v-col>
-      <v-col cols="2" align-self="center">
-        <v-btn color="primary" rounded :to="{ name: 'band-create' }">
-          Создать группу
-        </v-btn>
-      </v-col>
-      <BandsList :bands="bands" :is-fetching="isFetching">
-        <template #no-bands> Вы пока не состоите ни в одной группе </template>
-      </BandsList>
-    </v-row>
-  </v-layout>
+  <v-container>
+    <v-layout align-center justify-center>
+      <v-row align="start">
+        <v-col cols="10" align-self="center"><h1>Мои группы</h1></v-col>
+        <v-col cols="2" align-self="center">
+          <v-btn color="primary" rounded :to="{ name: 'band-create' }">
+            Создать группу
+          </v-btn>
+        </v-col>
+        <v-tabs background-color="transparent" color="basil" class="mb-6">
+          <v-tab :to="{ name: 'active-bands' }"> Активные группы</v-tab>
+          <v-tab :to="{ name: 'inactive-bands' }"> Прошлые группы</v-tab>
+        </v-tabs>
+        <router-view :key="$route.fullPath" />
+      </v-row>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
-import BandsList from "@/components/bands/BandsList";
-
 export default {
   name: "UserBandsPage",
-  components: { BandsList },
   data() {
     return {
-      isFetching: true,
-      bands: [],
+      tab: 1,
     };
-  },
-  mounted() {
-    this.getBands();
-  },
-  methods: {
-    getBands() {
-      this.isFetching = true;
-      this.$http
-        .get("/bands", {
-          params: {
-            active_member_id: this.$auth.user().id,
-          },
-        })
-        .then((res) => {
-          this.bands = res.data.data;
-        })
-        .finally(() => (this.isFetching = false));
-    },
   },
 };
 </script>

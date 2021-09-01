@@ -3,7 +3,12 @@
     <v-row align="start">
       <BandsList :bands="bands" :is-fetching="isFetching">
         <template #no-bands>
-          Пользователь не состоит ни в одной группе
+          <template v-if="membershipStatus === 'active'">
+            Пользователь пока не состоит ни в одной группе
+          </template>
+          <template v-if="membershipStatus === 'inactive'">
+            Пользователь не состоял ни в одной группе
+          </template>
         </template>
       </BandsList>
     </v-row>
@@ -18,6 +23,10 @@ export default {
   components: { BandsList },
   props: {
     userId: [String, Number],
+    membershipStatus: {
+      type: String,
+      default: "active",
+    },
   },
   data() {
     return {
@@ -28,11 +37,18 @@ export default {
   mounted() {
     this.getBands();
   },
+  computed: {
+    queryParams() {
+      let userId = this.userId || this.$auth.user().id;
+      let membership = this.membershipStatus + "_member_id";
+      return { [membership]: userId };
+    },
+  },
   methods: {
     getBands() {
       this.isFetching = true;
       this.$http
-        .get(`/bands`, { params: { active_member_id: this.userId } })
+        .get(`/bands`, { params: this.queryParams })
         .then((res) => {
           this.bands = res.data.data;
         })
