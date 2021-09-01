@@ -33,6 +33,7 @@ init:
 	$(docker_compose_bin) --file "$(docker_compose_yml)" exec "$(php_container_name)" php artisan migrate:fresh --force --seed
 	$(docker_compose_bin) --file "$(docker_compose_yml)" exec "$(php_container_name)" php artisan config:cache
 	$(docker_compose_bin) --file "$(docker_compose_yml)" exec "$(php_container_name)" php artisan route:cache
+	$(docker_compose_bin) --file "$(docker_compose_yml)" exec "$(php_container_name)" php artisan storage:link
 
 up:
 	docker pull docker.pkg.github.com/rehearsalsbooking/backend/php:latest

@@ -6,6 +6,9 @@
           <div class="mx-auto">Редактирование профиля</div>
         </v-card-title>
         <v-card-text>
+          <h2 class="mb-6">Обновить аватарку</h2>
+          <ImageUpload :upload-url="`users/me/avatar`" v-model="user.avatar" />
+          <h2 class="mb-6">Обновить данные</h2>
           <v-form ref="form">
             <v-text-field v-model="user.name" label="Имя" required />
             <v-text-field
@@ -26,8 +29,11 @@
   </v-row>
 </template>
 <script>
+import ImageUpload from "@/components/common/ImageUpload";
+
 export default {
   name: "UserProfileEdit",
+  components: { ImageUpload },
   data() {
     return {
       user: {
@@ -35,6 +41,7 @@ export default {
         public_email: this.$auth.user().contacts.public_email,
         phone: this.$auth.user().contacts.phone,
         link: this.$auth.user().contacts.link,
+        avatar: this.$auth.user().avatar.original,
       },
       errors: {
         public_email: null,
