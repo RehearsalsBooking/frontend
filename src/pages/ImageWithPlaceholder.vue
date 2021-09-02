@@ -1,5 +1,5 @@
 <template>
-  <v-img :src="src || noImage" />
+  <v-img :src="src || noImage" v-bind="$attrs" />
 </template>
 <script>
 import noImage from "@/assets/no-image.png";

@@ -1,15 +1,12 @@
 <template>
   <div class="pb-2 overflow-hidden">
     <div class="text-center mb-2">
-      <b>Администратор</b>
+      <strong>Администратор</strong>
     </div>
     <v-list dense nav class="py-0">
       <v-list-item>
         <v-list-item-avatar>
-          <img
-            src="https://randomuser.me/api/portraits/men/81.jpg"
-            :alt="owner.name"
-          />
+          <ImageWithPlaceholder :src="owner.avatar.thumb" width="81px" />
         </v-list-item-avatar>
 
         <v-list-item-content>
@@ -36,8 +33,10 @@
 </template>
 
 <script>
+import ImageWithPlaceholder from "@/pages/ImageWithPlaceholder";
 export default {
   name: "OrganizationOwner",
+  components: { ImageWithPlaceholder },
   props: {
     owner: Object,
   },

@@ -1,5 +1,5 @@
 <template>
-  <v-fade-transition group mode="out-in">
+  <v-fade-transition mode="out-in">
     <v-container fluid v-if="isFetching" key="fetching">
       <v-row>
         <v-progress-circular indeterminate color="primary" class="mx-auto" />

@@ -6,12 +6,7 @@
       $router.push({ name: 'organization', params: { id: organization.id } })
     "
   >
-    <!--TODO: remove random once real avatars are added-->
-    <!--suppress HtmlUnknownTarget -->
-    <v-img
-      :src="`${organization.avatar}?random=${organization.id}`"
-      height="194"
-    ></v-img>
+    <ImageWithPlaceholder :src="organization.avatar.thumb" height="194" />
 
     <v-card-title>
       {{ organization.name }}
@@ -26,10 +21,11 @@
 
 <script>
 import OrganizationFavoriteIndicator from "./OrganizationFavoriteIndicator";
+import ImageWithPlaceholder from "@/pages/ImageWithPlaceholder";
 
 export default {
   name: "OrganizationCard",
-  components: { OrganizationFavoriteIndicator },
+  components: { ImageWithPlaceholder, OrganizationFavoriteIndicator },
   props: { organization: Object },
 };
 </script>

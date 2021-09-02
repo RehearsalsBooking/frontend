@@ -8,8 +8,7 @@
     <v-container fluid v-else key="fetched">
       <v-row>
         <v-col cols="4">
-          <!--suppress HtmlUnknownTarget -->
-          <v-img :src="organization.avatar" />
+          <ImageWithPlaceholder :src="organization.avatar.original" />
         </v-col>
         <v-col cols="6">
           <div class="display-2 mb-3 text-uppercase d-flex">
@@ -55,10 +54,12 @@ import OrganizationPrices from "../components/organizations/OrganizationPrices";
 import OrganizationContacts from "../components/organizations/OrganizationContacts";
 import OrganizationTimetable from "../components/organizations/OrganizationTimetable";
 import OrganizationBooking from "../components/organizations/OrganizationBooking";
+import ImageWithPlaceholder from "@/pages/ImageWithPlaceholder";
 
 export default {
   name: "OrganizationPage",
   components: {
+    ImageWithPlaceholder,
     OrganizationContacts,
     OrganizationFavoriteIndicator,
     OrganizationPrices,
