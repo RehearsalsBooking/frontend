@@ -55,7 +55,7 @@ export default {
       {
         icon: "mdi-account-group",
         text: "Мои группы",
-        route: { path: "/profile/bands" },
+        route: { path: "/profile/bands/active" },
       },
     ],
     management: [],

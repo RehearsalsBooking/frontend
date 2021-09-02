@@ -13,7 +13,7 @@
               <v-row>
                 <v-col cols="2" class="mr-3">
                   <v-avatar size="200">
-                    <v-img :src="user.avatar"></v-img>
+                    <ImageWithPlaceholder :src="user.avatar.original" />
                   </v-avatar>
                 </v-col>
                 <v-col class="float-left">
@@ -63,10 +63,11 @@
 <script>
 import UserStats from "@/components/user/UserStats";
 import UserBands from "@/components/user/UserBands";
+import ImageWithPlaceholder from "@/pages/ImageWithPlaceholder";
 
 export default {
   name: "UserPage",
-  components: { UserStats, UserBands },
+  components: { ImageWithPlaceholder, UserStats, UserBands },
   props: {
     id: [String, Number],
   },

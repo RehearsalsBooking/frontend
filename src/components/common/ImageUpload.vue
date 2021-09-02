@@ -2,27 +2,25 @@
   <v-row class="mb-8">
     <v-hover>
       <template v-slot:default="{ hover }">
-        <v-col cols="12">
-          <v-img
-            :src="imageUrl"
-            contain
-            alt=""
-            style="position: relative; max-width: 100%; object-fit: cover"
-          >
-            <v-fade-transition>
-              <v-overlay
-                v-if="hover"
-                absolute
-                @click.native="onOverlayClick"
-                style="cursor: pointer"
-              >
-                <v-btn icon>
-                  <v-icon>mdi-pencil</v-icon>
-                </v-btn>
-              </v-overlay>
-            </v-fade-transition>
-          </v-img>
-        </v-col>
+        <v-img
+          :src="imageUrl"
+          contain
+          alt=""
+          style="position: relative; max-width: 100%; object-fit: cover"
+        >
+          <v-fade-transition>
+            <v-overlay
+              v-if="hover"
+              absolute
+              @click.native="onOverlayClick"
+              style="cursor: pointer"
+            >
+              <v-btn icon>
+                <v-icon>mdi-pencil</v-icon>
+              </v-btn>
+            </v-overlay>
+          </v-fade-transition>
+        </v-img>
       </template>
     </v-hover>
     <input
