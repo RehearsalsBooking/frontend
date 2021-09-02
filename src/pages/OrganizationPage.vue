@@ -1,14 +1,18 @@
 <template>
-  <v-fade-transition group mode="out-in">
+  <v-fade-transition mode="out-in">
     <v-container fluid v-if="isFetching" key="fetching">
       <v-row>
         <v-progress-circular indeterminate color="primary" class="mx-auto" />
       </v-row>
     </v-container>
     <v-container fluid v-else key="fetched">
-      <v-row>
+      <v-row min-height="300">
         <v-col cols="4">
-          <ImageWithPlaceholder :src="organization.avatar.original" />
+          <ImageWithPlaceholder
+            :src="organization.avatar.original"
+            height="300"
+            contain
+          />
         </v-col>
         <v-col cols="6">
           <div class="display-2 mb-3 text-uppercase d-flex">

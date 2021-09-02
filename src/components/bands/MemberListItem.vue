@@ -1,7 +1,7 @@
 <template>
   <v-list-item @click="openUserPage">
     <v-list-item-avatar>
-      <v-img :src="member.user.avatar"></v-img>
+      <ImageWithPlaceholder :src="member.user.avatar.thumb" />
     </v-list-item-avatar>
 
     <v-list-item-content>
@@ -42,10 +42,12 @@
 import BandMembersLeave from "@/components/bands/BandMembersLeave";
 import BandEditMembersEditRole from "@/components/bands/BandEditMembersEditRole";
 import BandEditMembersDelete from "@/components/bands/BandEditMembersDelete";
+import ImageWithPlaceholder from "@/pages/ImageWithPlaceholder";
 
 export default {
   name: "MemberListItem",
   components: {
+    ImageWithPlaceholder,
     BandEditMembersDelete,
     BandEditMembersEditRole,
     BandMembersLeave,

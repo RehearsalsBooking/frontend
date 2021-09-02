@@ -1,11 +1,18 @@
 <template>
-  <v-fade-transition group mode="out-in">
+  <v-fade-transition mode="out-in">
     <v-container fluid v-if="isFetching" key="fetching">
       <v-row>
         <v-progress-circular indeterminate color="primary" class="mx-auto" />
       </v-row>
     </v-container>
     <v-container fluid v-else key="fetched">
+      <h2 class="mb-6">Обновить аватарку</h2>
+      <ImageUpload
+        :upload-url="`/bands/${band.id}/avatar`"
+        v-model="band.avatar.original"
+        style="max-width: 200px"
+      />
+      <h2 class="mb-6">Обновить данные</h2>
       <BandEditMainInfoForm
         :band="band"
         @save="update"
@@ -17,10 +24,11 @@
 
 <script>
 import BandEditMainInfoForm from "@/components/bands/BandEditMainInfoForm";
+import ImageUpload from "@/components/common/ImageUpload";
 
 export default {
   name: "BandEditMainInfo",
-  components: { BandEditMainInfoForm },
+  components: { ImageUpload, BandEditMainInfoForm },
   props: { id: [String, Number] },
   data() {
     return {

@@ -4,12 +4,7 @@
     :ripple="false"
     @click="$router.push({ name: 'band', params: { id: band.id } })"
   >
-    <!--TODO: remove random once real avatars are added-->
-    <!--suppress HtmlUnknownTarget -->
-    <v-img
-      :src="`https://picsum.photos/300/200?random=${band.id}`"
-      height="194"
-    >
+    <ImageWithPlaceholder :src="band.avatar.thumb" height="194">
       <v-btn
         v-if="band.is_admin"
         class="mx-2 mt-2 float-right"
@@ -26,7 +21,7 @@
       >
         <v-icon dark> mdi-pencil </v-icon>
       </v-btn>
-    </v-img>
+    </ImageWithPlaceholder>
 
     <v-card-title class="pb-0">
       {{ band.name }}
@@ -42,10 +37,11 @@
 
 <script>
 import BandGenres from "@/components/bands/BandGenres";
+import ImageWithPlaceholder from "@/pages/ImageWithPlaceholder";
 
 export default {
   name: "BandCard",
-  components: { BandGenres },
+  components: { ImageWithPlaceholder, BandGenres },
   props: { band: Object },
 };
 </script>

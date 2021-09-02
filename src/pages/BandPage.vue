@@ -1,15 +1,18 @@
 <template>
-  <v-fade-transition group mode="out-in">
+  <v-fade-transition mode="out-in">
     <v-container fluid v-if="isFetching" key="fetching">
       <v-row>
         <v-progress-circular indeterminate color="primary" class="mx-auto" />
       </v-row>
     </v-container>
     <v-container fluid v-else key="fetched">
-      <v-row>
+      <v-row min-height="300">
         <v-col cols="4">
-          <!--suppress HtmlUnknownTarget -->
-          <v-img :src="`https://picsum.photos/300/200?random=${band.id}`" />
+          <ImageWithPlaceholder
+            :src="band.avatar.original"
+            height="300"
+            contain
+          />
         </v-col>
         <v-col cols="6">
           <v-row>
@@ -51,10 +54,11 @@
 <script>
 import BandMembers from "@/components/bands/BandMembers";
 import BandGenres from "@/components/bands/BandGenres";
+import ImageWithPlaceholder from "@/pages/ImageWithPlaceholder";
 
 export default {
   name: "BandPage",
-  components: { BandMembers, BandGenres },
+  components: { ImageWithPlaceholder, BandMembers, BandGenres },
   props: {
     id: [String, Number],
   },
