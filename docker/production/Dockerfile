@@ -1,4 +1,4 @@
-FROM ghcr/rehearsalsbooking/frontend/node-base:latest
+FROM ghcr.io/rehearsalsbooking/frontend/node-base:latest
 
 WORKDIR /app
 
