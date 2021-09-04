@@ -1,4 +1,4 @@
-FROM docker.pkg.github.com/rehearsalsbooking/frontend/node-base:latest
+FROM ghcr/rehearsalsbooking/frontend/node-base:latest
 
 WORKDIR /app
 
