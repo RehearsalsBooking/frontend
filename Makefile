@@ -43,6 +43,9 @@ down:
 	$(docker_compose_bin) --file "$(docker_compose_yml)" down
 
 update:
-	$(docker_compose_bin) --file "$(docker_compose_yml)" run --rm "$(node_container_name)" npm install -g npm && npm update && npm audit fix
+	$(docker_compose_bin) --file "$(docker_compose_yml)" run --rm "$(node_container_name)" npm install -g npm && npm update
+
+fix:
+	$(docker_compose_bin) --file "$(docker_compose_yml)" run --rm "$(node_container_name)" npm audit fix
 
 
