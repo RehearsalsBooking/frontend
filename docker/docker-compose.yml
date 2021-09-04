@@ -5,7 +5,7 @@ services:
     hostname: rehearsals-backend
     container_name: rehearsal-backend
     network_mode: host
-    image: docker.pkg.github.com/rehearsalsbooking/backend/php:latest
+    image: docker.pkg.github.com/rehearsalsbooking/backend/backend:latest
     volumes:
       - .env.backend:/app/.env
       - ./logs:/app/storage/logs
@@ -28,7 +28,7 @@ services:
   frontend:
     build:
       context: ../
-      dockerfile: docker/Dockerfile
+      dockerfile: dev/Dockerfile
     ports:
       - 8080:8080
     network_mode: host

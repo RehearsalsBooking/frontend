@@ -36,7 +36,7 @@ init:
 	$(docker_compose_bin) --file "$(docker_compose_yml)" exec "$(php_container_name)" php artisan storage:link
 
 up:
-	docker pull docker.pkg.github.com/rehearsalsbooking/backend/php:latest
+	docker pull docker.pkg.github.com/rehearsalsbooking/backend/backend:latest
 	$(docker_compose_bin) --file "$(docker_compose_yml)" up
 
 down:
