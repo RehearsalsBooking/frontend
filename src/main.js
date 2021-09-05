@@ -20,7 +20,7 @@ Vue.config.productionTip = false;
 
 Vue.router = router;
 
-axios.defaults.baseURL = process.env.VUE_APP_BACKEND_URL;
+axios.defaults.baseURL = "/api";
 
 Vue.use(VueAxios, axios);
 
