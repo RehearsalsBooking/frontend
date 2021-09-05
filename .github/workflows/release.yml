@@ -49,8 +49,6 @@ jobs:
 
       - name: Build and export
         uses: docker/build-push-action@v2
-        env:
-          VUE_APP_BACKEND_URL: "/api"
         with:
           file: docker/production/Dockerfile
           tags: |
