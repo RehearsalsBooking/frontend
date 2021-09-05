@@ -8,7 +8,8 @@ on:
         required: true
 
 env:
-  IMAGE_NAME: frontend
+  IMAGE_NAME: "frontend"
+  VUE_APP_BACKEND_URL: "/api"
 
 jobs:
   release:

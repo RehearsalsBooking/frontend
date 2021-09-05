@@ -20,7 +20,8 @@ Vue.config.productionTip = false;
 
 Vue.router = router;
 
-axios.defaults.baseURL = "http://api.rehearsals.local:8000/";
+axios.defaults.baseURL = process.env.VUE_APP_BACKEND_URL;
+
 Vue.use(VueAxios, axios);
 
 Vue.use(VueSync);
