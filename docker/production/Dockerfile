@@ -10,10 +10,8 @@ COPY ./ .
 
 RUN npm run build
 
-FROM scratch
+FROM busybox
 
 COPY --from=build-stage /app/dist /frontend
 
 VOLUME /frontend
-
-CMD  ["/bin/sh"]
