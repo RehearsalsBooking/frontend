@@ -16,4 +16,4 @@ COPY --from=build-stage /app/dist /frontend
 
 VOLUME /frontend
 
-CMD  ["tail -f /dev/null"]
+CMD  ["/bin/sh"]
