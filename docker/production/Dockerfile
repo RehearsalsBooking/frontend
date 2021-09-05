@@ -8,10 +8,10 @@ RUN npm install
 
 COPY ./ .
 
+ENV VUE_APP_BACKEND_URL="/api"
+
 RUN npm run build
 
 FROM busybox
 
 COPY --from=build-stage /app/dist /frontend
-
-VOLUME /frontend
