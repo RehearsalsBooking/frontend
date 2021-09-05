@@ -8,7 +8,7 @@ RUN npm install
 
 COPY ./ .
 
-ENV VUE_APP_BACKEND_URL="/api"
+RUN cp .env.production .env
 
 RUN npm run build
 
