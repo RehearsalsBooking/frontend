@@ -15,7 +15,7 @@ services:
       - DB_HOST=localhost
 
   db:
-    image: postgres:latest
+    image: postgres:alpine
     hostname: db
     network_mode: host
     environment:

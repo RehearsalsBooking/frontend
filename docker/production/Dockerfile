@@ -1,4 +1,4 @@
-FROM ghcr.io/rehearsalsbooking/frontend/node-base:latest
+FROM ghcr.io/rehearsalsbooking/frontend/node-base:latest as build-stage
 
 WORKDIR /app
 
@@ -10,4 +10,8 @@ COPY ./ .
 
 RUN npm run build
 
-VOLUME /app/dist
+FROM scratch
+
+COPY --from=build-stage /app/dist /frontend
+
+VOLUME /frontend
