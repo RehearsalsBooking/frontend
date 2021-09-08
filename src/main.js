@@ -43,7 +43,7 @@ HelloJs.init(
     vk: "7938122",
   },
   {
-    redirect_uri: "https://tolocalhost.com/",
+    redirect_uri: process.env.VUE_APP_OAUTH_REDIRECT_URL,
   }
 );
 Vue.use(VueHello, HelloJs);
