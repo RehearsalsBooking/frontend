@@ -43,6 +43,11 @@ export default {
       prices: [],
     };
   },
+  watch: {
+    id() {
+      this.getOrganizationPrices();
+    },
+  },
   mounted() {
     this.getOrganizationPrices();
     EventBus.$on("prices-changed", () => this.getOrganizationPrices());

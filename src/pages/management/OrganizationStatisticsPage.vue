@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
-    <OrganizationStatisticsTotal :id="id" />
-    <OrganizationStatisticsGrouped :id="id" class="mt-6" />
+    <OrganizationStatisticsTotal :id="id" :key="id + 't'" />
+    <OrganizationStatisticsGrouped :id="id" :key="id + 'g'" class="mt-6" />
   </v-container>
 </template>
 

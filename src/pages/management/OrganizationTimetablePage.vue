@@ -75,6 +75,10 @@ export default {
         this.getOrganizationRehearsals({});
       },
     },
+    id() {
+      this.getUpcomingRehearsals();
+      this.getOrganizationRehearsals({});
+    },
   },
   methods: {
     getUpcomingRehearsals() {

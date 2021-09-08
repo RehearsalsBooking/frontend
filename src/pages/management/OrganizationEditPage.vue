@@ -86,6 +86,11 @@ export default {
       isFetching: true,
     };
   },
+  watch: {
+    id() {
+      this.getOrganization();
+    },
+  },
   mounted() {
     this.getOrganization();
   },
