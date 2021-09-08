@@ -10,9 +10,6 @@ COPY ./ .
 
 RUN cp .env.production .env
 
-ENV VUE_APP_BACKEND_URL="/api"
-ENV VUE_APP_OAUTH_REDIRECT_URL="/"
-
 RUN npm run build
 
 FROM busybox
