@@ -49,13 +49,7 @@ export default {
       },
     };
   },
-  mounted() {
-    this.filters.selectedBands = this.bands.map((band) => band.id);
-  },
   watch: {
-    bands(val) {
-      this.filters.selectedBands = val.map((band) => band.id);
-    },
     filters: {
       deep: true,
       handler: function () {
