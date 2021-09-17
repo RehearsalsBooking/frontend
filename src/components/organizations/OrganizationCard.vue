@@ -1,12 +1,12 @@
 <template>
   <v-card
-    max-width="344"
     :ripple="false"
     @click="
       $router.push({ name: 'organization', params: { id: organization.id } })
     "
+    class="mx-auto"
   >
-    <ImageWithPlaceholder :src="organization.avatar.thumb" height="194" />
+    <ImageWithPlaceholder :src="organization.avatar.thumb" />
 
     <v-card-title>
       {{ organization.name }}

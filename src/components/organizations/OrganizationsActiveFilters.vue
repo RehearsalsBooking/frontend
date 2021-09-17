@@ -1,13 +1,13 @@
 <template>
   <v-row v-if="isFiltersActive">
     <v-col>
-      Примененные фильтры:
+      <div class="mb-3">Примененные фильтры:</div>
       <v-chip v-if="isFilteredByName" class="ma-2" color="secondary" outlined>
         Название содержит "{{ filters.name }}"
       </v-chip>
       <v-chip
         v-if="isFilteredByFavorite"
-        class="ma-2"
+        class="mx-2"
         color="secondary"
         outlined
       >
@@ -19,7 +19,7 @@
         color="secondary"
         outlined
       >
-        Со свободным временем {{ date }} c {{ fromTime }} до {{ toTime }}
+        Свободно {{ date }} c {{ fromTime }} до {{ toTime }}
       </v-chip>
     </v-col>
   </v-row>

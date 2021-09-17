@@ -1,11 +1,22 @@
 <template>
   <v-layout align-center justify-center>
     <v-row align="start">
+      <v-col cols="12" order="first">
+        <h2 class="text-center mx-auto">Репетиционные точки</h2>
+      </v-col>
+
       <v-fade-transition mode="out-in">
-        <v-col cols="8" v-if="isFetching" key="organizations-loading">
+        <v-col
+          md="8"
+          sm="12"
+          order="3"
+          order-md="1"
+          v-if="isFetching"
+          key="organizations-loading"
+        >
           <v-row>
-            <v-col cols="3" v-for="n in 8" :key="n">
-              <v-card max-width="344" class="mx-auto">
+            <v-col lg="3" sm="12" v-for="n in 8" :key="n">
+              <v-card width="300" class="mx-auto">
                 <v-skeleton-loader
                   transition="fade"
                   type="card"
@@ -16,14 +27,20 @@
         </v-col>
 
         <v-col
-          cols="8"
+          lg="8"
+          sm="12"
           v-else-if="organizations.length > 0"
           key="organizations-loaded"
+          order="3"
+          order-md="1"
         >
           <OrganizationsActiveFilters :filters="activeFilters" />
           <v-row>
             <v-col
-              cols="3"
+              md="4"
+              lg="3"
+              sm="12"
+              xs="12"
               v-for="organization in organizations"
               :key="organization.id"
             >
@@ -32,7 +49,15 @@
           </v-row>
         </v-col>
 
-        <v-col cols="8" v-else key="organizations-none">
+        <v-col
+          lg="8"
+          sm="12"
+          xs="12"
+          order="3"
+          order-lg="1"
+          v-else
+          key="organizations-none"
+        >
           <OrganizationsActiveFilters :filters="activeFilters" />
           <v-row>
             <v-col cols="12" class="text-center">Не найдено</v-col>
@@ -40,7 +65,14 @@
         </v-col>
       </v-fade-transition>
 
-      <v-col cols="4">
+      <v-col
+        lg="4"
+        xs="12"
+        md="12"
+        order-sm="first"
+        order-lg="last"
+        order-md="first"
+      >
         <OrganizationsFilter
           :is-fetching="isFetching"
           @filtersChanged="getOrganizations"

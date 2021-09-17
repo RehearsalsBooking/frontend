@@ -1,5 +1,11 @@
 <template>
-  <v-img :src="src || noImage" v-bind="$attrs">
+  <v-img
+    :src="src || noImage"
+    v-bind="$attrs"
+    max-width="250"
+    max-height="194"
+    class="mx-auto"
+  >
     <slot></slot>
   </v-img>
 </template>

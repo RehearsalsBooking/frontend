@@ -1,28 +1,38 @@
 <template>
-  <v-card class="pa-2">
-    <v-card-title class="text-center">
+  <v-card class="pa-2" min-width="100%" width="100%">
+    <v-card-title
+      class="text-center"
+      @click="show = !show"
+      style="cursor: pointer; word-break: keep-all"
+    >
       <div class="text-center mx-auto">Фильтры</div>
+      <v-icon>{{ show ? "mdi-chevron-up" : "mdi-chevron-down" }}</v-icon>
     </v-card-title>
-    <v-card-text>
-      <v-checkbox
-        v-if="$auth.check()"
-        @change="sendFilters"
-        v-model="favorite"
-        label="Только среди любимых"
-      />
-      <v-text-field
-        label="Поиск по названию"
-        v-model="name"
-        clearable
-        @click:clear="emptyNameQuery"
-        @keypress.enter="sendFilters"
-      />
-      <v-card-title class="text-center">
-        <div class="text-center mx-auto">Со свободным временем</div>
-      </v-card-title>
-      <RehearsalTimeInput :period.sync="availableTime" @change="sendFilters" />
-    </v-card-text>
-    <v-card-actions>
+    <v-expand-transition mode="in-out">
+      <v-card-text v-if="show" class="py-0">
+        <v-checkbox
+          v-if="$auth.check()"
+          @change="sendFilters"
+          v-model="favorite"
+          label="Только среди любимых"
+        />
+        <v-text-field
+          label="Поиск по названию"
+          v-model="name"
+          clearable
+          @click:clear="emptyNameQuery"
+          @keypress.enter="sendFilters"
+        />
+        <v-card-title class="text-center">
+          <div class="text-center mx-auto">Со свободным временем</div>
+        </v-card-title>
+        <RehearsalTimeInput
+          :period.sync="availableTime"
+          @change="sendFilters"
+        />
+      </v-card-text>
+    </v-expand-transition>
+    <v-card-actions class="mt-3">
       <v-btn
         v-if="isAnyFiltersSelected"
         color="secondary"
@@ -52,6 +62,7 @@ export default {
         to: null,
       },
       isAnyFiltersSelected: false,
+      show: this.$vuetify.breakpoint.mdAndUp,
     };
   },
   url: {

@@ -1,7 +1,7 @@
 <template>
   <v-navigation-drawer
-    :value="drawer"
-    @input="$emit('input')"
+    :value="value"
+    @input="$emit('input', $event)"
     :clipped="$vuetify.breakpoint.lgAndUp"
     app
   >
@@ -32,7 +32,7 @@ import LogoutButton from "@/components/auth/LogoutButton";
 export default {
   name: "NavigationDrawer",
   components: { LogoutButton, NavigationDrawerSection },
-  props: { drawer: Boolean },
+  props: { value: Boolean },
   data: () => ({
     general: [
       {
