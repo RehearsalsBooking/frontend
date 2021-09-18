@@ -3,9 +3,9 @@
     <template #icon>
       <svg
         fill="none"
-        height="25"
+        height="24"
         viewBox="0 0 48 48"
-        width="25"
+        width="24"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
