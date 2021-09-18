@@ -5,6 +5,7 @@
     :clipped="$vuetify.breakpoint.lgAndUp"
     app
   >
+    <div class="text-center pa-4"><h1>Меню</h1></div>
     <NavigationDrawerSection :items="general" />
     <NavigationDrawerSection
       header="Мой профиль"

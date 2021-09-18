@@ -11,7 +11,7 @@
         class="hidden-sm-and-down white--text"
         style="text-decoration: none"
         :to="'/'"
-        >Rehearsals booking</router-link
+        >Festic</router-link
       >
     </v-toolbar-title>
     <v-spacer />
