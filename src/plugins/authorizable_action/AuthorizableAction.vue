@@ -6,24 +6,27 @@
       </v-toolbar>
       <v-card-text>
         <v-row>
-          <v-col cols="6">
+          <v-col cols="12" class="text-center"
+            ><h3>Вход через соцсети:</h3>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col sm="12" lg="6">
             <GoogleLoginButton @click="auth('google')" />
           </v-col>
-          <v-col cols="6">
+          <v-col sm="12" lg="6">
             <VKLoginButton @click="auth('vk')" />
+          </v-col>
+          <v-col cols="12">
+            <LoginButton @click="authTest">
+              <template #icon
+                ><v-icon color="white">mdi-account</v-icon></template
+              >
+              <template #text>Для теста</template>
+            </LoginButton>
           </v-col>
         </v-row>
       </v-card-text>
-      <v-card-actions>
-        <v-btn
-          class="mx-auto mb-3"
-          width="100%"
-          rounded
-          color="primary"
-          @click="authTest"
-          >Войти под тестовым пользователем
-        </v-btn>
-      </v-card-actions>
     </v-card>
   </Dialog>
 </template>
@@ -32,10 +35,11 @@
 import Dialog from "../../components/common/Dialog";
 import GoogleLoginButton from "@/plugins/authorizable_action/GoogleLoginButton";
 import VKLoginButton from "@/plugins/authorizable_action/VKLoginButton";
+import LoginButton from "@/plugins/authorizable_action/LoginButton";
 
 export default {
   name: "AuthorizableAction",
-  components: { VKLoginButton, GoogleLoginButton, Dialog },
+  components: { LoginButton, VKLoginButton, GoogleLoginButton, Dialog },
   methods: {
     auth(provider) {
       const hello = this.hello;

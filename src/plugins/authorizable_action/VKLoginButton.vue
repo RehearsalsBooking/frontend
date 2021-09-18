@@ -1,13 +1,12 @@
 <template>
-  <div class="google-btn" @click="$emit('click')">
-    <div class="google-icon-wrapper">
+  <LoginButton @click="$emit('click')">
+    <template #icon>
       <svg
         fill="none"
-        height="48"
+        height="25"
         viewBox="0 0 48 48"
-        width="48"
+        width="25"
         xmlns="http://www.w3.org/2000/svg"
-        class="google-icon"
       >
         <path
           d="m0 23c0-10.8423 0-16.26346 3.36827-19.63173s8.78943-3.36827 19.63173-3.36827h2c10.8423 0 16.2635 0 19.6317 3.36827 3.3683 3.36827 3.3683 8.78943 3.3683 19.63173v2c0 10.8423 0 16.2635-3.3683 19.6317-3.3682 3.3683-8.7894 3.3683-19.6317 3.3683h-2c-10.8423 0-16.26346 0-19.63173-3.3683-3.36827-3.3682-3.36827-8.7894-3.36827-19.6317z"
@@ -20,65 +19,15 @@
           fill-rule="evenodd"
         />
       </svg>
-    </div>
-    <p class="btn-text"><strong>Войти через Вконтакте</strong></p>
-  </div>
+    </template>
+    <template #text>Вконтакте</template>
+  </LoginButton>
 </template>
 
 <script>
+import LoginButton from "@/plugins/authorizable_action/LoginButton";
 export default {
   name: "VKLoginButton",
+  components: { LoginButton },
 };
 </script>
-
-<style scoped lang="scss">
-$white: #fff;
-$google-blue: #4285f4;
-$button-active-blue: #1669f2;
-
-.google-btn {
-  cursor: pointer;
-  width: auto;
-  height: 42px;
-  background-color: $google-blue;
-  border-radius: 2px;
-  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.25);
-
-  .google-icon-wrapper {
-    position: absolute;
-    margin-top: 1px;
-    margin-left: 1px;
-    width: 40px;
-    height: 40px;
-    border-radius: 2px;
-    background-color: $white;
-  }
-
-  .google-icon {
-    position: absolute;
-    margin-top: 11px;
-    margin-left: 11px;
-    width: 18px;
-    height: 18px;
-  }
-
-  .btn-text {
-    float: right;
-    margin: 11px 11px 0 0;
-    color: $white;
-    font-size: 14px;
-    letter-spacing: 0.2px;
-    font-family: "Roboto", serif;
-  }
-
-  &:hover {
-    box-shadow: 0 0 6px $google-blue;
-  }
-
-  &:active {
-    background: $button-active-blue;
-  }
-}
-
-@import url(https://fonts.googleapis.com/css?family=Roboto:500);
-</style>
