@@ -7,14 +7,14 @@
     </v-container>
     <v-container fluid v-else key="fetched">
       <v-row min-height="300">
-        <v-col cols="4">
+        <v-col xs="12" lg="4">
           <ImageWithPlaceholder
             :src="organization.avatar.original"
             height="300"
             contain
           />
         </v-col>
-        <v-col cols="6">
+        <v-col xs="12" lg="6">
           <div class="display-2 mb-3 text-uppercase d-flex">
             {{ organization.name }}
             <OrganizationFavoriteIndicator
@@ -23,7 +23,10 @@
               inline
             />
           </div>
-          <organization-prices :prices="organization.prices" class="mb-4" />
+          <OrganizationPrices
+            :prices="organization.prices"
+            class="mb-4 d-xs-block"
+          />
           <div v-html="organization.gear"></div>
         </v-col>
       </v-row>

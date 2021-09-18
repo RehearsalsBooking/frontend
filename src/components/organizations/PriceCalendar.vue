@@ -1,11 +1,13 @@
 <template>
   <div>
+    <Legend :items="legend" class="mb-3 hidden-sm-and-up" />
     <v-calendar
       ref="calendar"
       type="week"
       class="prices"
-      :short-intervals="false"
-      :short-weekdays="false"
+      :short-intervals="true"
+      :short-weekdays="true"
+      interval-width="30"
       :first-interval="firstInterval"
       :interval-count="intervalCount"
       :interval-height="30"
@@ -15,7 +17,9 @@
       locale="ru-RU"
       @change="transformPricesToEvents"
       @click:event="editPrice"
-    />
+    >
+      <template #event v-if="!$vuetify.breakpoint.smAndUp"></template>
+    </v-calendar>
     <v-menu
       v-model="selectedOpen"
       :close-on-content-click="false"
@@ -35,10 +39,11 @@
 import generateGradient from "@/utils/gradient_generator";
 import PriceEditCard from "@/components/organizations/PriceEditCard";
 import { EventBus } from "@/event-bus";
+import Legend from "@/components/common/Legend";
 
 export default {
   name: "PriceCalendar",
-  components: { PriceEditCard },
+  components: { Legend, PriceEditCard },
   props: {
     prices: Array,
     forManager: {
@@ -55,6 +60,7 @@ export default {
       selectedPrice: {},
       selectedElement: null,
       selectedOpen: false,
+      legend: [],
     };
   },
   computed: {
@@ -87,6 +93,10 @@ export default {
       let colors = generateGradient("#16c630", "#e04205", prices.length);
       colors.forEach((color, index) => {
         this.priceColors[prices[index]] = color;
+        this.legend.push({
+          color: color,
+          text: prices[index],
+        });
       });
     },
     getEventColor(event) {
@@ -108,7 +118,9 @@ export default {
         this.priceEvents.push({
           start: this.addDateToTime(date, price.starts_at),
           end: this.addDateToTime(date, price.ends_at),
-          name: price.price.slice(0, -3) + " руб/ч",
+          name: this.$vuetify.breakpoint.mdAndUp
+            ? price.price.slice(0, -3) + " руб/ч"
+            : "",
           price: price.price,
           id: price.id,
         });
