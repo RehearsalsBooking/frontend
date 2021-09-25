@@ -27,8 +27,8 @@ export default function install(Vue) {
         {
           props: {
             value: this.isShown,
+            minWidth: 304,
             bottom: true,
-            right: true,
             timeout: this.timeout,
             color: this.color,
           },

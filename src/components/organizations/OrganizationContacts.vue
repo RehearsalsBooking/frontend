@@ -1,9 +1,9 @@
 <template>
   <v-row class="mt-3">
-    <v-col cols="3">
+    <v-col cols="12" md="3">
       <OrganizationContactInfo :organization="organization" />
     </v-col>
-    <v-col cols="9">
+    <v-col cols="12" md="9" style="min-height: 320px">
       <OrganizationMap :organization="organization" />
     </v-col>
   </v-row>

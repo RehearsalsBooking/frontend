@@ -50,7 +50,7 @@ export default {
         },
         { icon: "mdi-phone", title: this.owner.contacts.phone },
         {
-          icon: "mdi-vk",
+          icon: "mdi-link",
           title: this.owner.contacts.link,
           link: this.owner.contacts.link,
         },

@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-card-title>
-      <div class="mx-auto">Репетиция будет стоить</div>
+      <div class="mx-auto text-no-wrap">Репетиция будет стоить</div>
     </v-card-title>
     <v-card-text>
       <div class="text-center display-3 text--primary" v-if="price">

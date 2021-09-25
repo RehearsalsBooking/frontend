@@ -32,7 +32,7 @@
       </v-row>
 
       <div class="display-1 text-center mt-3 text-uppercase">Расписание</div>
-      <v-divider class="mb-1"></v-divider>
+      <v-divider class="mb-6"></v-divider>
       <OrganizationTimetable
         id="timetable"
         ref="timetable"

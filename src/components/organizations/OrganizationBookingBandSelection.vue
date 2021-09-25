@@ -1,8 +1,8 @@
 <template>
-  <v-col cols="4" v-if="userBands.length > 0">
+  <v-col sm="12" md="4" v-if="userBands.length > 0">
     <v-card class="px-4" height="100%">
       <v-card-title>
-        <div class="mx-auto">Выберите тип репетиции</div>
+        <div class="mx-auto text-no-wrap">Тип репетиции</div>
       </v-card-title>
       <v-radio-group v-model="onBehalfOfBand">
         <v-radio label="Индивидуальная" :value="false" />

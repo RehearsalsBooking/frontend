@@ -1,6 +1,6 @@
 <template>
   <v-row class="justify-space-around mt-4 mb-4">
-    <v-col cols="4">
+    <v-col sm="12" md="4">
       <v-card class="px-4">
         <v-card-title>
           <div class="mx-auto">Выберите время</div>
@@ -14,7 +14,7 @@
       :bandId.sync="bandId"
       v-if="withBandSelection"
     />
-    <v-col cols="4" class="d-flex flex-column align-center">
+    <v-col sm="12" md="4" class="d-flex flex-column align-center">
       <v-card
         height="100%"
         width="100%"

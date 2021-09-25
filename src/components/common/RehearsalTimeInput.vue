@@ -1,21 +1,39 @@
 <template>
   <v-row align="center" justify="center">
-    <v-col cols="12" md="5">
-      <formatted-date-picker
-        label="Дата"
-        v-model="date"
-        :min="today"
-        @change="timestampChanged"
-      />
-    </v-col>
-    <v-col cols="12" md="4">
-      <TimeIntervalInput v-model="time" />
-    </v-col>
-    <v-col cols="12" md="1">
-      <v-btn v-if="!isPeriodEmpty" icon @click="reset">
-        <v-icon>mdi-delete</v-icon>
-      </v-btn>
-    </v-col>
+    <v-row align="center" justify="center">
+      <v-col
+        cols="12"
+        md="5"
+        class="pt-0 mb-0 mb-sm-3 mt-2"
+        align-self="center"
+      >
+        <formatted-date-picker
+          label="Дата"
+          v-model="date"
+          :min="today"
+          @change="timestampChanged"
+        />
+      </v-col>
+      <v-col cols="12" md="4" class="overflow-visible">
+        <TimeIntervalInput ref="timeInput" v-model="time" />
+      </v-col>
+    </v-row>
+
+    <v-row justify="center">
+      <v-col cols="12">
+        <v-btn
+          v-if="!isPeriodEmpty"
+          text
+          block
+          rounded
+          class="mb-2"
+          color="error"
+          @click="reset"
+        >
+          Сбросить
+        </v-btn>
+      </v-col>
+    </v-row>
   </v-row>
 </template>
 <script>
@@ -58,12 +76,7 @@ export default {
       return `${year}-${month}-${day}`;
     },
     isPeriodEmpty() {
-      return (
-        this.period === undefined ||
-        (this.period.from === null &&
-          this.period.to === null &&
-          this.date === null)
-      );
+      return this.time.from === "" && this.time.to === "" && this.date === null;
     },
   },
   watch: {
@@ -101,11 +114,12 @@ export default {
       return timestamp.split(" ")[1];
     },
     reset() {
-      this.date = this.parseDate(this.period.from);
+      this.date = null;
       this.time = {
         from: "",
         to: "",
       };
+      this.$refs.timeInput.reset();
     },
   },
 };

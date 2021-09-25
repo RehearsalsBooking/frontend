@@ -1,7 +1,9 @@
 <template>
-  <div>
+  <div class="d-flex flex-column justify-center time-interval-input">
     <vue-timepicker
       minute-interval="30"
+      class="mb-1"
+      input-width="100%"
       v-model="fromTime"
       close-on-complete
       auto-scroll
@@ -11,6 +13,8 @@
       inputClass="skip-error-style"
       minute-interval="30"
       placeholder="Конец"
+      class="mb-1"
+      input-width="100%"
       v-model="toTime"
       close-on-complete
       auto-scroll
@@ -155,3 +159,8 @@ export default {
   },
 };
 </script>
+<style>
+.time-interval-input .vue__time-picker input.display-time.disabled {
+  background-color: #f0f0f0;
+}
+</style>

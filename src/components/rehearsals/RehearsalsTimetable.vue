@@ -1,54 +1,66 @@
 <template>
-  <v-col cols="12">
-    <v-toolbar flat color="white">
-      <v-btn outlined class="mr-4" color="grey darken-2" @click="setToday">
-        Сегодня
-      </v-btn>
-      <v-btn fab text small color="grey darken-2" @click="prev">
-        <v-icon small>mdi-chevron-left</v-icon>
-      </v-btn>
-      <v-btn fab text small color="grey darken-2" @click="next">
-        <v-icon small>mdi-chevron-right</v-icon>
-      </v-btn>
-      <v-toolbar-title>{{ title }}</v-toolbar-title>
-      <v-spacer></v-spacer>
-    </v-toolbar>
-    <v-sheet height="750">
-      <v-calendar
-        ref="calendar"
-        :short-intervals="false"
-        :interval-height="40"
-        :weekdays="[1, 2, 3, 4, 5, 6, 0]"
-        :events="transformedRehearsals"
-        locale="ru-RU"
-        :now="today"
-        :type="type"
-        v-model="focus"
-        :first-interval="firstInterval"
-        :interval-count="intervalCount"
-        :event-color="getRehearsalColor"
-        @change="calendarDatesChanged"
-        @click:event="showRehearsalDetails"
-      />
-      <v-menu
-        v-model="selectedOpen"
-        :close-on-content-click="false"
-        :activator="selectedElement"
-        offset-x
-        rounded="xl"
-      >
-        <RehearsalTile
-          outlined
-          :rehearsal="selectedRehearsal"
-          :forManager="forManager"
-        />
-      </v-menu>
-    </v-sheet>
+  <v-col>
+    <v-row>
+      <v-col sm="6" md="1" class="justify-center d-flex pb-0">
+        <v-btn outlined color="grey darken-2" @click="setToday">
+          Сегодня
+        </v-btn>
+      </v-col>
+      <v-col sm="6" md="1" class="justify-center justify-md-start d-flex pb-0">
+        <v-btn fab text small color="grey darken-2" @click="prev">
+          <v-icon small>mdi-chevron-left</v-icon>
+        </v-btn>
+        <v-btn fab text small color="grey darken-2" @click="next">
+          <v-icon small>mdi-chevron-right</v-icon>
+        </v-btn>
+      </v-col>
+    </v-row>
+    <v-row class="fill-height">
+      <v-col class="pt-0">
+        <v-sheet style="width: 100%">
+          <v-toolbar flat class="justify-center d-flex">
+            <v-toolbar-title>{{ title }}</v-toolbar-title>
+          </v-toolbar>
+          <v-calendar
+            ref="calendar"
+            :short-intervals="true"
+            :short-weekdays="true"
+            :interval-height="30"
+            interval-width="30"
+            :weekdays="[1, 2, 3, 4, 5, 6, 0]"
+            :events="transformedRehearsals"
+            locale="ru-RU"
+            :now="today"
+            :type="type"
+            v-model="focus"
+            :first-interval="firstInterval"
+            :interval-count="intervalCount"
+            :event-color="getRehearsalColor"
+            @change="calendarDatesChanged"
+            @click:event="showRehearsalDetails"
+          />
+          <v-menu
+            v-model="selectedOpen"
+            :close-on-content-click="false"
+            :activator="selectedElement"
+            offset-x
+            rounded="xl"
+          >
+            <RehearsalTile
+              outlined
+              :rehearsal="selectedRehearsal"
+              :forManager="forManager"
+            />
+          </v-menu>
+        </v-sheet>
+      </v-col>
+    </v-row>
   </v-col>
 </template>
 <script>
 import RehearsalTile from "@/components/rehearsals/RehearsalDetailed";
 import { EventBus } from "@/event-bus";
+
 export default {
   name: "RehearsalsTimetable",
   components: { RehearsalTile },
@@ -67,7 +79,7 @@ export default {
     return {
       firstInterval: 0,
       focus: "",
-      type: "week",
+      type: this.$vuetify.breakpoint.mdAndUp ? "week" : "4day",
       today: this.formatDate(new Date()),
       start: null,
       end: null,
@@ -97,14 +109,10 @@ export default {
       const startMonth = months[start.month - 1];
       const endMonth = months[end.month - 1];
 
-      const startYear = start.year;
-      const endYear = end.year;
-      const suffixYear = startYear === endYear ? "" : endYear;
-
       const startDay = start.day;
       const endDay = end.day;
 
-      return `${startDay} ${startMonth} ${startYear} - ${endDay} ${endMonth} ${suffixYear}`;
+      return `${startDay} ${startMonth} - ${endDay} ${endMonth}`;
     },
     transformedRehearsals() {
       return this.transformRehearsalsForCalendar(this.rehearsals);
