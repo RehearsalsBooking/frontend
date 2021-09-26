@@ -4,23 +4,24 @@
     :ripple="false"
     @click="$router.push({ name: 'band', params: { id: band.id } })"
   >
+    <v-btn
+      v-if="band.is_admin"
+      class="mt-3"
+      fab
+      absolute
+      right
+      dark
+      color="primary"
+      @click="
+        $router.push({
+          name: 'band-edit-main-info',
+          params: { id: band.id },
+        })
+      "
+    >
+      <v-icon dark> mdi-pencil </v-icon>
+    </v-btn>
     <ImageWithPlaceholder :src="band.avatar.thumb" height="194">
-      <v-btn
-        v-if="band.is_admin"
-        class="mx-2 mt-2 float-right"
-        fab
-        right
-        dark
-        color="primary"
-        @click="
-          $router.push({
-            name: 'band-edit-main-info',
-            params: { id: band.id },
-          })
-        "
-      >
-        <v-icon dark> mdi-pencil </v-icon>
-      </v-btn>
     </ImageWithPlaceholder>
 
     <v-card-title class="pb-0">

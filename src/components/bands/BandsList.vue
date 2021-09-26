@@ -2,7 +2,7 @@
   <v-fade-transition mode="out-in">
     <v-col cols="12" v-if="isFetching" key="bands-loading">
       <v-row>
-        <v-col cols="3" v-for="n in 8" :key="n">
+        <v-col cols="12" md="3" v-for="n in 8" :key="n">
           <v-card max-width="344" class="mx-auto">
             <v-skeleton-loader
               transition="fade"
@@ -15,7 +15,7 @@
 
     <v-col cols="12" v-else-if="bands.length > 0" key="bands-loaded">
       <v-row>
-        <v-col cols="3" v-for="band in bands" :key="band.id">
+        <v-col cols="12" md="3" v-for="band in bands" :key="band.id">
           <BandCard :band="band" />
         </v-col>
       </v-row>
