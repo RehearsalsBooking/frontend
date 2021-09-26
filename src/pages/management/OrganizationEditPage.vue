@@ -7,10 +7,10 @@
     </v-container>
     <v-container fluid v-else key="fetched">
       <v-row class="justify-space-around">
-        <v-col cols="12">
+        <v-col cols="12" md="4">
           <v-card class="px-4">
             <v-card-title>
-              <div class="mx-auto">Редактирование репточки</div>
+              <h2 class="text-center">Редактирование репточки</h2>
             </v-card-title>
             <v-card-text>
               <v-form ref="form">
@@ -18,7 +18,6 @@
                 <ImageUpload
                   :upload-url="`/management/organizations/${organization.id}/avatar`"
                   v-model="organization.avatar.original"
-                  style="max-width: 200px"
                 />
                 <h2 class="mb-6">Обновить данные</h2>
                 <v-row>
