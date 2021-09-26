@@ -1,16 +1,10 @@
 <template>
-  <v-card class="pa-2">
-    <v-card-title class="text-center">
-      <div class="text-center mx-auto">Фильтры</div>
-    </v-card-title>
-    <v-card-text>
-      <v-checkbox
-        @change="sendFilters"
-        v-model="pending"
-        label="Только ожидающие ответа"
-      />
-    </v-card-text>
-  </v-card>
+  <v-checkbox
+    @change="sendFilters"
+    hide-details
+    v-model="pending"
+    label="Только ожидающие ответа"
+  />
 </template>
 <script>
 import constants from "@/constants";

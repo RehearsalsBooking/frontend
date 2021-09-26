@@ -1,16 +1,18 @@
 <template>
   <v-form ref="form" class="mt-3" v-model="valid" lazy-validation>
     <v-row>
-      <div class="col-6">
+      <v-col cols="12">
         <v-text-field
           v-model="bandData.name"
+          hide-details
           label="Название"
           :rules="[(v) => !!v || 'Введите название группы']"
         />
-      </div>
-      <div class="col-6">
+      </v-col>
+      <v-col cols="12">
         <v-autocomplete
           chips
+          hide-details
           deletable-chips
           multiple
           label="Жанры"
@@ -19,20 +21,25 @@
           item-value="id"
           v-model="bandData.genres"
         />
-      </div>
-      <div class="col-12">
-        <v-textarea v-model="bandData.bio" label="Биография"></v-textarea>
-      </div>
+      </v-col>
+      <v-col cols="12">
+        <v-textarea v-model="bandData.bio" label="Биография" hide-details />
+      </v-col>
     </v-row>
-    <v-btn
-      color="success"
-      :disabled="!valid"
-      rounded
-      @click="save"
-      :loading="isLoading"
-    >
-      Сохранить
-    </v-btn>
+    <v-row justify="center">
+      <v-col>
+        <v-btn
+          block
+          color="success"
+          :disabled="!valid"
+          rounded
+          @click="save"
+          :loading="isLoading"
+        >
+          Сохранить
+        </v-btn>
+      </v-col>
+    </v-row>
   </v-form>
 </template>
 <script>

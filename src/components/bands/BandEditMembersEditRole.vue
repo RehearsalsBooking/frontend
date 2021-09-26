@@ -6,7 +6,9 @@
       </v-btn>
     </template>
     <v-card>
-      <v-card-title class="headline"> Изменить роль участника</v-card-title>
+      <v-card-title class="headline text-break">
+        Изменить роль участника
+      </v-card-title>
       <v-card-text>
         <MemberRoles v-model="editedRoles" />
       </v-card-text>

@@ -8,7 +8,7 @@
       </v-btn>
     </template>
     <v-card>
-      <v-card-title class="headline">
+      <v-card-title class="headline text-break">
         <slot name="title"> </slot>
       </v-card-title>
       <v-card-text>

@@ -2,7 +2,7 @@
   <v-form ref="form" lazy-validation>
     <v-container>
       <v-row>
-        <v-col cols="4">
+        <v-col cols="12">
           <v-text-field
             label="Почта"
             required
@@ -10,10 +10,10 @@
             :rules="[rules.required, rules.email]"
           />
         </v-col>
-        <v-col cols="4">
+        <v-col cols="12">
           <MemberRoles v-model="invite.roles" />
         </v-col>
-        <v-col cols="4" class="align-self-center">
+        <v-col cols="12" class="align-self-center">
           <v-btn color="primary" block rounded @click="sendInvite">
             Отправить приглашение
           </v-btn>

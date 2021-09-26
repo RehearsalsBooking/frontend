@@ -1,12 +1,16 @@
 <template>
-  <v-fade-transition group mode="out-in">
+  <v-fade-transition mode="out-in">
     <v-container fluid v-if="isFetching" key="fetching">
       <v-row>
         <v-progress-circular indeterminate color="primary" class="mx-auto" />
       </v-row>
     </v-container>
     <v-container fluid v-else key="fetched">
-      <BandMembers :band="band" />
+      <v-row justify="center">
+        <v-col cols="12" md="4">
+          <v-card> <BandMembers :band="band" /> </v-card
+        ></v-col>
+      </v-row>
     </v-container>
   </v-fade-transition>
 </template>

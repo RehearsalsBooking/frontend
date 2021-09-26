@@ -6,18 +6,29 @@
       </v-row>
     </v-container>
     <v-container fluid v-else key="fetched">
-      <h2 class="mb-6">Обновить аватарку</h2>
-      <ImageUpload
-        :upload-url="`/bands/${band.id}/avatar`"
-        v-model="band.avatar.original"
-        style="max-width: 200px"
-      />
-      <h2 class="mb-6">Обновить данные</h2>
-      <BandEditMainInfoForm
-        :band="band"
-        @save="update"
-        :is-loading="isLoading"
-      />
+      <v-row justify="center">
+        <v-col cols="12" md="4">
+          <v-card>
+            <v-card-title class="justify-center">
+              Обновить аватарку
+            </v-card-title>
+            <ImageUpload
+              :upload-url="`/bands/${band.id}/avatar`"
+              v-model="band.avatar.original"
+            />
+            <v-card-title class="justify-center pt-0">
+              Обновить данные</v-card-title
+            >
+            <v-card-text>
+              <BandEditMainInfoForm
+                :band="band"
+                @save="update"
+                :is-loading="isLoading"
+              />
+            </v-card-text>
+          </v-card>
+        </v-col>
+      </v-row>
     </v-container>
   </v-fade-transition>
 </template>
