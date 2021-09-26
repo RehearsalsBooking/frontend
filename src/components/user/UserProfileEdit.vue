@@ -1,6 +1,6 @@
 <template>
   <v-row class="justify-space-around">
-    <v-col cols="4">
+    <v-col cols="12" sm="6">
       <v-card class="px-4">
         <v-card-title>
           <div class="mx-auto">Редактирование профиля</div>

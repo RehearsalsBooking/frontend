@@ -1,12 +1,13 @@
 <template>
-  <v-row class="mb-8">
+  <v-col class="mb-8">
     <v-hover>
       <template v-slot:default="{ hover }">
         <v-img
           :src="imageUrl"
           contain
-          alt=""
-          style="position: relative; max-width: 100%; object-fit: cover"
+          max-width="320"
+          class="mx-auto"
+          style="position: relative"
         >
           <v-fade-transition>
             <v-overlay
@@ -29,9 +30,9 @@
       ref="uploader"
       accept="image/*"
       @change="onFileChange"
-      style="visibility: hidden"
+      style="display: none"
     />
-  </v-row>
+  </v-col>
 </template>
 
 <script>
