@@ -48,4 +48,10 @@ update:
 fix:
 	$(docker_compose_bin) --file "$(docker_compose_yml)" run --rm "$(node_container_name)" npm audit fix
 
+install:
+	$(docker_compose_bin) --file "$(docker_compose_yml)" run --rm "$(node_container_name)" npm install $(filter-out $@,$(MAKECMDGOALS))
+
+shell:
+	$(docker_compose_bin) --file "$(docker_compose_yml)" run --rm "$(node_container_name)" sh
+
 
