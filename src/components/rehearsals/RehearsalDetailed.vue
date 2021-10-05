@@ -2,7 +2,7 @@
   <v-card v-if="rehearsal.id" v-bind="$attrs">
     <v-card-title>{{ rehearsal.starts_at | formatDateTime }}</v-card-title>
     <v-card-subtitle>{{ duration }}</v-card-subtitle>
-    <v-card-text>
+    <v-card-text class="pb-0">
       <div>
         {{ type }}
         <template v-if="!rehearsal.is_individual">

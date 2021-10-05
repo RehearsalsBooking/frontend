@@ -8,5 +8,5 @@ Vue.filter("formatDate", function (value) {
 
 Vue.filter("formatDateTime", function (value) {
   if (!value) return "";
-  return moment(value).format("DD MMMM, dddd, в HH.mm");
+  return moment(value).format("DD MMMM, в HH.mm");
 });

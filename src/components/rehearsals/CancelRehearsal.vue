@@ -4,9 +4,9 @@
     <Dialog v-model="showDialog" :max-width="'500px'">
       <v-card>
         <v-toolbar color="primary" dark flat class="mb-5">
-          <v-toolbar-title class="mx-auto"
-            >Вы действительно хотите отменить репетицию?</v-toolbar-title
-          >
+          <v-toolbar-title class="mx-auto text-wrap pa-3">
+            Отменить репетицию?
+          </v-toolbar-title>
         </v-toolbar>
         <v-card-text> Это действие нельзя будет отменить </v-card-text>
         <v-card-actions>
@@ -16,7 +16,7 @@
             color="primary"
             @click="showDialog = false"
           >
-            Я передумал
+            Оставить
           </v-btn>
           <v-btn
             class="mx-auto mb-3 pa-5"
@@ -24,7 +24,7 @@
             color="error"
             @click="cancelRehearsal"
           >
-            Отменить репетицию
+            Отменить
           </v-btn>
         </v-card-actions>
       </v-card>

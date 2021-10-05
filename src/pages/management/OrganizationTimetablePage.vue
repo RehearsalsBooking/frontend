@@ -1,9 +1,9 @@
 <template>
-  <v-container fluid>
+  <v-container fluid class="pt-0">
     <v-row class="justify-space-around">
-      <v-col cols="12">
+      <v-col cols="12" class="pt-0">
         <div class="mt-6">
-          <h1>Ближайшие репетиции</h1>
+          <h1 class="text-center">Ближайшие репетиции</h1>
           <RehearsalsDetailed
             :is-fetching="isUpcomingRehearsalsFetching"
             :rehearsals="upcomingRehearsals"
@@ -15,7 +15,7 @@
           </RehearsalsDetailed>
         </div>
         <div class="mt-6">
-          <h1>Забронировать репетицию</h1>
+          <h1 class="text-center">Забронировать репетицию</h1>
           <OrganizationBooking
             :organizationId="id"
             :with-band-selection="false"

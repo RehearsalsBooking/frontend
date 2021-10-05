@@ -2,7 +2,7 @@
   <v-fade-transition group mode="in-out" hide-on-leave>
     <v-col cols="12" v-if="isFetching" key="rehearsals-loading">
       <v-row>
-        <v-col cols="4" v-for="n in 3" :key="n">
+        <v-col md="4" cols="12" v-for="n in 3" :key="n">
           <v-card class="mx-auto">
             <v-skeleton-loader
               transition="fade"
@@ -16,7 +16,12 @@
 
     <v-col cols="12" v-else-if="rehearsals.length > 0" key="rehearsals-loaded">
       <v-row>
-        <v-col cols="4" v-for="rehearsal in rehearsals" :key="rehearsal.id">
+        <v-col
+          md="4"
+          cols="12"
+          v-for="rehearsal in rehearsals"
+          :key="rehearsal.id"
+        >
           <RehearsalDetailed :rehearsal="rehearsal" :forManager="forManager" />
         </v-col>
       </v-row>
