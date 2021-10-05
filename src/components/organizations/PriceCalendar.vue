@@ -91,6 +91,7 @@ export default {
         .sort((a, b) => a - b);
       let prices = [...new Set(orderedPrices)]; //remove duplicates
       let colors = generateGradient("#16c630", "#e04205", prices.length);
+      this.legend = [];
       colors.forEach((color, index) => {
         this.priceColors[prices[index]] = color;
         this.legend.push({

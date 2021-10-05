@@ -5,7 +5,7 @@
     </v-card-title>
     <v-card-text>
       <v-row>
-        <v-col cols="4">
+        <v-col md="4" cols="12">
           <v-select
             label="День недели"
             v-model="dayOfWeek"
@@ -14,10 +14,10 @@
             item-text="name"
           />
         </v-col>
-        <v-col cols="4">
+        <v-col md="4" cols="12">
           <TimeIntervalInput v-model="time" />
         </v-col>
-        <v-col cols="4">
+        <v-col md="4" cols="12">
           <v-text-field type="number" label="Цена за час" v-model="price" />
         </v-col>
       </v-row>

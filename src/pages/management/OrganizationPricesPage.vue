@@ -3,12 +3,12 @@
     <v-row class="justify-space-around">
       <v-col cols="12">
         <div>
-          <h1>Управление ценами</h1>
+          <h1 class="text-center">Управление ценами</h1>
         </div>
       </v-col>
     </v-row>
     <v-row class="justify-space-around">
-      <v-col cols="7">
+      <v-col md="7" cols="12">
         <AddPrice :organizationId="id" />
       </v-col>
     </v-row>
