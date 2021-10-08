@@ -1,21 +1,23 @@
 <template>
   <div>
     <v-row>
-      <h1>Общая статистика</h1>
+      <v-col cols="12" class="pb-0">
+        <h1 class="text-center">Общая статистика</h1>
+      </v-col>
     </v-row>
     <v-row>
-      <v-col cols="3">
+      <v-col md="3" cols="12" class="pb-0">
         <DateRange v-model="dateRange" />
       </v-col>
     </v-row>
     <v-fade-transition mode="out-in">
       <v-row v-if="isLoading" key="statistics-loading">
-        <v-col cols="6" v-for="n in 2" :key="n">
+        <v-col md="6" cols="12" v-for="n in 2" :key="n">
           <v-skeleton-loader transition="fade" type="list-item-two-line" />
         </v-col>
       </v-row>
       <v-row v-else key="statistics-loaded">
-        <v-col cols="6">
+        <v-col md="6" cols="12">
           <v-card>
             <v-card-text>
               <div class="d-flex flex-column justify-center align-center">
@@ -25,7 +27,7 @@
             </v-card-text>
           </v-card>
         </v-col>
-        <v-col cols="6">
+        <v-col md="6" cols="12">
           <v-card>
             <v-card-text>
               <div class="d-flex flex-column justify-center align-center">

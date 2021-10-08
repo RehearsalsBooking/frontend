@@ -1,13 +1,15 @@
 <template>
   <div>
     <v-row>
-      <h1>Статистика по периодам</h1>
+      <v-col cols="12">
+        <h1 class="text-center">Статистика по периодам</h1>
+      </v-col>
     </v-row>
     <v-row>
-      <v-col cols="3">
+      <v-col md="3" cols="12">
         <DateRange v-model="dateRange" />
       </v-col>
-      <v-col cols="3">
+      <v-col md="3" cols="12">
         <v-select
           label="Группировать по"
           v-model="interval"

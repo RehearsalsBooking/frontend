@@ -6,6 +6,7 @@
       item-value="value"
       item-text="name"
       label="Период"
+      hide-details
     >
       <template v-slot:selection="{ item }">
         <template v-if="item.value === 'custom'">
@@ -48,7 +49,7 @@ export default {
   },
   data() {
     return {
-      selectedRange: "month",
+      selectedRange: "week",
       dateRanges: [
         {
           name: "За сегодня",
