@@ -1,7 +1,21 @@
 <template>
   <v-container fluid>
-    <h1>Создать новую группу</h1>
-    <BandEditMainInfoForm :band="null" @save="create" :is-loading="isLoading" />
+    <v-row class="justify-space-around">
+      <v-col cols="12" sm="6">
+        <v-card class="px-4">
+          <v-card-title>
+            <div class="mx-auto">Создать новую группу</div>
+          </v-card-title>
+          <v-card-text>
+            <BandEditMainInfoForm
+              :band="null"
+              @save="create"
+              :is-loading="isLoading"
+            />
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
