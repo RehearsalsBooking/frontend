@@ -7,38 +7,31 @@
     </v-container>
     <v-container fluid v-else key="fetched">
       <v-row min-height="300">
-        <v-col cols="4">
+        <v-col xs="12" lg="4">
           <ImageWithPlaceholder
             :src="band.avatar.original"
             height="300"
             contain
           />
         </v-col>
-        <v-col cols="6">
-          <v-row>
-            <v-col cols="10">
-              <div class="display-2 mb-3 text-uppercase d-flex">
-                {{ band.name }}
-              </div>
-            </v-col>
-            <v-col cols="2">
-              <v-btn
-                v-if="band.is_admin"
-                class="mx-2"
-                fab
-                dark
-                color="primary"
-                @click="
-                  $router.push({
-                    name: 'band-edit-main-info',
-                    params: { id: band.id },
-                  })
-                "
-              >
-                <v-icon dark> mdi-pencil </v-icon>
-              </v-btn>
-            </v-col>
-          </v-row>
+        <v-col xs="12" lg="6">
+          <div class="display-2 mb-3 text-uppercase d-flex">
+            {{ band.name }}
+          </div>
+          <v-btn
+            v-if="band.is_admin"
+            class="mx-2 mb-4 d-xs-block"
+            dark
+            color="primary"
+            @click="
+              $router.push({
+                name: 'band-edit-main-info',
+                params: { id: band.id },
+              })
+            "
+          >
+            Редактировать
+          </v-btn>
           <BandGenres :genres="band.genres" />
           <p>{{ band.bio }}</p>
         </v-col>
