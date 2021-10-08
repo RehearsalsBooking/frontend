@@ -1,7 +1,7 @@
 <template>
   <v-col cols="12">
     <div class="mt-6">
-      <h1>Ближайшие репетиции</h1>
+      <h1 class="text-center">Ближайшие репетиции</h1>
       <RehearsalsDetailed
         :is-fetching="isUpcomingRehearsalsFetching"
         :rehearsals="upcomingRehearsals"
@@ -13,7 +13,7 @@
       </RehearsalsDetailed>
     </div>
     <div class="mt-6">
-      <h1>Расписание</h1>
+      <h1 class="text-center">Расписание</h1>
       <RehearsalsFilter v-model="filters" :bands="bands" with-individual />
       <RehearsalsTimetable
         show-detailed

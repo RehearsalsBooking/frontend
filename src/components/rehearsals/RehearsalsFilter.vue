@@ -1,20 +1,31 @@
 <template>
   <v-row>
-    <v-col cols="2" v-if="withIndividual">
-      <v-checkbox label="Индивидуальные" v-model="filters.isIndividual" />
+    <v-col md="2" cols="12" class="py-0" v-if="withIndividual">
+      <v-checkbox
+        label="Индивидуальные"
+        v-model="filters.isIndividual"
+        hide-details
+      />
     </v-col>
-    <v-col cols="2">
-      <v-checkbox label="Только неоплаченные" v-model="filters.onlyUnpaid" />
+    <v-col md="2" cols="12" class="py-0">
+      <v-checkbox
+        label="Только неоплаченные"
+        v-model="filters.onlyUnpaid"
+        hide-details
+      />
     </v-col>
-    <v-col cols="8" v-if="bands.length > 0">
+    <v-col md="8" cols="12" class="pb-0" v-if="bands.length > 0">
       <v-select
+        ref="bandSelect"
         label="С группой"
         :items="bands"
         item-value="id"
         item-text="name"
         multiple
+        hide-selected
         v-model="filters.selectedBands"
         clearable
+        @change="$refs.bandSelect.isMenuActive = false"
       >
         <template v-slot:selection="{ item }">
           <v-chip close @click:close="removeBandFromSelected(item)">
