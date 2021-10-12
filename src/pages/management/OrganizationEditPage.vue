@@ -34,6 +34,9 @@
                     required
                   />
                 </v-row>
+                <v-row>
+                  <CitySelect v-model="organization.city_id" />
+                </v-row>
                 <v-row class="mb-3">
                   Информация о репточке и ее оборудовании
                 </v-row>
@@ -72,10 +75,11 @@
 import OrganizationMap from "@/components/organizations/OrganizationMap";
 import Wysiwyg from "@/components/common/Wysiwyg";
 import ImageUpload from "@/components/common/ImageUpload";
+import CitySelect from "@/components/common/CitySelect";
 
 export default {
   name: "OrganizationEditPage",
-  components: { ImageUpload, OrganizationMap, Wysiwyg },
+  components: { CitySelect, ImageUpload, OrganizationMap, Wysiwyg },
   props: {
     id: [String, Number],
   },
@@ -100,6 +104,7 @@ export default {
         .get(`/management/organizations/${this.id}`)
         .then((res) => {
           this.organization = res.data.data;
+          this.organization.city_id = res.data.data.city.id;
         })
         .finally(() => {
           this.isFetching = false;

@@ -13,8 +13,8 @@
       <v-spacer></v-spacer>
       <OrganizationFavoriteIndicator :organization="organization" />
     </v-card-title>
-    <v-card-subtitle>
-      {{ organization.address }}
+    <v-card-subtitle class="pt-0">
+      г. {{ organization.city.name }}
     </v-card-subtitle>
   </v-card>
 </template>

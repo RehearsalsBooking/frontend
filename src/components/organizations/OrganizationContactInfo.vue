@@ -5,7 +5,7 @@
         <div class="text-center mb-2">
           <b>Мы находимся по адресу</b>
         </div>
-        {{ organization.address }}
+        г. {{ organization.city.name }}, {{ organization.address }}
       </v-col>
     </v-row>
     <v-divider class="mb-3" />
