@@ -34,7 +34,10 @@
           order="3"
           order-md="1"
         >
-          <OrganizationsActiveFilters :filters="activeFilters" />
+          <OrganizationsActiveFilters
+            :filters="activeFilters"
+            :cities="cities"
+          />
           <v-row>
             <v-col
               md="4"
@@ -58,7 +61,10 @@
           v-else
           key="organizations-none"
         >
-          <OrganizationsActiveFilters :filters="activeFilters" />
+          <OrganizationsActiveFilters
+            :filters="activeFilters"
+            :cities="cities"
+          />
           <v-row>
             <v-col cols="12" class="text-center">Не найдено</v-col>
           </v-row>
@@ -76,6 +82,7 @@
         <OrganizationsFilter
           :is-fetching="isFetching"
           @filtersChanged="getOrganizations"
+          :cities="cities"
         />
       </v-col>
     </v-row>
@@ -99,12 +106,14 @@ export default {
       organizations: [],
       isFetching: true,
       activeFilters: {},
+      cities: [],
     };
   },
   mounted() {
     window.getApp.$on("successfulLogin", () => {
       this.getOrganizations();
     });
+    this.$http.get("cities").then((res) => (this.cities = res.data.data));
   },
   methods: {
     getOrganizations(filters) {

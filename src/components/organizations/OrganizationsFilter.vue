@@ -10,6 +10,7 @@
     </v-card-title>
     <v-expand-transition mode="in-out">
       <v-card-text v-if="show" class="py-0">
+        <CitySelect v-model="city_id" :cities="cities" @change="sendFilters" />
         <v-checkbox
           v-if="$auth.check()"
           @change="sendFilters"
@@ -39,25 +40,28 @@
         rounded
         block
         @click="resetFilters"
-        >Сбросить фильтры</v-btn
-      >
+        >Сбросить фильтры
+      </v-btn>
     </v-card-actions>
   </v-card>
 </template>
 <script>
 import RehearsalTimeInput from "../common/RehearsalTimeInput";
+import CitySelect from "@/components/common/CitySelect";
 
 export default {
   name: "OrganizationsFilter",
-  components: { RehearsalTimeInput },
+  components: { CitySelect, RehearsalTimeInput },
   props: {
     isFetching: Boolean,
+    cities: Array,
   },
   data() {
     return {
-      name: this.name || "",
+      city_id: null,
+      name: "",
       favorite: false,
-      availableTime: this.availableTime || {
+      availableTime: {
         from: null,
         to: null,
       },
@@ -69,6 +73,7 @@ export default {
     name: "name",
     availableTime: "available_time",
     favorite: "favorite",
+    city_id: "city_id",
   },
   mounted() {
     this.sendFilters();
@@ -78,6 +83,7 @@ export default {
       let filters = Object.assign(
         {},
         this.name && { name: this.name },
+        this.city_id && { city_id: this.city_id },
         this.favorite && { favorite: "1" }
       );
       if (this.availableTime) {
@@ -96,8 +102,10 @@ export default {
         from: null,
         to: null,
       };
-      this.$router.push({ query: {} });
+      this.favorite = false;
+      this.city_id = null;
       this.sendFilters();
+      this.$router.push({}).catch(() => {});
     },
     emptyNameQuery() {
       this.name = null;

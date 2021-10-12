@@ -1,9 +1,10 @@
 <template>
   <v-select
     :loading="isLoading"
-    :items="cities"
+    :items="availableCities"
     :value="value"
     @input="$emit('input', $event)"
+    @change="$emit('change', $event)"
     item-text="name"
     item-value="id"
     label="Город"
@@ -13,22 +14,29 @@
 <script>
 export default {
   name: "CitySelect",
-  props: { value: [Number, String] },
+  props: { value: [Number, String], cities: Array },
   data() {
     return {
-      cities: [],
-      isLoading: true,
+      fetchedCities: [],
+      isLoading: false,
     };
   },
   mounted() {
-    this.getCities();
+    if (!this.cities) {
+      this.getCities();
+    }
+  },
+  computed: {
+    availableCities() {
+      return this.cities || this.fetchedCities;
+    },
   },
   methods: {
     getCities() {
       this.isLoading = true;
       this.$http
         .get("cities")
-        .then((res) => (this.cities = res.data.data))
+        .then((res) => (this.fetchedCities = res.data.data))
         .finally(() => {
           this.isLoading = false;
         });

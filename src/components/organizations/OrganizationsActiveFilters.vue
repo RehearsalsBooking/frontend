@@ -5,6 +5,9 @@
       <v-chip v-if="isFilteredByName" class="ma-2" color="secondary" outlined>
         Название содержит "{{ filters.name }}"
       </v-chip>
+      <v-chip v-if="isFilteredByCity" class="ma-2" color="secondary" outlined>
+        город "{{ cityName }}"
+      </v-chip>
       <v-chip
         v-if="isFilteredByFavorite"
         class="mx-2"
@@ -30,6 +33,7 @@ export default {
   name: "OrganizationsActiveFilters",
   props: {
     filters: Object,
+    cities: Array,
   },
   computed: {
     isFiltersActive() {
@@ -44,6 +48,9 @@ export default {
     isFilteredByAvailableTime() {
       return this.filters.from && this.filters.to;
     },
+    isFilteredByCity() {
+      return !!this.filters.city_id;
+    },
     date() {
       const [year, month, day] = this.filters.from.split(" ")[0].split("-");
       return `${day}.${month}.${year}`;
@@ -53,6 +60,9 @@ export default {
     },
     toTime() {
       return this.filters.to.split(" ")[1];
+    },
+    cityName() {
+      return this.cities.find((city) => city.id === this.filters.city_id)?.name;
     },
   },
 };
