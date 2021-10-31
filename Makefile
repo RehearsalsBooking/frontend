@@ -35,9 +35,11 @@ init:
 	$(docker_compose_bin) --file "$(docker_compose_yml)" exec "$(php_container_name)" php artisan route:cache
 	$(docker_compose_bin) --file "$(docker_compose_yml)" exec "$(php_container_name)" php artisan storage:link
 
+run: up init
+
 up:
 	docker pull docker.pkg.github.com/rehearsalsbooking/backend/backend:latest
-	$(docker_compose_bin) --file "$(docker_compose_yml)" up
+	$(docker_compose_bin) --file "$(docker_compose_yml)" up -d
 
 down:
 	$(docker_compose_bin) --file "$(docker_compose_yml)" down

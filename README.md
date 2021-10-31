@@ -1,6 +1,14 @@
-## Frontend for RehearsalsBooking project (desktop only)
+## frontend for festic app
 
-Project description - https://belamov.com/projects/rehearsals-booking/
+project url - https://festic.ru
+
+project description - https://belamov.com/projects/rehearsals-booking/
+
+## how to run
+
+```
+make run
+```
 
 add following entries to your `/etc/hosts`:
 
@@ -10,7 +18,3 @@ add following entries to your `/etc/hosts`:
 ```
 
 project will be available at http://rehearsals.local:8080/
-
-you can log in with user:
-- belamov@belamov.com
-- password
