@@ -23,14 +23,14 @@ services:
       - POSTGRES_USER=rehearsals
       - POSTGRES_PASSWORD=rehearsals
     ports:
-      - 5432:5432
+      - "5432:5432"
 
   frontend:
     build:
       context: ../
       dockerfile: dev/Dockerfile
     ports:
-      - 8080:8080
+      - "8080:8080"
     network_mode: host
     volumes:
       - ../:/app
