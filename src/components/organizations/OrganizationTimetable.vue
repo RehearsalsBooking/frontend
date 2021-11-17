@@ -1,20 +1,10 @@
 <template>
   <v-container>
-    <v-row>
-      <v-col cols="3" v-if="!roomsLoaded">
-        <v-progress-circular indeterminate color="primary" />
-      </v-col>
-      <v-col v-else-if="rooms.length > 1">
-        <v-select
-          label="Комната"
-          :items="rooms"
-          v-model="room"
-          @change="getRehearsals"
-          item-text="name"
-          item-value="id"
-        />
-      </v-col>
-    </v-row>
+    <OrganizationRoomSelect
+      @change="getRehearsals"
+      v-model="room"
+      :organization="organization"
+    />
     <v-row>
       <RehearsalsTimetable
         ref="timetable"
@@ -32,10 +22,11 @@
 
 <script>
 import RehearsalsTimetable from "@/components/rehearsals/RehearsalsTimetable";
+import OrganizationRoomSelect from "@/components/organizations/OrganizationRoomSelect";
 
 export default {
   name: "OrganizationTimetable",
-  components: { RehearsalsTimetable },
+  components: { OrganizationRoomSelect, RehearsalsTimetable },
   props: {
     organization: {
       type: Object,
@@ -45,8 +36,6 @@ export default {
   data() {
     return {
       rehearsals: [],
-      rooms: [],
-      roomsLoaded: false,
       room: null,
       start: null,
       end: null,
@@ -73,18 +62,6 @@ export default {
           },
         })
         .then((res) => (this.rehearsals = res.data.data))
-        .catch((res) => {
-          this.$snackbar(res.response.data);
-        });
-    },
-    getRooms() {
-      this.$http
-        .get(`/organizations/${this.organization.id}/rooms`)
-        .then((res) => {
-          this.rooms = res.data.data;
-          this.room = this.rooms[0].id;
-          this.roomsLoaded = true;
-        })
         .catch((res) => {
           this.$snackbar(res.response.data);
         });

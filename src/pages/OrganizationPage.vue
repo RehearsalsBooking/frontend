@@ -24,7 +24,7 @@
             />
           </div>
           <OrganizationPrices
-            :prices="organization.prices"
+            :organization="organization"
             class="mb-4 d-xs-block"
           />
           <div v-html="organization.gear"></div>
