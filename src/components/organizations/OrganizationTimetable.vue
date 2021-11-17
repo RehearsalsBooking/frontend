@@ -1,14 +1,15 @@
 <template>
   <v-container>
     <v-row>
-      <v-col cols="3" v-if="roomsLoaded && rooms.length > 1">
+      <v-col cols="3" v-if="!roomsLoaded">
         <v-progress-circular indeterminate color="primary" />
       </v-col>
-      <v-col v-else>
+      <v-col v-else-if="rooms.length > 1">
         <v-select
           label="Комната"
           :items="rooms"
           v-model="room"
+          @change="getRehearsals"
           item-text="name"
           item-value="id"
         />
@@ -31,7 +32,6 @@
 
 <script>
 import RehearsalsTimetable from "@/components/rehearsals/RehearsalsTimetable";
-import moment from "moment";
 
 export default {
   name: "OrganizationTimetable",
@@ -48,31 +48,29 @@ export default {
       rooms: [],
       roomsLoaded: false,
       room: null,
+      start: null,
+      end: null,
     };
   },
   mounted() {
     this.getRooms();
   },
-  watch: {
-    room() {
-      this.getRehearsals({
-        start: { date: moment().locale("ru").startOf("week").format("Y-M-D") },
-        end: { date: moment().locale("ru").endOf("week").format("Y-M-D") },
-      });
-    },
-  },
   methods: {
     getRehearsals({ start, end }) {
+      if (start) {
+        this.start = start;
+      }
+      if (end) {
+        this.end = end;
+      }
       this.$http
         .get("/rehearsals", {
-          params: Object.assign(
-            {
-              organization_id: this.organization.id,
-              room_id: this.room,
-            },
-            start && { from: start.date + " 00:00:00" },
-            end && { to: end.date + " 23:59:59" }
-          ),
+          params: {
+            organization_id: this.organization.id,
+            room_id: this.room,
+            from: this.start.date + " 00:00:00",
+            to: this.end.date + " 23:59:59",
+          },
         })
         .then((res) => (this.rehearsals = res.data.data))
         .catch((res) => {
@@ -85,6 +83,7 @@ export default {
         .then((res) => {
           this.rooms = res.data.data;
           this.room = this.rooms[0].id;
+          this.roomsLoaded = true;
         })
         .catch((res) => {
           this.$snackbar(res.response.data);
