@@ -2,13 +2,13 @@
   <div class="d-flex">
     <v-btn rounded color="primary" @click="showModal = true"> Цены </v-btn>
     <Dialog v-model="showModal">
-      <v-card min-height="500px">
+      <v-card min-height="500px" class="prices-card">
         <v-card-title>
           <div class="mx-auto">Цены</div>
         </v-card-title>
         <v-card-text>
           <OrganizationRoomSelect
-            :organization="organization"
+            :organizationId="organization.id"
             v-model="room"
             @change="getRoomPrices"
           />
@@ -59,3 +59,10 @@ export default {
   },
 };
 </script>
+<style scoped>
+@media (min-width: 1000px) {
+  .prices-card {
+    width: 1000px;
+  }
+}
+</style>

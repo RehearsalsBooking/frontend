@@ -1,30 +1,31 @@
 <template>
-  <v-row>
-    <v-col cols="3" v-if="!roomsLoaded">
+  <v-col v-if="rooms.length > 1" class="mb-4 mt-1 room-tabs pa-0">
+    <v-col cols="3" v-if="!roomsLoaded" class="pa-0">
       <v-progress-circular indeterminate color="primary" />
     </v-col>
-    <v-col v-else-if="rooms.length > 1">
-      <v-select
-        label="Комната"
-        :items="rooms"
-        v-model="selectedRoom"
+    <v-col v-else-if="rooms.length > 1" class="pa-0">
+      <v-tabs
         @change="changeSelectedRoom"
-        item-text="name"
-        item-value="id"
-      />
+        v-model="selectedRoom"
+        show-arrows
+        grow
+        center-active
+      >
+        <v-tab v-for="room in rooms" :key="room.id">{{ room.name }}</v-tab>
+      </v-tabs>
     </v-col>
-  </v-row>
+  </v-col>
 </template>
 <script>
 export default {
   name: "OrganizationRoomSelect",
   props: {
     value: {},
-    organization: Object,
+    organizationId: [Number, String],
   },
   data() {
     return {
-      selectedRoom: null,
+      selectedRoom: 0,
       roomsLoaded: false,
       rooms: [],
     };
@@ -34,22 +35,25 @@ export default {
   },
   methods: {
     changeSelectedRoom() {
-      this.$emit("input", this.selectedRoom);
+      this.$emit("input", this.rooms[this.selectedRoom].id);
       this.$emit("change", this.selectedRoom);
     },
     getRooms() {
       this.$http
-        .get(`/organizations/${this.organization.id}/rooms`)
+        .get(`/organizations/${this.organizationId}/rooms`)
         .then((res) => {
           this.rooms = res.data.data;
-          this.selectedRoom = this.rooms[0].id;
           this.roomsLoaded = true;
           this.changeSelectedRoom();
-        })
-        .catch((res) => {
-          this.$snackbar(res.response.data);
         });
     },
   },
 };
 </script>
+<style scoped>
+@media (max-width: 500px) {
+  .room-tabs {
+    max-width: 351px;
+  }
+}
+</style>

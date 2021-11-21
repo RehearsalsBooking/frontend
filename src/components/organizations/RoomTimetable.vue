@@ -1,10 +1,5 @@
 <template>
   <v-container>
-    <OrganizationRoomSelect
-      @change="getRehearsals"
-      v-model="room"
-      :organization="organization"
-    />
     <v-row>
       <RehearsalsTimetable
         ref="timetable"
@@ -22,27 +17,29 @@
 
 <script>
 import RehearsalsTimetable from "@/components/rehearsals/RehearsalsTimetable";
-import OrganizationRoomSelect from "@/components/organizations/OrganizationRoomSelect";
 
 export default {
-  name: "OrganizationTimetable",
-  components: { OrganizationRoomSelect, RehearsalsTimetable },
+  name: "RoomTimetable",
+  components: { RehearsalsTimetable },
   props: {
-    organization: {
-      type: Object,
+    room: {
+      type: Number,
       required: true,
     },
   },
   data() {
     return {
       rehearsals: [],
-      room: null,
       start: null,
       end: null,
+      loaded: false,
     };
   },
-  mounted() {
-    this.getRooms();
+  watch: {
+    room() {
+      this.rehearsals = [];
+      this.getRehearsals({});
+    },
   },
   methods: {
     getRehearsals({ start, end }) {
@@ -52,10 +49,10 @@ export default {
       if (end) {
         this.end = end;
       }
+      this.loaded = false;
       this.$http
         .get("/rehearsals", {
           params: {
-            organization_id: this.organization.id,
             room_id: this.room,
             from: this.start.date + " 00:00:00",
             to: this.end.date + " 23:59:59",
@@ -64,7 +61,8 @@ export default {
         .then((res) => (this.rehearsals = res.data.data))
         .catch((res) => {
           this.$snackbar(res.response.data);
-        });
+        })
+        .finally(() => (this.loaded = true));
     },
     setFocus(date) {
       this.$refs.timetable.setFocus(date);

@@ -6,7 +6,7 @@
           <div class="mx-auto">Выберите время</div>
         </v-card-title>
         <v-card-text>
-          <RehearsalTimeInput :period.sync="time" />
+          <RehearsalTimeInput :period.sync="time" ref="rehearsalsTimeInput" />
         </v-card-text>
       </v-card>
     </v-col>
@@ -23,7 +23,7 @@
         <OrganizationBookingPriceCalculation
           :price.sync="price"
           :time="time"
-          :organizationId="organizationId"
+          :roomId="roomId"
         />
         <v-card-actions>
           <v-btn
@@ -55,7 +55,7 @@ export default {
     RehearsalTimeInput,
   },
   props: {
-    organizationId: {
+    roomId: {
       type: [Number, String],
       required: true,
     },
@@ -77,7 +77,7 @@ export default {
   methods: {
     getParamsForBooking() {
       let params = {
-        organization_id: this.organizationId,
+        organization_room_id: this.roomId,
         starts_at: this.time.from,
         ends_at: this.time.to,
       };
@@ -115,6 +115,7 @@ export default {
       };
       this.bandId = null;
       this.price = null;
+      this.$refs.rehearsalsTimeInput.reset();
     },
   },
 };

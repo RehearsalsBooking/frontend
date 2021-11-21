@@ -15,7 +15,7 @@
           />
         </v-col>
         <v-col xs="12" lg="6">
-          <div class="display-2 mb-3 text-uppercase d-flex">
+          <div class="display-1 mb-3 text-uppercase d-flex">
             {{ organization.name }}
             <OrganizationFavoriteIndicator
               class="ml-2"
@@ -30,24 +30,29 @@
           <div v-html="organization.gear"></div>
         </v-col>
       </v-row>
-
-      <div class="display-1 text-center mt-3 text-uppercase">Расписание</div>
-      <v-divider class="mb-6"></v-divider>
-      <OrganizationTimetable
-        id="timetable"
-        ref="timetable"
-        :organization="organization"
-      />
-
-      <div class="display-1 text-center mt-3 text-uppercase">
-        Забронировать репетицию
+      <v-row>
+        <OrganizationRoomSelect
+          v-model="room"
+          :organizationId="organization.id"
+        />
+      </v-row>
+      <div style="min-height: 1000px">
+        <div v-if="room">
+          <div class="display-1 text-center mt-3 text-uppercase">
+            Расписание
+          </div>
+          <v-divider class="mb-6"></v-divider>
+          <RoomTimetable id="timetable" ref="timetable" :room="room" />
+          <div class="display-1 text-center mt-3 text-uppercase">
+            Забронировать репетицию
+          </div>
+          <v-divider class="mb-1"></v-divider>
+          <OrganizationBooking
+            :roomId="room"
+            @rehearsalAdded="rehearsalAdded"
+          />
+        </div>
       </div>
-      <v-divider class="mb-1"></v-divider>
-      <OrganizationBooking
-        :organizationId="organization.id"
-        @rehearsalAdded="rehearsalAdded"
-      />
-
       <div class="display-1 text-center mt-3 text-uppercase">Контакты</div>
       <v-divider class="mb-1"></v-divider>
       <OrganizationContacts :organization="organization" />
@@ -59,18 +64,20 @@
 import OrganizationFavoriteIndicator from "../components/organizations/OrganizationFavoriteIndicator";
 import OrganizationPrices from "../components/organizations/OrganizationPrices";
 import OrganizationContacts from "../components/organizations/OrganizationContacts";
-import OrganizationTimetable from "../components/organizations/OrganizationTimetable";
+import RoomTimetable from "../components/organizations/RoomTimetable";
 import OrganizationBooking from "../components/organizations/OrganizationBooking";
 import ImageWithPlaceholder from "@/pages/ImageWithPlaceholder";
+import OrganizationRoomSelect from "@/components/organizations/OrganizationRoomSelect";
 
 export default {
   name: "OrganizationPage",
   components: {
+    OrganizationRoomSelect,
     ImageWithPlaceholder,
     OrganizationContacts,
     OrganizationFavoriteIndicator,
     OrganizationPrices,
-    OrganizationTimetable,
+    RoomTimetable,
     OrganizationBooking,
   },
   props: {
@@ -80,6 +87,7 @@ export default {
     return {
       isFetching: true,
       organization: null,
+      room: null,
     };
   },
   mounted() {

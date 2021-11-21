@@ -53,20 +53,22 @@ Vue.use(VueHello, HelloJs);
 Vue.use(VueApexCharts);
 Vue.component("apexchart", VueApexCharts);
 
-Sentry.init({
-  Vue,
-  dsn: "https://eff0722eeb8f4099b6436ed0e81688fc@o1024486.ingest.sentry.io/5990330",
-  integrations: [
-    new Integrations.BrowserTracing({
-      routingInstrumentation: Sentry.vueRouterInstrumentation(router),
-      tracingOrigins: ["festic.ru", /^\//],
-    }),
-  ],
-  // Set tracesSampleRate to 1.0 to capture 100%
-  // of transactions for performance monitoring.
-  // We recommend adjusting this value in production
-  tracesSampleRate: 0.5,
-});
+if (process.env.NODE_ENV === "production") {
+  Sentry.init({
+    Vue,
+    dsn: "https://eff0722eeb8f4099b6436ed0e81688fc@o1024486.ingest.sentry.io/5990330",
+    integrations: [
+      new Integrations.BrowserTracing({
+        routingInstrumentation: Sentry.vueRouterInstrumentation(router),
+        tracingOrigins: ["festic.ru", /^\//],
+      }),
+    ],
+    // Set tracesSampleRate to 1.0 to capture 100%
+    // of transactions for performance monitoring.
+    // We recommend adjusting this value in production
+    tracesSampleRate: 0.5,
+  });
+}
 
 new Vue({
   router,

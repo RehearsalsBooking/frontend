@@ -22,7 +22,7 @@ export default {
   props: {
     price: Number,
     time: Object,
-    organizationId: [Number, String],
+    roomId: [Number, String],
   },
   data() {
     return {
@@ -31,6 +31,9 @@ export default {
   },
   watch: {
     time() {
+      this.calculatePrice();
+    },
+    roomId() {
       this.calculatePrice();
     },
   },
@@ -43,7 +46,7 @@ export default {
       }
 
       this.$http
-        .get(`organizations/${this.organizationId}/price`, {
+        .get(`rooms/${this.roomId}/prices/calculate`, {
           params: {
             starts_at: this.time.from,
             ends_at: this.time.to,
