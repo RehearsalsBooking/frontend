@@ -7,9 +7,12 @@
         </div>
       </v-col>
     </v-row>
+    <v-row>
+      <OrganizationRoomSelect :organizationId="id" v-model="room" />
+    </v-row>
     <v-row class="justify-space-around">
       <v-col md="7" cols="12">
-        <AddPrice :organizationId="id" />
+        <AddPrice :roomId="room" />
       </v-col>
     </v-row>
     <v-row class="justify-space-around">
@@ -19,7 +22,7 @@
             :prices="prices"
             v-if="prices.length > 0"
             for-manager
-            :organization-id="id"
+            :roomId="room"
           />
         </div>
       </v-col>
@@ -31,34 +34,38 @@
 import PriceCalendar from "@/components/organizations/PriceCalendar";
 import AddPrice from "@/pages/management/AddPrice";
 import { EventBus } from "@/event-bus";
+import OrganizationRoomSelect from "@/components/organizations/OrganizationRoomSelect";
 
 export default {
   name: "OrganizationPricesPage",
-  components: { AddPrice, PriceCalendar },
+  components: { OrganizationRoomSelect, AddPrice, PriceCalendar },
   props: {
     id: [String, Number],
   },
   data() {
     return {
       prices: [],
+      room: null,
     };
   },
   watch: {
     id() {
       this.getOrganizationPrices();
     },
+    room() {
+      this.getOrganizationPrices();
+    },
   },
   mounted() {
-    this.getOrganizationPrices();
     EventBus.$on("prices-changed", () => this.getOrganizationPrices());
   },
   methods: {
     getOrganizationPrices() {
-      this.$http
-        .get(`management/organizations/${this.id}/prices`)
-        .then((res) => {
+      if (this.room) {
+        this.$http.get(`/rooms/${this.room}/prices`).then((res) => {
           this.prices = res.data.data;
         });
+      }
     },
   },
 };

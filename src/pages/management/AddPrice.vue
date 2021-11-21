@@ -35,7 +35,7 @@ export default {
   name: "AddPrice",
   components: { TimeIntervalInput },
   props: {
-    organizationId: [Number, String],
+    roomId: [Number, String],
   },
   data() {
     return {
@@ -81,7 +81,7 @@ export default {
   methods: {
     addPrice() {
       this.$http
-        .post(`management/organizations/${this.organizationId}/prices`, {
+        .post(`management/rooms/${this.roomId}/prices`, {
           day: this.dayOfWeek,
           price: this.price,
           starts_at: this.time.from,

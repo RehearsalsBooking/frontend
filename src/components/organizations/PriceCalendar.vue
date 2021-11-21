@@ -27,11 +27,7 @@
       offset-x
       rounded="xl"
     >
-      <PriceEditCard
-        :price="selectedPrice"
-        :organization-id="organizationId"
-        outlined
-      />
+      <PriceEditCard :price="selectedPrice" :roomId="roomId" outlined />
     </v-menu>
   </div>
 </template>
@@ -50,7 +46,7 @@ export default {
       type: Boolean,
       default: false,
     },
-    organizationId: [Number, String],
+    roomId: [Number, String],
   },
   data() {
     return {

@@ -24,7 +24,7 @@ export default {
   name: "PriceEditCard",
   props: {
     price: Object,
-    organizationId: [Number, String],
+    roomId: [Number, String],
   },
   data() {
     return {
@@ -42,12 +42,9 @@ export default {
   methods: {
     savePrice() {
       this.$http
-        .put(
-          `/management/organizations/${this.organizationId}/prices/${this.price.id}`,
-          {
-            price: this.newPrice,
-          }
-        )
+        .put(`/management/rooms/${this.roomId}/prices/${this.price.id}`, {
+          price: this.newPrice,
+        })
         .then(() => {
           this.$snackbar("Цена успешно обновлена", "success");
           EventBus.$emit("prices-changed");
@@ -58,9 +55,7 @@ export default {
     },
     deletePrice() {
       this.$http
-        .delete(
-          `/management/organizations/${this.organizationId}/prices/${this.price.id}`
-        )
+        .delete(`/management/rooms/${this.roomId}/prices/${this.price.id}`)
         .then(() => {
           this.$snackbar("Цена успешно удалена", "success");
           EventBus.$emit("prices-changed");
