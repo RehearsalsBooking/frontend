@@ -7,9 +7,6 @@
     </v-row>
     <v-row>
       <v-col md="3" cols="12">
-        <DateRange v-model="dateRange" />
-      </v-col>
-      <v-col md="3" cols="12">
         <v-select
           label="Группировать по"
           v-model="interval"
@@ -35,21 +32,16 @@
 </template>
 
 <script>
-import DateRange from "@/components/common/DateRange";
-
 export default {
   name: "OrganizationStatisticsGrouped",
-  components: { DateRange },
   props: {
     id: [String, Number],
+    rooms: Array,
+    dateRange: Object,
   },
   data() {
     return {
       stats: [],
-      dateRange: {
-        from: null,
-        to: null,
-      },
       interval: "day",
       availableIntervals: [
         { name: "По дню", value: "day" },
@@ -127,6 +119,9 @@ export default {
     interval() {
       this.getGroupedStatistics();
     },
+    rooms() {
+      this.getGroupedStatistics();
+    },
   },
   methods: {
     getGroupedStatistics() {
@@ -136,7 +131,8 @@ export default {
           params: Object.assign(
             { interval: this.interval },
             this.dateRange.from && { from: this.dateRange.from },
-            this.dateRange.to && { to: this.dateRange.to }
+            this.dateRange.to && { to: this.dateRange.to },
+            this.rooms.length && { rooms: this.rooms }
           ),
         })
         .then((res) => {

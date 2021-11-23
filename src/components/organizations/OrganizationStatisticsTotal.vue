@@ -5,11 +5,6 @@
         <h1 class="text-center">Общая статистика</h1>
       </v-col>
     </v-row>
-    <v-row>
-      <v-col md="3" cols="12" class="pb-0">
-        <DateRange v-model="dateRange" />
-      </v-col>
-    </v-row>
     <v-fade-transition mode="out-in">
       <v-row v-if="isLoading" key="statistics-loading">
         <v-col md="6" cols="12" v-for="n in 2" :key="n">
@@ -43,21 +38,16 @@
 </template>
 
 <script>
-import DateRange from "@/components/common/DateRange";
-
 export default {
   name: "OrganizationStatisticsTotal",
-  components: { DateRange },
   props: {
     id: [String, Number],
+    rooms: Array,
+    dateRange: Object,
   },
   data() {
     return {
       stats: [],
-      dateRange: {
-        from: null,
-        to: null,
-      },
       isLoading: false,
     };
   },
@@ -79,6 +69,9 @@ export default {
     dateRange() {
       this.getTotalStatistics();
     },
+    rooms() {
+      this.getTotalStatistics();
+    },
   },
   methods: {
     getTotalStatistics() {
@@ -88,7 +81,8 @@ export default {
           params: Object.assign(
             {},
             this.dateRange.from && { from: this.dateRange.from },
-            this.dateRange.to && { to: this.dateRange.to }
+            this.dateRange.to && { to: this.dateRange.to },
+            this.rooms.length && { rooms: this.rooms }
           ),
         })
         .then((res) => {
