@@ -20,6 +20,7 @@ import OrganizationTimetablePage from "@/pages/management/OrganizationTimetableP
 import OrganizationPricesPage from "@/pages/management/OrganizationPricesPage";
 import OrganizationStatisticsPage from "@/pages/management/OrganizationStatisticsPage";
 import NotFound from "@/pages/NotFound";
+import OrganizationRoomsPage from "@/pages/management/OrganizationRoomsPage";
 
 export default [
   {
@@ -227,6 +228,16 @@ export default [
         },
         name: "organization/statistics",
         component: OrganizationStatisticsPage,
+      },
+      {
+        path: ":id/rooms",
+        auth: true,
+        props: true,
+        meta: {
+          title: "Комнаты",
+        },
+        name: "organization/rooms",
+        component: OrganizationRoomsPage,
       },
     ],
   },

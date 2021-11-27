@@ -94,6 +94,14 @@ export default {
                 },
               },
               {
+                icon: "mdi-calendar-blank-multiple",
+                text: "Комнаты",
+                route: {
+                  name: "organization/rooms",
+                  params: { id: organization.id },
+                },
+              },
+              {
                 icon: "mdi-calendar",
                 text: "Расписание",
                 route: {

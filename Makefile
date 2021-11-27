@@ -39,7 +39,8 @@ run: up init
 	echo "project launched at http://rehearsals.local:8080/"
 
 up:
-	docker pull docker.pkg.github.com/rehearsalsbooking/backend/backend:latest
+	$(docker_bin) pull docker.pkg.github.com/rehearsalsbooking/backend/backend:latest
+	$(docker_bin) pull ghcr.io/rehearsalsbooking/frontend/node-base:latest
 	$(docker_compose_bin) --file "$(docker_compose_yml)" up -d
 
 down:
