@@ -7,7 +7,7 @@
         hide-details
       />
     </v-col>
-    <v-col md="2" cols="12" class="py-0">
+    <v-col md="2" cols="12" class="py-0 mb-4">
       <v-checkbox
         label="Только неоплаченные"
         v-model="filters.onlyUnpaid"
