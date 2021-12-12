@@ -11,17 +11,17 @@
           </v-col>
         </v-row>
         <v-row>
-          <v-col sm="12" lg="6">
+          <v-col sm="12" lg="6" v-if="env === 'production'">
             <GoogleLoginButton @click="auth('google')" />
           </v-col>
-          <v-col sm="12" lg="6">
+          <v-col sm="12" lg="6" v-if="env === 'production'">
             <VKLoginButton @click="auth('vk')" />
           </v-col>
-          <v-col cols="12">
+          <v-col cols="12" v-if="env !== 'production'">
             <LoginButton @click="authTest">
-              <template #icon
-                ><v-icon color="white">mdi-account</v-icon></template
-              >
+              <template #icon>
+                <v-icon color="white">mdi-account</v-icon>
+              </template>
               <template #text>Для теста</template>
             </LoginButton>
           </v-col>
@@ -40,6 +40,11 @@ import LoginButton from "@/plugins/authorizable_action/LoginButton";
 export default {
   name: "AuthorizableAction",
   components: { LoginButton, VKLoginButton, GoogleLoginButton, Dialog },
+  computed: {
+    env() {
+      return process.env.VUE_APP_ENV;
+    },
+  },
   methods: {
     auth(provider) {
       const hello = this.hello;
