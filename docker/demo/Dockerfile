@@ -4,7 +4,7 @@ COPY package*.json ./
 RUN npm install
 COPY ./ .
 RUN cp .env.demo .env
-RUN npm run build
+RUN npm run build --mode demo
 
 FROM nginx:stable-alpine
 COPY ./docker/demo/nginx.conf /etc/nginx/nginx.conf
