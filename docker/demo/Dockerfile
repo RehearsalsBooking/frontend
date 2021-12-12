@@ -3,7 +3,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY ./ .
-RUN cp .env.demo .env
+RUN cp .env.demo-example .env
 RUN npm run build
 
 FROM nginx:stable-alpine

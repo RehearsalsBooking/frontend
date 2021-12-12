@@ -3,7 +3,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY ./ .
-RUN cp .env.production .env
+RUN cp .env.production-example .env
 RUN npm run build
 
 FROM nginx:stable-alpine
