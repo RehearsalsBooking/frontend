@@ -4,6 +4,10 @@
 
     <AppBar v-model="drawer" />
     <v-main>
+      <v-alert v-if="env !== 'production'" type="info" text>
+        Это демо-приложение. Все данные не реальны и сгенерированы случайно.
+        <a href="https://app.festic.ru">Перейти в реальное приложение</a>
+      </v-alert>
       <router-view></router-view>
       <v-snackbar-notification />
       <AuthorizableAction />
@@ -22,6 +26,11 @@ export default {
     return {
       drawer: false,
     };
+  },
+  computed: {
+    env() {
+      return process.env.VUE_APP_ENV;
+    },
   },
   created() {
     window.getApp = this;

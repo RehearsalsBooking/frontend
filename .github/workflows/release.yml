@@ -45,6 +45,8 @@ jobs:
 
       - name: Build and export
         uses: docker/build-push-action@v2
+        env:
+          VUE_APP_ENV: "production"
         with:
           file: docker/production/Dockerfile
           tags: |
@@ -101,6 +103,8 @@ jobs:
 
       - name: Build and export
         uses: docker/build-push-action@v2
+        env:
+          VUE_APP_ENV: "demo"
         with:
           file: docker/demo/Dockerfile
           tags: |

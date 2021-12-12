@@ -11,8 +11,9 @@
         class="hidden-sm-and-down white--text"
         style="text-decoration: none"
         :to="'/'"
-        >Festic</router-link
-      >
+        >Festic
+        <template v-if="env !== 'production'">DEMO</template>
+      </router-link>
     </v-toolbar-title>
     <v-spacer />
     <template v-if="$auth.check()">
@@ -31,6 +32,11 @@ export default {
   components: { ImageWithPlaceholder },
   props: {
     value: Boolean,
+  },
+  computed: {
+    env() {
+      return process.env.VUE_APP_ENV;
+    },
   },
 };
 </script>
