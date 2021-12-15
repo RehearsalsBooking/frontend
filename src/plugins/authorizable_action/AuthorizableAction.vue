@@ -49,11 +49,19 @@ export default {
     auth(provider) {
       const hello = this.hello;
       hello(provider)
-        .login({ scope: "email" })
+        .login({ scope: this.getScopeForProvider(provider) })
         .then(() => {
           const authRes = hello(provider).getAuthResponse();
           this.authorizeWithSocialToken(authRes, provider);
         });
+    },
+    getScopeForProvider(provider) {
+      if (this.isVkProvider(provider)) {
+        return "email, offline";
+      }
+      if (this.isGoogleProvider(provider)) {
+        return "email";
+      }
     },
     authorizeWithSocialToken(data, provider) {
       this.$auth
@@ -65,14 +73,14 @@ export default {
         .catch(this.onFailedLogin);
     },
     getDataForProvider(data, provider) {
-      if (provider === "vk") {
+      if (this.isVkProvider(provider)) {
         return {
           email: data.email,
           token: data.access_token,
           provider: "vkontakte",
         };
       }
-      if (provider === "google") {
+      if (this.isGoogleProvider(provider)) {
         return {
           token: data.access_token,
           provider: "google",
@@ -99,6 +107,12 @@ export default {
       if (res.response.status === 401) {
         this.$snackbar(res.response.data, "error");
       }
+    },
+    isVkProvider(provider) {
+      return provider === "vk";
+    },
+    isGoogleProvider(provider) {
+      return provider === "google";
     },
   },
 };

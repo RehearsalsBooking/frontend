@@ -10,7 +10,7 @@ jobs:
   release-prod:
     environment:
       name: production
-      url: https://festic.ru
+      url: https://app.festic.ru
 
     runs-on: ubuntu-latest
 
@@ -51,7 +51,6 @@ jobs:
           file: docker/production/Dockerfile
           tags: |
             ghcr.io/${{ env.IMAGE_REPOSITORY }}/${{ env.IMAGE_NAME }}:production
-            ghcr.io/${{ env.IMAGE_REPOSITORY }}/${{ env.IMAGE_NAME }}:production-${{ github.event.inputs.version }}
           cache-from: type=local,src=/tmp/.buildx-cache-prod
           cache-to: type=local,dest=/tmp/.buildx-cache-prod-new,mode=max
           push: true
