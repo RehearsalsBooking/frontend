@@ -19,7 +19,9 @@
     <template v-if="$auth.check()">
       {{ $auth.user().name }}
       <v-avatar size="36" class="ml-4">
-        <ImageWithPlaceholder :src="$auth.user().avatar.thumb" />
+        <ImageWithPlaceholder
+          :src="$auth.user().avatar ? $auth.user().avatar.thumb : ''"
+        />
       </v-avatar>
     </template>
     <v-btn v-else text @click="$authorize()">Войти</v-btn>

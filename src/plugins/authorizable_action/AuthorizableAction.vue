@@ -50,10 +50,15 @@ export default {
       const hello = this.hello;
       hello(provider)
         .login({ scope: this.getScopeForProvider(provider) })
-        .then(() => {
-          const authRes = hello(provider).getAuthResponse();
-          this.authorizeWithSocialToken(authRes, provider);
-        });
+        .then(
+          () => {
+            const authRes = hello(provider).getAuthResponse();
+            this.authorizeWithSocialToken(authRes, provider);
+          },
+          (e) => {
+            alert("Signin error: " + e.error.message);
+          }
+        );
     },
     getScopeForProvider(provider) {
       if (this.isVkProvider(provider)) {
