@@ -15,7 +15,13 @@
             <GoogleLoginButton @click="auth('google')" />
           </v-col>
           <v-col sm="12" lg="6" v-if="env === 'production'">
+            <!-- Put this script tag to the <head> of your page -->
+
+            <!-- Put this script tag to the place, where the Login block will be -->
             <VKLoginButton @click="auth('vk')" />
+          </v-col>
+          <v-col>
+            <div id="vk_auth"></div>
           </v-col>
           <v-col cols="12" v-if="env !== 'production'">
             <LoginButton @click="authTest">
@@ -44,6 +50,9 @@ export default {
     env() {
       return process.env.VUE_APP_ENV;
     },
+  },
+  mounted() {
+    window.VK.Widgets.Auth("vk_auth", { authUrl: "/dev/Login" });
   },
   methods: {
     auth(provider) {
