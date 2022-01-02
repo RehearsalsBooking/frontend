@@ -10,10 +10,10 @@
               </v-col>
             </v-row>
             <v-row>
-              <v-col sm="12" lg="6">
+              <v-col sm="12" lg="6" v-if="env === 'production'">
                 <GoogleLoginButton @click="auth('google')" />
               </v-col>
-              <v-col sm="12" lg="6">
+              <v-col sm="12" lg="6" v-if="env === 'production'">
                 <VKLoginButton @click="auth('vkontakte')" />
               </v-col>
               <v-col cols="12" v-if="env !== 'production'">
