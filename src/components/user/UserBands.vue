@@ -17,6 +17,7 @@
 
 <script>
 import BandsList from "@/components/bands/BandsList";
+import { mapGetters } from "vuex";
 
 export default {
   name: "UserBands",
@@ -38,8 +39,11 @@ export default {
     this.getBands();
   },
   computed: {
+    ...mapGetters({
+      user: "auth/getUser",
+    }),
     queryParams() {
-      let userId = this.userId || this.$auth.user().id;
+      let userId = this.userId || this.user.id;
       let membership = this.membershipStatus + "_member_id";
       return { [membership]: userId };
     },

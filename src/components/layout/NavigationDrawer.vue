@@ -10,7 +10,7 @@
     <NavigationDrawerSection
       header="Мой профиль"
       :items="profile"
-      v-if="$auth.check()"
+      v-if="isAuthenticated"
     />
     <v-fade-transition>
       <NavigationDrawerSection
@@ -19,7 +19,7 @@
         v-if="management.length > 0"
       />
     </v-fade-transition>
-    <template v-slot:append v-if="$auth.check()">
+    <template v-slot:append v-if="isAuthenticated">
       <div class="pa-2">
         <LogoutButton />
       </div>
@@ -29,6 +29,7 @@
 <script>
 import NavigationDrawerSection from "@/components/layout/NavigationDrawerSection";
 import LogoutButton from "@/components/auth/LogoutButton";
+import { mapGetters } from "vuex";
 
 export default {
   name: "NavigationDrawer",
@@ -61,6 +62,12 @@ export default {
     ],
     management: [],
   }),
+  computed: {
+    ...mapGetters({
+      isAuthenticated: "auth/isAuthenticated",
+      user: "auth/getUser",
+    }),
+  },
   mounted() {
     this.getOrganizationsMenu();
     window.getApp.$on("successfulLogin", () => {
@@ -72,7 +79,7 @@ export default {
   },
   methods: {
     getOrganizationsMenu() {
-      if (!this.$auth.check()) {
+      if (!this.isAuthenticated) {
         this.management = [];
         return;
       }

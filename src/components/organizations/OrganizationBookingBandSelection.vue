@@ -23,10 +23,17 @@
   </v-col>
 </template>
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "OrganizationBookingBandSelection",
   props: {
     bandId: Number,
+  },
+  computed: {
+    ...mapGetters({
+      isAuthenticated: "auth/isAuthenticated",
+    }),
   },
   data() {
     return {
@@ -35,7 +42,7 @@ export default {
     };
   },
   mounted() {
-    if (!this.$auth.check()) {
+    if (!this.isAuthenticated) {
       return;
     }
     this.$http.get(`bands/?only_managed=1`).then((res) => {

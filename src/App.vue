@@ -1,5 +1,5 @@
 <template>
-  <v-app id="inspire" v-if="$auth.ready()">
+  <v-app id="inspire">
     <NavigationDrawer v-model="drawer" />
 
     <AppBar v-model="drawer" />
@@ -10,7 +10,6 @@
       </v-alert>
       <router-view></router-view>
       <v-snackbar-notification />
-      <AuthorizableAction />
     </v-main>
   </v-app>
 </template>
@@ -19,6 +18,7 @@
 import NavigationDrawer from "./components/layout/NavigationDrawer";
 import AppBar from "./components/layout/AppBar";
 import axios from "axios";
+import { mapActions } from "vuex";
 
 export default {
   components: { AppBar, NavigationDrawer },
@@ -31,6 +31,11 @@ export default {
     env() {
       return process.env.VUE_APP_ENV;
     },
+  },
+  methods: {
+    ...mapActions({
+      fetchUser: "auth/fetchUser",
+    }),
   },
   created() {
     window.getApp = this;
@@ -46,6 +51,9 @@ export default {
         // Do something with response error
         if (error.response.status === 403) {
           this.$snackbar("Вам запрещено это действие", "error");
+        }
+        if (error.response.status === 401) {
+          this.$snackbar("Необходима авторизация", "error");
         }
         return Promise.reject(error);
       }

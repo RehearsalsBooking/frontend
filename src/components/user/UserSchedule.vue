@@ -30,6 +30,7 @@ import RehearsalsDetailed from "@/components/rehearsals/RehearsalsDetailed";
 import RehearsalsTimetable from "@/components/rehearsals/RehearsalsTimetable";
 import { EventBus } from "@/event-bus";
 import RehearsalsFilter from "@/components/rehearsals/RehearsalsFilter";
+import { mapGetters } from "vuex";
 
 export default {
   name: "UserSchedule",
@@ -48,6 +49,11 @@ export default {
       end: null,
     };
   },
+  computed: {
+    ...mapGetters({
+      user: "auth/getUser",
+    }),
+  },
   mounted() {
     this.getUpcomingRehearsals();
     this.getUserBands();
@@ -64,7 +70,7 @@ export default {
   methods: {
     getUserBands() {
       this.$http
-        .get(`/bands`, { params: { active_member_id: this.$auth.user().id } })
+        .get(`/bands`, { params: { active_member_id: this.user.id } })
         .then((res) => {
           this.bands = res.data.data;
         });

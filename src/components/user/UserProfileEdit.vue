@@ -10,12 +10,8 @@
           <ImageUpload :upload-url="`users/me/avatar`" v-model="user.avatar" />
           <h2 class="mb-6">Обновить данные</h2>
           <v-form ref="form">
+            <v-text-field disabled v-model="user.email" label="Почта" />
             <v-text-field v-model="user.name" label="Имя" required />
-            <v-text-field
-              v-model="user.public_email"
-              :error-messages="errors.public_email"
-              label="Почта для связи"
-            />
             <v-text-field v-model="user.phone" label="Телефон" />
             <v-text-field v-model="user.link" label="Сайт/ссылка на соцсети" />
 
@@ -30,6 +26,7 @@
 </template>
 <script>
 import ImageUpload from "@/components/common/ImageUpload";
+import { mapGetters } from "vuex";
 
 export default {
   name: "UserProfileEdit",
@@ -37,15 +34,26 @@ export default {
   data() {
     return {
       user: {
-        name: this.$auth.user().name,
-        public_email: this.$auth.user().contacts.public_email,
-        phone: this.$auth.user().contacts.phone,
-        link: this.$auth.user().contacts.link,
-        avatar: this.$auth.user().avatar.original,
+        name: "",
+        email: "",
+        phone: "",
+        link: "",
+        avatar: "",
       },
-      errors: {
-        public_email: null,
-      },
+    };
+  },
+  computed: {
+    ...mapGetters({
+      loggedUser: "auth/getUser",
+    }),
+  },
+  mounted() {
+    this.user = {
+      name: this.loggedUser.name,
+      email: this.loggedUser.email,
+      phone: this.loggedUser.contacts.phone,
+      link: this.loggedUser.contacts.link,
+      avatar: this.loggedUser.avatar.original,
     };
   },
   methods: {
@@ -55,7 +63,7 @@ export default {
         .then(() => {
           this.$snackbar("Ваш профиль обновлен");
           this.errors = {};
-          this.$auth.fetch({});
+          this.$store.dispatch("auth/updateUser");
         })
         .catch((error) => {
           if (error.response.status === 422) {

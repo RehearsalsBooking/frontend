@@ -43,6 +43,7 @@ import BandMembersLeave from "@/components/bands/BandMembersLeave";
 import BandEditMembersEditRole from "@/components/bands/BandEditMembersEditRole";
 import BandEditMembersDelete from "@/components/bands/BandEditMembersDelete";
 import ImageWithPlaceholder from "@/pages/ImageWithPlaceholder";
+import { mapGetters } from "vuex";
 
 export default {
   name: "MemberListItem",
@@ -57,13 +58,14 @@ export default {
     member: {},
   },
   computed: {
+    ...mapGetters({
+      user: "auth/getUser",
+    }),
     userCanLeaveBand() {
-      return (
-        !this.band.is_admin && this.member.user.id === this.$auth.user().id
-      );
+      return !this.band.is_admin && this.member.user.id === this.user.id;
     },
     userCanRemoveBandMember() {
-      return this.band.is_admin && this.member.user.id !== this.$auth.user().id;
+      return this.band.is_admin && this.member.user.id !== this.user.id;
     },
     roles() {
       return this.member.roles && this.member.roles.join(", ");

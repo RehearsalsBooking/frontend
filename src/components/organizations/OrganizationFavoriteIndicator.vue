@@ -30,13 +30,11 @@ export default {
   },
   methods: {
     toggleFavorite() {
-      this.$authorize(() => {
-        if (this.isFavorited) {
-          this.unFavoriteOrganization();
-        } else {
-          this.favoriteOrganization();
-        }
-      }, "Авторизуйтесь, чтобы сохранить организацию");
+      if (this.isFavorited) {
+        this.unFavoriteOrganization();
+      } else {
+        this.favoriteOrganization();
+      }
     },
 
     unFavoriteOrganization() {

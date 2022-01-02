@@ -2,7 +2,7 @@
   <v-container>
     <v-layout align-center justify-center>
       <v-row align="start">
-        <UserSchedule :user-id="$auth.user().id" />
+        <UserSchedule :user-id="user.id" v-if="isAuthenticated" />
       </v-row>
     </v-layout>
   </v-container>
@@ -10,6 +10,7 @@
 
 <script>
 import UserSchedule from "@/components/user/UserSchedule";
+import { mapGetters } from "vuex";
 
 export default {
   name: "UserBandsPage",
@@ -20,6 +21,12 @@ export default {
       bands: [],
     };
   },
+  computed: {
+    ...mapGetters({
+      user: "auth/getUser",
+      isAuthenticated: "auth/isAuthenticated",
+    }),
+  },
   mounted() {
     this.getBands();
   },
@@ -29,7 +36,7 @@ export default {
       this.$http
         .get("/bands", {
           params: {
-            active_member_id: this.$auth.user().id,
+            active_member_id: this.user.id,
           },
         })
         .then((res) => {

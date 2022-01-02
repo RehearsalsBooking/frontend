@@ -58,4 +58,7 @@ install:
 shell:
 	$(docker_compose_bin) --file "$(docker_compose_yml)" run --rm "$(node_container_name)" sh
 
+backend-shell:
+	$(docker_compose_bin) --file "$(docker_compose_yml)" exec -T "$(php_container_name)" sh
+
 

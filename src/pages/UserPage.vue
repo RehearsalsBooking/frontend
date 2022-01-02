@@ -20,7 +20,7 @@
                   <h2 class="mb-3">
                     {{ user.name }}
                     <v-btn
-                      v-if="$auth.user().id === id"
+                      v-if="loggedUser.id === id"
                       class="ml-6"
                       small
                       dark
@@ -64,6 +64,7 @@
 import UserStats from "@/components/user/UserStats";
 import UserBands from "@/components/user/UserBands";
 import ImageWithPlaceholder from "@/pages/ImageWithPlaceholder";
+import { mapGetters } from "vuex";
 
 export default {
   name: "UserPage",
@@ -77,6 +78,11 @@ export default {
       user: {},
       tab: 0,
     };
+  },
+  computed: {
+    ...mapGetters({
+      loggedUser: "auth/getUser",
+    }),
   },
   mounted() {
     this.getUser();

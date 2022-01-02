@@ -21,13 +21,31 @@ import OrganizationPricesPage from "@/pages/management/OrganizationPricesPage";
 import OrganizationStatisticsPage from "@/pages/management/OrganizationStatisticsPage";
 import NotFound from "@/pages/NotFound";
 import OrganizationRoomsPage from "@/pages/management/OrganizationRoomsPage";
+import AuthRedirectPage from "@/pages/AuthRedirectPage";
+import AuthPage from "@/pages/AuthPage";
+import store from "../store/index.js";
 
+const ifAuthenticated = async (to, from, next) => {
+  if (store.getters["auth/isAuthenticated"]) {
+    next();
+    return;
+  }
+  next({ name: "login" });
+};
+
+const ifNotAuthenticated = async (to, from, next) => {
+  if (!store.getters["auth/isAuthenticated"]) {
+    next();
+    return;
+  }
+  next("/");
+};
 export default [
   {
     path: "/profile",
     exact: true,
+    beforeEnter: ifAuthenticated,
     meta: {
-      auth: true,
       title: "Мой профиль",
     },
     name: "profile",
@@ -35,8 +53,8 @@ export default [
     children: [
       {
         path: "edit",
+        beforeEnter: ifAuthenticated,
         meta: {
-          auth: true,
           title: "Редактирование профиля",
         },
         name: "profile/edit",
@@ -44,8 +62,8 @@ export default [
       },
       {
         path: "bands",
+        beforeEnter: ifAuthenticated,
         meta: {
-          auth: true,
           title: "Мои группы",
         },
         name: "profile/bands",
@@ -77,8 +95,8 @@ export default [
       },
       {
         path: "schedule",
+        beforeEnter: ifAuthenticated,
         meta: {
-          auth: true,
           title: "Мои репетиции",
         },
         name: "profile/schedule",
@@ -144,7 +162,7 @@ export default [
       },
       {
         path: ":id/edit",
-        auth: true,
+        beforeEnter: ifAuthenticated,
         props: true,
         meta: {
           title: "Группы",
@@ -153,17 +171,15 @@ export default [
         children: [
           {
             path: "main-info",
-            meta: {
-              auth: true,
-            },
+            beforeEnter: ifAuthenticated,
             props: true,
             name: "band-edit-main-info",
             component: BandEditMainInfo,
           },
           {
             path: "members",
+            beforeEnter: ifAuthenticated,
             meta: {
-              auth: true,
               title: "Состав группы",
             },
             props: true,
@@ -172,8 +188,8 @@ export default [
           },
           {
             path: "invites",
+            beforeEnter: ifAuthenticated,
             meta: {
-              auth: true,
               title: "Приглашения группы",
             },
             props: true,
@@ -191,7 +207,7 @@ export default [
     children: [
       {
         path: ":id/edit",
-        auth: true,
+        beforeEnter: ifAuthenticated,
         props: true,
         meta: {
           title: "Редактирование",
@@ -201,7 +217,7 @@ export default [
       },
       {
         path: ":id/timetable",
-        auth: true,
+        beforeEnter: ifAuthenticated,
         props: true,
         meta: {
           title: "Расписание",
@@ -211,7 +227,7 @@ export default [
       },
       {
         path: ":id/prices",
-        auth: true,
+        beforeEnter: ifAuthenticated,
         props: true,
         meta: {
           title: "Цены",
@@ -221,7 +237,7 @@ export default [
       },
       {
         path: ":id/statistics",
-        auth: true,
+        beforeEnter: ifAuthenticated,
         props: true,
         meta: {
           title: "Статистика",
@@ -231,7 +247,7 @@ export default [
       },
       {
         path: ":id/rooms",
-        auth: true,
+        beforeEnter: ifAuthenticated,
         props: true,
         meta: {
           title: "Комнаты",
@@ -240,6 +256,21 @@ export default [
         component: OrganizationRoomsPage,
       },
     ],
+  },
+
+  {
+    path: "/auth/:provider/callback",
+    props: true,
+    component: AuthRedirectPage,
+    beforeEnter: ifNotAuthenticated,
+  },
+
+  {
+    path: "/auth",
+    props: true,
+    component: AuthPage,
+    name: "login",
+    beforeEnter: ifNotAuthenticated,
   },
 
   {

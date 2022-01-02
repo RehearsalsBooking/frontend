@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import LoginButton from "@/plugins/authorizable_action/LoginButton";
+import LoginButton from "@/components/auth/LoginButton";
 
 export default {
   name: "GoogleLoginButton",

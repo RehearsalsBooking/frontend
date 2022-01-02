@@ -12,7 +12,7 @@
       <v-card-text v-if="show" class="py-0">
         <CitySelect v-model="city_id" :cities="cities" @change="sendFilters" />
         <v-checkbox
-          v-if="$auth.check()"
+          v-if="isAuthenticated"
           @change="sendFilters"
           v-model="favorite"
           label="Только среди любимых"
@@ -33,14 +33,9 @@
         />
       </v-card-text>
     </v-expand-transition>
-    <v-card-actions class="mt-3">
-      <v-btn
-        v-if="isAnyFiltersSelected"
-        color="secondary"
-        rounded
-        block
-        @click="resetFilters"
-        >Сбросить фильтры
+    <v-card-actions class="mt-3" v-if="isAnyFiltersSelected">
+      <v-btn color="secondary" rounded block @click="resetFilters">
+        Сбросить фильтры
       </v-btn>
     </v-card-actions>
   </v-card>
@@ -48,13 +43,19 @@
 <script>
 import RehearsalTimeInput from "../common/RehearsalTimeInput";
 import CitySelect from "@/components/common/CitySelect";
-
+import { mapGetters } from "vuex";
 export default {
   name: "OrganizationsFilter",
   components: { CitySelect, RehearsalTimeInput },
   props: {
     isFetching: Boolean,
     cities: Array,
+  },
+  computed: {
+    ...mapGetters({
+      isAuthenticated: "auth/isAuthenticated",
+      user: "auth/getUser",
+    }),
   },
   data() {
     return {

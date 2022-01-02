@@ -16,19 +16,18 @@
       </router-link>
     </v-toolbar-title>
     <v-spacer />
-    <template v-if="$auth.check()">
-      {{ $auth.user().name }}
+    <template v-if="isAuthenticated">
+      {{ user.name }}
       <v-avatar size="36" class="ml-4">
-        <ImageWithPlaceholder
-          :src="$auth.user().avatar ? $auth.user().avatar.thumb : ''"
-        />
+        <ImageWithPlaceholder :src="user.avatar ? user.avatar.thumb : ''" />
       </v-avatar>
     </template>
-    <v-btn v-else text @click="$authorize()">Войти</v-btn>
+    <v-btn v-else text @click="$router.push({ name: 'login' })">Войти</v-btn>
   </v-app-bar>
 </template>
 <script>
 import ImageWithPlaceholder from "@/pages/ImageWithPlaceholder";
+import { mapGetters } from "vuex";
 export default {
   name: "AppBar",
   components: { ImageWithPlaceholder },
@@ -39,6 +38,10 @@ export default {
     env() {
       return process.env.VUE_APP_ENV;
     },
+    ...mapGetters({
+      isAuthenticated: "auth/isAuthenticated",
+      user: "auth/getUser",
+    }),
   },
 };
 </script>

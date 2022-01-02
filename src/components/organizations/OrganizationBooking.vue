@@ -87,26 +87,21 @@ export default {
       return params;
     },
     bookRehearsal() {
-      this.$authorize(() => {
-        this.$http
-          .post("rehearsals", this.getParamsForBooking())
-          .then(() => {
-            this.$snackbar("Репетиция успешно забронирована");
-            this.$emit("rehearsalAdded", this.getParamsForBooking());
-            this.resetParams();
-          })
-          .catch((error) => {
-            if (error.response.status === 401) {
-              this.$snackbar("Действие не ваторизовано", "error");
-            }
-            if (error.response.status === 422) {
-              this.$snackbar(
-                "Ошибка. Попробуйте выбрать другое время",
-                "error"
-              );
-            }
-          });
-      });
+      this.$http
+        .post("rehearsals", this.getParamsForBooking())
+        .then(() => {
+          this.$snackbar("Репетиция успешно забронирована");
+          this.$emit("rehearsalAdded", this.getParamsForBooking());
+          this.resetParams();
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            this.$snackbar("Действие не ваторизовано", "error");
+          }
+          if (error.response.status === 422) {
+            this.$snackbar("Ошибка. Попробуйте выбрать другое время", "error");
+          }
+        });
     },
     resetParams() {
       this.time = {

@@ -1,19 +1,20 @@
 <template>
-  <v-btn block color="primary" @click="logout"> Выйти</v-btn>
+  <v-btn block color="primary" @click="onLogout"> Выйти</v-btn>
 </template>
 <script>
+import { mapActions } from "vuex";
+
 export default {
   name: "LogoutButton",
   methods: {
-    logout() {
-      this.$auth
-        .logout({
-          redirect: "/",
-        })
-        .then(() => {
-          this.$snackbar("Вы успешно вышли из системы");
-          window.getApp.$emit("successfulLogout");
-        });
+    ...mapActions({
+      logout: "auth/logout",
+    }),
+    onLogout() {
+      this.logout().then(() => {
+        this.$snackbar("Вы успешно вышли из системы");
+        this.$router.push("/");
+      });
     },
   },
 };
