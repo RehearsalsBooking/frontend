@@ -16,13 +16,15 @@
       </router-link>
     </v-toolbar-title>
     <v-spacer />
-    <template v-if="isAuthenticated">
-      {{ user.name }}
-      <v-avatar size="36" class="ml-4">
-        <ImageWithPlaceholder :src="user.avatar ? user.avatar.thumb : ''" />
-      </v-avatar>
+    <template v-if="isAuthenticated !== undefined">
+      <template v-if="isAuthenticated">
+        {{ user.name }}
+        <v-avatar size="36" class="ml-4">
+          <ImageWithPlaceholder :src="user.avatar ? user.avatar.thumb : ''" />
+        </v-avatar>
+      </template>
+      <v-btn v-else text @click="$router.push({ name: 'login' })">Войти</v-btn>
     </template>
-    <v-btn v-else text @click="$router.push({ name: 'login' })">Войти</v-btn>
   </v-app-bar>
 </template>
 <script>

@@ -20,16 +20,17 @@ export default {
       isError: false,
     };
   },
-  async mounted() {
-    try {
-      await this.login({
-        provider: this.provider,
-        query: window.location.search,
+  mounted() {
+    this.login({
+      provider: this.provider,
+      query: window.location.search,
+    })
+      .then(() => {
+        this.$router.push("/");
+      })
+      .catch(() => {
+        this.isError = true;
       });
-      await this.$router.push("/");
-    } catch (e) {
-      this.isError = true;
-    }
   },
   methods: {
     ...mapActions({

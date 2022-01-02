@@ -13,7 +13,13 @@ const router = new Router({
 });
 
 router.beforeEach(async (to, from, next) => {
-  await store.dispatch("auth/fetchUser");
+  if (
+    to.path !== "/auth/google/callback" &&
+    to.path !== "/auth/vkontakte/callback" &&
+    to.path !== "/auth"
+  ) {
+    await store.dispatch("auth/fetchUser");
+  }
   document.title = to.meta.title;
   next();
 });
