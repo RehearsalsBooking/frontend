@@ -28,7 +28,6 @@ export default {
       );
       commit("setUser", data.data);
       commit("updateAuthenticatedState", true);
-      await this._vm.$router.push("/");
       return data.data;
     },
     async loginTest({ commit }) {
