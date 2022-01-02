@@ -78,6 +78,7 @@
         order-sm="first"
         order-lg="last"
         order-md="first"
+        style="flex-basis: auto"
       >
         <OrganizationsFilter
           :is-fetching="isFetching"

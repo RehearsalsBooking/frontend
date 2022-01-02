@@ -22,7 +22,7 @@
           v-model="name"
           clearable
           @click:clear="emptyNameQuery"
-          @keypress.enter="sendFilters"
+          @change="sendFilters"
         />
         <v-card-title class="text-center">
           <div class="text-center mx-auto">Со свободным временем</div>
