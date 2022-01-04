@@ -57,7 +57,7 @@
             <OrganizationBookingPriceCalculation
               :price.sync="newPrice"
               :time="newTime"
-              :organizationId="rehearsal.organization.id"
+              :room-id="rehearsal.room.id"
             />
           </div>
         </v-card-text>
@@ -157,6 +157,9 @@ export default {
         .catch((err) => {
           if (err.response.status === 403) {
             this.$snackbar("Вы не можете изменить репетицию.", "error");
+          }
+          if (err.response.status === 422) {
+            this.$snackbar(err.response.data, "error");
           }
         });
     },

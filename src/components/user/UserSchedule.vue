@@ -44,7 +44,6 @@ export default {
       allRehearsals: [],
       isUpcomingRehearsalsFetching: true,
       filters: {},
-      bands: [],
       start: null,
       end: null,
     };
@@ -53,10 +52,12 @@ export default {
     ...mapGetters({
       user: "auth/getUser",
     }),
+    bands() {
+      return this.user.bands;
+    },
   },
   mounted() {
     this.getUpcomingRehearsals();
-    this.getUserBands();
     EventBus.$on("rehearsals-changed", () => this.getUpcomingRehearsals());
   },
   watch: {
@@ -68,13 +69,6 @@ export default {
     },
   },
   methods: {
-    getUserBands() {
-      this.$http
-        .get(`/bands`, { params: { active_member_id: this.user.id } })
-        .then((res) => {
-          this.bands = res.data.data;
-        });
-    },
     getUpcomingRehearsals() {
       this.isUpcomingRehearsalsFetching = true;
       this.$http

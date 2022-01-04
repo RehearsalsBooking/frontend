@@ -26,16 +26,16 @@ export default {
       const { data } = await this._vm.$http.get(
         `/auth/${provider}/callback${query}`
       );
-      commit("setUser", data.data);
+      commit("setUser", data);
       commit("updateAuthenticatedState", true);
-      return data.data;
+      return data;
     },
     async loginTest({ commit }) {
       await this._vm.$http.get("sanctum/csrf-cookie");
       const { data } = await this._vm.$http.post("/login/test");
-      commit("setUser", data.data);
+      commit("setUser", data);
       commit("updateAuthenticatedState", true);
-      return data.data;
+      return data;
     },
     async fetchUser({ commit, state }) {
       if (state.user !== undefined) {

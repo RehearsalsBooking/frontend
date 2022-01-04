@@ -18,7 +18,6 @@ export default {
   data() {
     return {
       isFetching: true,
-      bands: [],
     };
   },
   computed: {
@@ -26,24 +25,6 @@ export default {
       user: "auth/getUser",
       isAuthenticated: "auth/isAuthenticated",
     }),
-  },
-  mounted() {
-    this.getBands();
-  },
-  methods: {
-    getBands() {
-      this.isFetching = true;
-      this.$http
-        .get("/bands", {
-          params: {
-            active_member_id: this.user.id,
-          },
-        })
-        .then((res) => {
-          this.bands = res.data.data;
-        })
-        .finally(() => (this.isFetching = false));
-    },
   },
 };
 </script>

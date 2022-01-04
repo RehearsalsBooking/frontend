@@ -46,10 +46,11 @@ export default {
       }
 
       this.$http
-        .get(`rooms/${this.roomId}/prices/calculate`, {
+        .get(`rehearsals/price`, {
           params: {
             starts_at: this.time.from,
             ends_at: this.time.to,
+            organization_room_id: this.roomId,
           },
         })
         .then((res) => {

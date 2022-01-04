@@ -1,5 +1,5 @@
 <template>
-  <v-col sm="12" md="4" v-if="userBands.length > 0">
+  <v-col sm="12" md="4" v-if="managedBands.length > 0">
     <v-card class="px-4" height="100%">
       <v-card-title>
         <div class="mx-auto text-no-wrap">Тип репетиции</div>
@@ -12,7 +12,7 @@
         <v-select
           v-if="onBehalfOfBand"
           label="Выберите группу"
-          :items="userBands"
+          :items="managedBands"
           item-text="name"
           item-value="id"
           :value="bandId"
@@ -33,27 +33,25 @@ export default {
   computed: {
     ...mapGetters({
       isAuthenticated: "auth/isAuthenticated",
+      user: "auth/getUser",
     }),
+    managedBands() {
+      if (!this.isAuthenticated) {
+        return [];
+      }
+      return this.user.bands.filter((band) => band.is_admin);
+    },
   },
   data() {
     return {
       onBehalfOfBand: false,
-      userBands: [],
     };
-  },
-  mounted() {
-    if (!this.isAuthenticated) {
-      return;
-    }
-    this.$http.get(`bands/?only_managed=1`).then((res) => {
-      this.userBands = res.data.data;
-    });
   },
   watch: {
     onBehalfOfBand(value) {
       if (value) {
-        if (this.userBands.length > 0) {
-          this.$emit("update:bandId", this.userBands[0].id);
+        if (this.managedBands.length > 0) {
+          this.$emit("update:bandId", this.managedBands[0].id);
         }
       } else {
         this.$emit("update:bandId", null);

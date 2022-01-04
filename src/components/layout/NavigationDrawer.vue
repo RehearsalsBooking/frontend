@@ -68,72 +68,70 @@ export default {
       user: "auth/getUser",
     }),
   },
+  watch: {
+    isAuthenticated() {
+      this.getOrganizationsMenu();
+    },
+  },
   mounted() {
     this.getOrganizationsMenu();
-    window.getApp.$on("successfulLogin", () => {
-      this.getOrganizationsMenu();
-    });
-    window.getApp.$on("successfulLogout", () => {
-      this.getOrganizationsMenu();
-    });
   },
   methods: {
     getOrganizationsMenu() {
+      console.log(this.isAuthenticated);
       if (!this.isAuthenticated) {
         this.management = [];
         return;
       }
-      this.$http.get("management/organizations").then((res) => {
-        res.data.data.forEach((organization) => {
-          // noinspection JSUnfilteredForInLoop
-          this.management.push({
-            icon: "mdi-chevron-up",
-            "icon-alt": "mdi-chevron-down",
-            text: organization.name,
-            model: false,
-            children: [
-              {
-                icon: "mdi-cog",
-                text: "Редактирование",
-                route: {
-                  name: "organization/edit",
-                  params: { id: organization.id },
-                },
+      this.user.organizations.forEach((organization) => {
+        // noinspection JSUnfilteredForInLoop
+        this.management.push({
+          icon: "mdi-chevron-up",
+          "icon-alt": "mdi-chevron-down",
+          text: organization.name,
+          model: false,
+          children: [
+            {
+              icon: "mdi-cog",
+              text: "Редактирование",
+              route: {
+                name: "organization/edit",
+                params: { id: organization.id },
               },
-              {
-                icon: "mdi-calendar-blank-multiple",
-                text: "Комнаты",
-                route: {
-                  name: "organization/rooms",
-                  params: { id: organization.id },
-                },
+            },
+            {
+              icon: "mdi-calendar-blank-multiple",
+              text: "Комнаты",
+              route: {
+                name: "organization/rooms",
+                params: { id: organization.id },
               },
-              {
-                icon: "mdi-calendar",
-                text: "Расписание",
-                route: {
-                  name: "organization/timetable",
-                  params: { id: organization.id },
-                },
+            },
+            {
+              icon: "mdi-calendar",
+              text: "Расписание",
+              route: {
+                name: "organization/timetable",
+                params: { id: organization.id },
               },
-              {
-                icon: "mdi-currency-rub",
-                text: "Цены",
-                route: {
-                  name: "organization/prices",
-                  params: { id: organization.id },
-                },
+            },
+            {
+              icon: "mdi-currency-rub",
+              text: "Цены",
+              route: {
+                name: "organization/prices",
+                params: { id: organization.id },
               },
-              {
-                icon: "mdi-chart-line",
-                text: "Статистика",
-                route: {
-                  name: "organization/statistics",
-                  params: { id: organization.id },
-                },
+            },
+            {
+              icon: "mdi-chart-line",
+              text: "Статистика",
+              route: {
+                name: "organization/statistics",
+                params: { id: organization.id },
               },
-            ],
-          });
+            },
+          ],
         });
       });
     },
