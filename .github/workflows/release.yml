@@ -122,3 +122,22 @@ jobs:
         run: |
           rm -rf /tmp/.buildx-cache-demo
           mv /tmp/.buildx-cache-demo-new /tmp/.buildx-cache-demo
+
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://festic.ru
+    steps:
+      - name: deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{secrets.SSH_HOST}}
+          key: ${{secrets.SSH_SECRET}}
+          username: ${{ secrets.SSH_USER }}
+          debug: true
+          script: |
+            cd ~/infrastructure
+            git reset --hard
+            git pull
+            make deploy
