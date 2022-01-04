@@ -78,7 +78,6 @@ export default {
   },
   methods: {
     getOrganizationsMenu() {
-      console.log(this.isAuthenticated);
       if (!this.isAuthenticated) {
         this.management = [];
         return;

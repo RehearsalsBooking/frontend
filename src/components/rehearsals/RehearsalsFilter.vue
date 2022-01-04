@@ -77,7 +77,6 @@ export default {
       };
     },
     removeBandFromSelected(band) {
-      console.log(this.filters.selectedBands, band);
       this.filters.selectedBands = this.filters.selectedBands.filter(
         (selectedBandId) => selectedBandId !== band.id
       );
