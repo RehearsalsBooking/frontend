@@ -96,7 +96,10 @@ export default {
         })
         .catch((error) => {
           if (error.response.status === 401) {
-            this.$snackbar("Действие не ваторизовано", "error");
+            this.$snackbar("Сначала необходимо авторизоваться", "error");
+          }
+          if (error.response.status === 403) {
+            this.$snackbar(error.response.data.message, "error");
           }
           if (error.response.status === 422) {
             this.$snackbar("Ошибка. Попробуйте выбрать другое время", "error");

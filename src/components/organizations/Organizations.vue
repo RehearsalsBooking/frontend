@@ -111,9 +111,6 @@ export default {
     };
   },
   mounted() {
-    window.getApp.$on("successfulLogin", () => {
-      this.getOrganizations();
-    });
     this.$http.get("cities").then((res) => (this.cities = res.data.data));
   },
   methods: {

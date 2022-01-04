@@ -22,15 +22,11 @@ services:
       - POSTGRES_DB=rehearsals
       - POSTGRES_USER=rehearsals
       - POSTGRES_PASSWORD=rehearsals
-    ports:
-      - "5432:5432"
 
   frontend:
     build:
       context: ../
       dockerfile: docker/dev/Dockerfile
-    ports:
-      - "8080:8080"
     network_mode: host
     volumes:
       - ../:/app

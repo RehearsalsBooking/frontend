@@ -1,6 +1,6 @@
 <template>
   <v-layout align-center justify-center>
-    <v-row align="start">
+    <v-row align="start" class="my-0">
       <BandsList :bands="bands" :is-fetching="isFetching">
         <template #no-bands>
           <template v-if="membershipStatus === 'active'">
