@@ -35,28 +35,30 @@ init:
 	$(docker_compose_bin) --file "$(docker_compose_yml)" exec "$(php_container_name)" php artisan route:cache
 	$(docker_compose_bin) --file "$(docker_compose_yml)" exec "$(php_container_name)" php artisan storage:link
 
-run: up init
+run: build up init
 	echo "project launched at http://rehearsals.local:8080/"
 
 up:
+	$(docker_compose_bin) --file "$(docker_compose_yml)" up -d
+
+build:
+	echo $(pwd)
 	$(docker_bin) pull docker.pkg.github.com/rehearsalsbooking/backend/backend:latest
 	$(docker_bin) pull ghcr.io/rehearsalsbooking/frontend/node-base:latest
-	$(docker_compose_bin) --file "$(docker_compose_yml)" up -d
+	$(docker_compose_bin) --file "$(docker_compose_yml)" build
+	$(docker_compose_bin) --file "$(docker_compose_yml)" run --rm -v "./:/app" "$(node_container_name)" npm install
 
 down:
 	$(docker_compose_bin) --file "$(docker_compose_yml)" down
 
 update:
-	$(docker_compose_bin) --file "$(docker_compose_yml)" run --rm "$(node_container_name)" npm install -g npm && npm update
+	$(docker_compose_bin) --file "$(docker_compose_yml)" exec "$(node_container_name)" npm update
 
 fix:
-	$(docker_compose_bin) --file "$(docker_compose_yml)" run --rm "$(node_container_name)" npm audit fix
+	$(docker_compose_bin) --file "$(docker_compose_yml)" exec "$(node_container_name)" npm audit fix
 
 install:
-	$(docker_compose_bin) --file "$(docker_compose_yml)" run --rm "$(node_container_name)" npm install $(filter-out $@,$(MAKECMDGOALS))
-
-shell:
-	$(docker_compose_bin) --file "$(docker_compose_yml)" run --rm "$(node_container_name)" sh
+	$(docker_compose_bin) --file "$(docker_compose_yml)" exec "$(node_container_name)" npm install $(filter-out $@,$(MAKECMDGOALS))
 
 backend-shell:
 	$(docker_compose_bin) --file "$(docker_compose_yml)" exec -T "$(php_container_name)" sh
