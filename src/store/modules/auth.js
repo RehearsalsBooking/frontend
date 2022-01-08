@@ -30,6 +30,13 @@ export default {
       commit("updateAuthenticatedState", true);
       return data;
     },
+    async loginViaEmail({ commit }, credentials) {
+      await this._vm.$http.get("sanctum/csrf-cookie");
+      const { data } = await this._vm.$http.post(`/login`, credentials);
+      commit("setUser", data);
+      commit("updateAuthenticatedState", true);
+      return data;
+    },
     async loginTest({ commit }) {
       await this._vm.$http.get("sanctum/csrf-cookie");
       const { data } = await this._vm.$http.post("/login/test");

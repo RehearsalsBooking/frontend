@@ -4,19 +4,22 @@
       <v-col cols="12" sm="3">
         <v-card>
           <v-card-text>
-            <v-row>
+            <LoginByEmail />
+            <v-row v-if="env === 'production'">
               <v-col cols="12" class="text-center"
                 ><h3>Вход через соцсети:</h3>
               </v-col>
             </v-row>
-            <v-row>
-              <v-col sm="12" lg="6" v-if="env === 'production'">
+            <v-row v-if="env === 'production'">
+              <v-col sm="12" lg="6">
                 <GoogleLoginButton @click="auth('google')" />
               </v-col>
-              <v-col sm="12" lg="6" v-if="env === 'production'">
+              <v-col sm="12" lg="6">
                 <VKLoginButton @click="auth('vkontakte')" />
               </v-col>
-              <v-col cols="12" v-if="env !== 'production'">
+            </v-row>
+            <v-row v-if="env !== 'production'">
+              <v-col cols="12">
                 <LoginButton @click="authTest">
                   <template #icon>
                     <v-icon color="white">mdi-account</v-icon>
@@ -37,10 +40,11 @@ import { mapGetters, mapActions } from "vuex";
 import LoginButton from "@/components/auth/LoginButton";
 import VKLoginButton from "@/components/auth/VKLoginButton";
 import GoogleLoginButton from "@/components/auth/GoogleLoginButton";
+import LoginByEmail from "@/components/auth/LoginByEmail";
 
 export default {
   name: "AuthPage",
-  components: { LoginButton, VKLoginButton, GoogleLoginButton },
+  components: { LoginByEmail, LoginButton, VKLoginButton, GoogleLoginButton },
   computed: {
     env() {
       return process.env.VUE_APP_ENV;
