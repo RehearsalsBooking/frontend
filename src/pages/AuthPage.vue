@@ -6,18 +6,33 @@
           <v-card-text>
             <LoginByEmail />
             <v-row v-if="env === 'production'">
-              <v-col cols="12" class="text-center"
-                ><h3>Вход через соцсети:</h3>
+              <v-col cols="12">
+                <v-btn
+                  color="primary"
+                  rounded
+                  block
+                  @click="$router.push({ name: 'registration' })"
+                >
+                  Регистрация
+                </v-btn>
               </v-col>
             </v-row>
-            <v-row v-if="env === 'production'">
-              <v-col sm="12" lg="6">
-                <GoogleLoginButton @click="auth('google')" />
-              </v-col>
-              <v-col sm="12" lg="6">
-                <VKLoginButton @click="auth('vkontakte')" />
-              </v-col>
-            </v-row>
+            <template v-if="env === 'production'">
+              <v-row>
+                <v-col cols="12" class="text-center">
+                  <h3>Вход через соцсети:</h3>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col sm="12" lg="6">
+                  <GoogleLoginButton @click="auth('google')" />
+                </v-col>
+                <v-col sm="12" lg="6">
+                  <VKLoginButton @click="auth('vkontakte')" />
+                </v-col>
+              </v-row>
+            </template>
+
             <v-row v-if="env !== 'production'">
               <v-col cols="12">
                 <LoginButton @click="authTest">

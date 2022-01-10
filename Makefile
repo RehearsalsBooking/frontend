@@ -42,11 +42,10 @@ up:
 	$(docker_compose_bin) --file "$(docker_compose_yml)" up -d
 
 build:
-	echo $(pwd)
 	$(docker_bin) pull docker.pkg.github.com/rehearsalsbooking/backend/backend:latest
 	$(docker_bin) pull ghcr.io/rehearsalsbooking/frontend/node-base:latest
 	$(docker_compose_bin) --file "$(docker_compose_yml)" build
-	$(docker_compose_bin) --file "$(docker_compose_yml)" run --rm -v "./:/app" "$(node_container_name)" npm install
+	$(docker_compose_bin) --file "$(docker_compose_yml)" run --rm "$(node_container_name)" npm install
 
 down:
 	$(docker_compose_bin) --file "$(docker_compose_yml)" down

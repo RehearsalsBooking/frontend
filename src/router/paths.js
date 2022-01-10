@@ -24,6 +24,7 @@ import OrganizationRoomsPage from "@/pages/management/OrganizationRoomsPage";
 import AuthRedirectPage from "@/pages/AuthRedirectPage";
 import AuthPage from "@/pages/AuthPage";
 import store from "../store/index.js";
+import RegistrationPage from "@/pages/RegistrationPage";
 
 const ifAuthenticated = async (to, from, next) => {
   if (store.getters["auth/isAuthenticated"]) {
@@ -261,6 +262,9 @@ export default [
   {
     path: "/auth/:provider/callback",
     props: true,
+    meta: {
+      title: "Авторизация",
+    },
     component: AuthRedirectPage,
     beforeEnter: ifNotAuthenticated,
   },
@@ -268,8 +272,21 @@ export default [
   {
     path: "/auth",
     props: true,
+    meta: {
+      title: "Авторизация",
+    },
     component: AuthPage,
     name: "login",
+    beforeEnter: ifNotAuthenticated,
+  },
+  {
+    path: "/registration",
+    props: true,
+    meta: {
+      title: "Авторизация",
+    },
+    component: RegistrationPage,
+    name: "registration",
     beforeEnter: ifNotAuthenticated,
   },
 

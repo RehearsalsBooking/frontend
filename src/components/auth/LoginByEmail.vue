@@ -31,6 +31,7 @@
             class="mt-2"
             @click="login"
             :loading="isLoading"
+            :disabled="!valid"
           >
             Войти
           </v-btn>
