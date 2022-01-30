@@ -16,7 +16,8 @@ router.beforeEach(async (to, from, next) => {
   if (
     to.path !== "/auth/google/callback" &&
     to.path !== "/auth/vkontakte/callback" &&
-    to.path !== "/auth"
+    to.path !== "/auth" &&
+    to.path !== "/registration"
   ) {
     await store.dispatch("auth/fetchUser");
   }

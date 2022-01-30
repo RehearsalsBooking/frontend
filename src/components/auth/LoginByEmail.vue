@@ -24,6 +24,7 @@
             v-model="credentials.password"
             required
           />
+          <v-checkbox label="Не запоминать меня" v-model="dontRemember" />
           <v-btn
             color="primary"
             rounded
@@ -54,7 +55,9 @@ export default {
       credentials: {
         email: "",
         password: "",
+        remember_me: true,
       },
+      dontRemember: false,
       rules: {
         required: (v) => !!v || "Введите пароль",
         email: [
@@ -64,6 +67,11 @@ export default {
       },
     };
   },
+  watch: {
+    dontRemember(v) {
+      this.credentials.remember_me = !v;
+    },
+  },
   methods: {
     async login() {
       if (!(await this.$refs.form.validate())) {
@@ -72,7 +80,9 @@ export default {
       this.isLoading = true;
       this.loginViaEmail(this.credentials)
         .then(() => {
-          this.$router.push("/");
+          if (this.$route.path !== "/") {
+            this.$router.push("/");
+          }
         })
         .catch((e) => {
           if (e.response.status === 422) {
