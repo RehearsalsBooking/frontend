@@ -54,7 +54,7 @@ update:
 	$(docker_compose_bin) --file "$(docker_compose_yml)" exec "$(node_container_name)" npm update
 
 fix:
-	$(docker_compose_bin) --file "$(docker_compose_yml)" exec "$(node_container_name)" npm audit fix
+	$(docker_compose_bin) --file "$(docker_compose_yml)" exec "$(node_container_name)" npm audit fix --production
 
 install:
 	$(docker_compose_bin) --file "$(docker_compose_yml)" exec "$(node_container_name)" npm install $(filter-out $@,$(MAKECMDGOALS))
