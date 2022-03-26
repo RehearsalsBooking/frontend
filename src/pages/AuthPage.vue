@@ -5,19 +5,33 @@
         <v-card>
           <v-card-text>
             <LoginByEmail />
-            <v-row v-if="env === 'production'">
-              <v-col cols="12">
-                <v-btn
-                  color="primary"
-                  rounded
-                  block
-                  @click="$router.push({ name: 'registration' })"
-                >
-                  Регистрация
-                </v-btn>
-              </v-col>
-            </v-row>
-            <template v-if="env === 'production'">
+            <template>
+              <!--            <template v-if="env === 'production'">-->
+              <v-row>
+                <v-col cols="12">
+                  <v-btn
+                    color="primary"
+                    rounded
+                    block
+                    @click="$router.push({ name: 'password-recovery-link' })"
+                  >
+                    Восстановление пароля
+                  </v-btn>
+                </v-col>
+              </v-row>
+              <v-row v-if="env === 'production'">
+                <v-col cols="12">
+                  <v-btn
+                    color="primary"
+                    rounded
+                    block
+                    @click="$router.push({ name: 'registration' })"
+                  >
+                    Регистрация
+                  </v-btn>
+                </v-col>
+              </v-row>
+
               <v-row>
                 <v-col cols="12" class="text-center">
                   <h3>Вход через соцсети:</h3>

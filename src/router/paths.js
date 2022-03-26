@@ -25,6 +25,7 @@ import AuthRedirectPage from "@/pages/AuthRedirectPage";
 import AuthPage from "@/pages/AuthPage";
 import store from "../store/index.js";
 import RegistrationPage from "@/pages/RegistrationPage";
+import PasswordResetPage from "@/pages/PasswordResetPage";
 
 const ifAuthenticated = async (to, from, next) => {
   if (store.getters["auth/isAuthenticated"]) {
@@ -287,6 +288,16 @@ export default [
     },
     component: RegistrationPage,
     name: "registration",
+    beforeEnter: ifNotAuthenticated,
+  },
+  {
+    path: "/reset-password",
+    props: true,
+    meta: {
+      title: "Восстановление пароля",
+    },
+    component: PasswordResetPage,
+    name: "password-recovery-link",
     beforeEnter: ifNotAuthenticated,
   },
 
