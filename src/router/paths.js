@@ -26,6 +26,7 @@ import AuthPage from "@/pages/AuthPage";
 import store from "../store/index.js";
 import RegistrationPage from "@/pages/RegistrationPage";
 import PasswordResetPage from "@/pages/PasswordResetPage";
+import EmailUpdatePage from "@/pages/EmailUpdatePage";
 
 const ifAuthenticated = async (to, from, next) => {
   if (store.getters["auth/isAuthenticated"]) {
@@ -61,6 +62,15 @@ export default [
         },
         name: "profile/edit",
         component: UserProfileEdit,
+      },
+      {
+        path: "email",
+        beforeEnter: ifAuthenticated,
+        meta: {
+          title: "Редактирование почты",
+        },
+        name: "email-update",
+        component: EmailUpdatePage,
       },
       {
         path: "bands",
@@ -306,6 +316,7 @@ export default [
     redirect: {
       path: "/organizations",
     },
+    name: "main",
   },
 
   {

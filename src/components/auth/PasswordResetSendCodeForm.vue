@@ -5,13 +5,7 @@
         <h3>Введите свою почту</h3>
       </v-col>
     </v-row>
-    <v-text-field
-      label="Почта"
-      type="email"
-      :rules="rules.email"
-      v-model="email"
-      required
-    />
+    <EmailInput v-model="email" required />
     <v-btn
       color="primary"
       type="submit"
@@ -27,8 +21,10 @@
   </v-form>
 </template>
 <script>
+import EmailInput from "@/components/auth/EmailInput";
 export default {
   name: "PasswordResetSendCodeForm",
+  components: { EmailInput },
   data() {
     return {
       valid: false,

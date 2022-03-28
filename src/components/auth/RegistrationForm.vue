@@ -7,13 +7,7 @@
       v-model="credentials.name"
       required
     />
-    <v-text-field
-      label="Почта"
-      type="email"
-      :rules="rules.email"
-      v-model="credentials.email"
-      required
-    />
+    <EmailInput v-model="credentials.email" required />
     <v-text-field
       label="Пароль"
       :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
@@ -47,8 +41,10 @@
 </template>
 
 <script>
+import EmailInput from "@/components/auth/EmailInput";
 export default {
   name: "RegistrationForm",
+  components: { EmailInput },
   data() {
     return {
       isLoading: false,
@@ -101,7 +97,7 @@ export default {
                 "error"
               );
             } else {
-              this.$snackbar("Некорректные данные", "error");
+              this.$snackbar(e.response.data, "error");
             }
           }
 

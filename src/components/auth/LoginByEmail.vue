@@ -8,13 +8,7 @@
     <v-row>
       <v-col cols="12" class="pt-0">
         <v-form ref="form" v-model="valid" lazy-validation>
-          <v-text-field
-            label="Почта"
-            type="email"
-            :rules="rules.email"
-            v-model="credentials.email"
-            required
-          />
+          <EmailInput v-model="credentials.email" required />
           <v-text-field
             label="Пароль"
             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
@@ -44,9 +38,11 @@
 
 <script>
 import { mapActions } from "vuex";
+import EmailInput from "@/components/auth/EmailInput";
 
 export default {
   name: "LoginByEmail",
+  components: { EmailInput },
   data() {
     return {
       isLoading: false,
@@ -109,5 +105,3 @@ export default {
   },
 };
 </script>
-
-<style scoped></style>

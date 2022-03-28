@@ -6,11 +6,26 @@
           <div class="mx-auto">Редактирование профиля</div>
         </v-card-title>
         <v-card-text>
+          <h2 class="mb-6">Почта</h2>
+          <v-row>
+            <v-col cols="4">
+              <v-text-field disabled v-model="user.email" label="Почта" />
+            </v-col>
+            <v-col cols="8">
+              <v-btn
+                color="primary"
+                rounded
+                @click="$router.push({ name: 'email-update' })"
+              >
+                Обновить почту
+              </v-btn>
+            </v-col>
+          </v-row>
           <h2 class="mb-6">Обновить аватарку</h2>
           <ImageUpload :upload-url="`users/me/avatar`" v-model="user.avatar" />
+
           <h2 class="mb-6">Обновить данные</h2>
           <v-form ref="form">
-            <v-text-field disabled v-model="user.email" label="Почта" />
             <v-text-field v-model="user.name" label="Имя" required />
             <v-text-field v-model="user.phone" label="Телефон" />
             <v-text-field v-model="user.link" label="Сайт/ссылка на соцсети" />

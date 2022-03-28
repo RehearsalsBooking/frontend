@@ -51,7 +51,6 @@ export default {
   components: { PasswordResetNewPasswordForm, PasswordResetSendCodeForm },
   data() {
     return {
-      step: 1,
       token: null,
       email: null,
       isCodeSent: false,

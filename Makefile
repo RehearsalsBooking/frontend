@@ -38,14 +38,16 @@ init:
 run: build up init
 	echo "project launched at http://rehearsals.local:8080/"
 
-up:
+up: pull
 	$(docker_compose_bin) --file "$(docker_compose_yml)" up -d
 
-build:
-	$(docker_bin) pull docker.pkg.github.com/rehearsalsbooking/backend/backend:latest
-	$(docker_bin) pull ghcr.io/rehearsalsbooking/frontend/node-base:latest
+build: pull
 	$(docker_compose_bin) --file "$(docker_compose_yml)" build
 	$(docker_compose_bin) --file "$(docker_compose_yml)" run --rm "$(node_container_name)" npm install
+
+pull:
+	$(docker_bin) pull docker.pkg.github.com/rehearsalsbooking/backend/backend:latest
+	$(docker_bin) pull ghcr.io/rehearsalsbooking/frontend/node-base:latest
 
 down:
 	$(docker_compose_bin) --file "$(docker_compose_yml)" down
