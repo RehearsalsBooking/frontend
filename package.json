@@ -29,9 +29,9 @@
     "vuex": "^3.6.2"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.5.15",
-    "@vue/cli-plugin-eslint": "^4.5.15",
-    "@vue/cli-service": "^4.5.15",
+    "@vue/cli-plugin-babel": "^5.0.8",
+    "@vue/cli-plugin-eslint": "^5.0.8",
+    "@vue/cli-service": "^5.0.8",
     "@vue/eslint-config-prettier": "^6.0.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.8.0",
@@ -39,7 +39,7 @@
     "eslint-plugin-vue": "^7.20.0",
     "prettier": "^2.5.1",
     "sass": "^1.45.1",
-    "sass-loader": "^7.3.1",
+    "sass-loader": "^13.2.0",
     "serialize-javascript": "^5.0.1",
     "vue-cli-plugin-vuetify": "^2.4.5",
     "vue-cli-plugin-vuetify-preset-crane": "^1.0.3",
